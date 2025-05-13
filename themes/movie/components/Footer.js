@@ -27,7 +27,7 @@ export const Footer = props => {
           {/* <a href="#" className="text-black no-underline hover:underline">Privacy Policy</a> */}
           {siteConfig('BEI_AN') && (
             <a
-              href={siteConfig('BEI_AN_LINK')}
+              href='https://beian.miit.gov.cn/'
               className='text-black dark:text-gray-200 no-underline hover:underline ml-4'>
               {siteConfig('BEI_AN')}
             </a>

@@ -10,9 +10,6 @@ import { initGoogleAdsense } from './GoogleAdsense'
 import Head from 'next/head'
 import ExternalScript from './ExternalScript'
 import WebWhiz from './Webwhiz'
-import { useGlobal } from '@/lib/global'
-import IconFont from './IconFont'
-
 
 /**
  * 各种插件脚本
@@ -22,7 +19,6 @@ import IconFont from './IconFont'
 const ExternalPlugin = props => {
   // 读取自Notion的配置
   const { NOTION_CONFIG } = props
-  const {lang} = useGlobal()
   const DISABLE_PLUGIN = siteConfig('DISABLE_PLUGIN', null, NOTION_CONFIG)
   const THEME_SWITCH = siteConfig('THEME_SWITCH', null, NOTION_CONFIG)
   const DEBUG = siteConfig('DEBUG', null, NOTION_CONFIG)
@@ -128,8 +124,6 @@ const ExternalPlugin = props => {
     NOTION_CONFIG
   )
 
-  const ENABLE_ICON_FONT = siteConfig('ENABLE_ICON_FONT', false)
-
   // 自定义样式css和js引入
   if (isBrowser) {
     // 初始化AOS动画
@@ -172,7 +166,7 @@ const ExternalPlugin = props => {
 
     setTimeout(() => {
       // 映射url
-      convertInnerUrl({ allPages:props?.allNavPages, lang:lang })
+      convertInnerUrl(props?.allNavPages)
     }, 500)
   }, [router])
 
@@ -190,7 +184,6 @@ const ExternalPlugin = props => {
     <>
       {/* 全局样式嵌入 */}
       <GlobalStyle />
-      {ENABLE_ICON_FONT && <IconFont />}
       {MOUSE_FOLLOW && <MouseFollow />}
       {THEME_SWITCH && <ThemeSwitch />}
       {DEBUG && <DebugPanel />}

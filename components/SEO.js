@@ -247,7 +247,7 @@ const getSEOMeta = (props, router, locale) => {
       }
     case '/404':
       return {
-        title: `${siteInfo?.title} | ${locale.NAV.PAGE_NOT_FOUND}`,
+        title: `${siteInfo?.title} | 页面找不到啦`,
         image: `${siteInfo?.pageCover}`
       }
     case '/tag':
