@@ -33,9 +33,9 @@ const Footer = ({ title }) => {
           <span className='px-1 busuanzi_value_site_uv'> </span>
         </span>
         <h1 className='text-xs pt-4 text-light-400 dark:text-gray-400'>
-          Ayao
+          {title} {siteConfig('BIO') && <>|</>} {siteConfig('BIO')}
         </h1>
-        <PoweredBy className='justify-center' />
+        PoweredBy Ayao
       </span>
       <br />
     </footer>
