@@ -77,45 +77,45 @@ const CONFIG = {
   STARTER_PRICING_TITLE: '方案栏',
   STARTER_PRICING_TEXT_1: '多样的产品方案',
   STARTER_PRICING_TEXT_2:
-    '我们制定了灵活的产品模式，您可以按需选择。<br /> <br />Seaportcy做出保证，无论何种方案，您都将获得最优质的服务。',
+   ["我们制定了灵活的产品模式，您可以按需选择。","Seaportcy做出保证，无论何种方案，您都将获得最优质的服务"],
 
-  STARTER_PRICING_1_TITLE: '',
-  STARTER_PRICING_1_PRICE: '',
+  STARTER_PRICING_1_TITLE: 'OEM/代工生产',
+  STARTER_PRICING_1_PRICE: '由Seaportcy为您生产您的产品',
   STARTER_PRICING_1_PRICE_CURRENCY: '',
   STARTER_PRICING_1_PRICE_PERIOD: '',
-  STARTER_PRICING_1_HEADER: '',
-  STARTER_PRICING_1_FEATURES: '', // 英文逗号隔开
-  STARTER_PRICING_1_BUTTON_TEXT: '',
+  STARTER_PRICING_1_HEADER: '内容',
+  STARTER_PRICING_1_FEATURES: '优质的服务体验, 完备的生产, 高效的交付', // 英文逗号隔开
+  STARTER_PRICING_1_BUTTON_TEXT: '与我们联系',
   STARTER_PRICING_1_BUTTON_URL:
     '',
 
-  STARTER_PRICING_2_TAG: '',
-  STARTER_PRICING_2_TITLE: '',
-  STARTER_PRICING_2_PRICE: '',  
+  STARTER_PRICING_2_TAG: '推荐',
+  STARTER_PRICING_2_TITLE: 'ODM/全局产品方案提供',
+  STARTER_PRICING_2_PRICE: '由Seaportcy为您的想法落地',  
   STARTER_PRICING_2_PRICE_CURRENCY: '',
   STARTER_PRICING_2_PRICE_PERIOD: '',
-  STARTER_PRICING_2_HEADER: '',
-  STARTER_PRICING_2_FEATURES: '', // 英文逗号隔开
-  STARTER_PRICING_2_BUTTON_TEXT: '',
+  STARTER_PRICING_2_HEADER: '内容',
+  STARTER_PRICING_2_FEATURES: '深度的设计支持, 专属的产品方案, 敏捷的开发落地, 严格的知识产权 , ......', // 英文逗号隔开
+  STARTER_PRICING_2_BUTTON_TEXT: '与我们联系',
   STARTER_PRICING_2_BUTTON_URL:
     '',
 
-  STARTER_PRICING_3_TITLE: '',
-  STARTER_PRICING_3_PRICE: '',
+  STARTER_PRICING_3_TITLE: '更多灵活方案',
+  STARTER_PRICING_3_PRICE: '由Seaportcy与您共同商讨',
   STARTER_PRICING_3_PRICE_CURRENCY: '',
   STARTER_PRICING_3_PRICE_PERIOD: '',
-  STARTER_PRICING_3_HEADER: '',
-  STARTER_PRICING_3_FEATURES: '', // 英文逗号隔开
-  STARTER_PRICING_3_BUTTON_TEXT: '',
+  STARTER_PRICING_3_HEADER: '内容',
+  STARTER_PRICING_3_FEATURES: '非标的需求承接, 灵活的组合方式, 快速的方案匹配', // 英文逗号隔开
+  STARTER_PRICING_3_BUTTON_TEXT: '与我们联系',
   STARTER_PRICING_3_BUTTON_URL:
     '',
 
   // 首页用户测评区块
   STARTER_TESTIMONIALS_ENABLE: true, // 测评区块开关
-  STARTER_TESTIMONIALS_TITLE: '用户反馈',
-  STARTER_TESTIMONIALS_TEXT_1: '我们的用户怎么说',
+  STARTER_TESTIMONIALS_TITLE: '客户反馈',
+  STARTER_TESTIMONIALS_TEXT_1: '我们的客人怎么说？',
   STARTER_TESTIMONIALS_TEXT_2:
-    '数千位站长选择用NotionNext搭建他们的网站,通过帮助手册、交流社群以及技术咨询，大家成功上线了自己的网站',
+    '数百位我们珍视的客户选择让Seaportcy落地他们的想法，依托Seaportcy的服务、一体化供应链，不少客户在之后选择与Seaportcy达成长期战略合作伙伴协定',
   STARTER_TESTIMONIALS_STAR_ICON: '/images/starter/testimonials/icon-star.svg', // 评分图标
 
   // 这里不支持CONFIG和环境变量，需要一一修改此处代码。
@@ -179,23 +179,23 @@ const CONFIG = {
   STARTER_FAQ_ENABLE: true, // 常见问题模块开关
   STARTER_FAQ_TITLE: '常见问题解答',
   STARTER_FAQ_TEXT_1: '有任何问题吗？请看这里',
-  STARTER_FAQ_TEXT_2: '我们收集了常见的用户疑问',
+  STARTER_FAQ_TEXT_2: '我们收集了常见的客户疑问',
 
-  STARTER_FAQ_1_QUESTION: 'NotionNext有帮助文档吗？',
+  STARTER_FAQ_1_QUESTION: '你们会持续配合我们开发新品吗？',
   STARTER_FAQ_1_ANSWER:
-    'NotionNext提供了<a href="https://docs.tangly1024.com/about" className="underline">帮助文档</a>，操作<a href="https://www.bilibili.com/video/BV1fM4y1L7Qi/" className="underline">演示视频</a>，以及<a href="https://docs.tangly1024.com/article/chat-community" className="underline">交流社群</a>来协助您完成网站的搭建部署',
+    '是的，从第一个需求到每一个需求，Seaportcy的服务团队始终都在',
 
-  STARTER_FAQ_2_QUESTION: '部署后要如何编写文章？',
+  STARTER_FAQ_2_QUESTION: '报价包含哪些？会有额外费用吗？',
   STARTER_FAQ_2_ANSWER:
-    '您可以在Notion中之间添加或修改类型为Post的页面，内容将被实时同步在站点中，详情参考<a className="underline" href="https://docs.tangly1024.com/article/start-to-write">《帮助文档》</a>',
+    'Seaportcy的报价始终被要求清晰透明，各类费用将被提前沟通确认，无隐藏费用',
 
-  STARTER_FAQ_3_QUESTION: '站点部署失败，更新失败？',
+  STARTER_FAQ_3_QUESTION: '包装会不会不够结实或不合适？',
   STARTER_FAQ_3_ANSWER:
-    '通常是配置修改错误导致，请检查配置或者重试操作步骤，或者通过Vercel后台的Deployments中找到错误日志，并向网友求助',
+    'Seaportcy的产品包装均由敝司的包装生产部门量身打造自主生产',
 
-  STARTER_FAQ_4_QUESTION: '文章没有实时同步？',
+  STARTER_FAQ_4_QUESTION: '刚下完单，价格跌了怎么办？',
   STARTER_FAQ_4_ANSWER:
-    '先检查Notion_Page_ID是否正确配置，其次由于博客的每个页面都有独立缓存，刷新网页后即可解决',
+    'Seaportcy所珍视的长期合作客户可享一定程度的价格保护期，Seaportcy始终愿意与您共同发展',
 
   // 团队成员区块
   STARTER_TEAM_ENABLE: true, // 团队成员区块开关
