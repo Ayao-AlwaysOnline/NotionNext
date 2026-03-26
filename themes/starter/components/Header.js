@@ -68,7 +68,7 @@ export const Header = props => {
               {/* 右侧功能 */}
               <div className='flex items-center gap-4 justify-end pr-16 lg:pr-0'>
                 {/* 深色模式切换 */}
-                <DarkModeButton />
+                // <DarkModeButton />
                 {/* 注册登录功能 */}
               </div>
             </div>
