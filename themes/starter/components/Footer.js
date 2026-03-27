@@ -19,12 +19,12 @@ export const Footer = props => {
         data-wow-delay='.15s'>
         <div className='container'>
           <div className='-mx-4 flex flex-wrap'>
-            <div className='w-full px-4 sm:w-1/2 md:w-1/2 lg:w-4/12 xl:w-3/12'>
+            <div className='w-full px-4 sm:w-2/2 md:w-2/2 lg:w-12/12 xl:w-12/12'>
               <div className='mb-10 w-full'>
-                <a className='-mx-4 mb-6 inline-block max-w-[160px]'>
+                <a className='-mx-4 mb-6 inline-block max-w-[870px]'>
                   <Logo white={true} />
                 </a>
-                <p className='mb-8 max-w-[270px] text-base text-gray-7'>
+                <p className='mb-8 max-w-[870px] text-base text-gray-7'>
                   {siteConfig('STARTER_FOOTER_SLOGAN')}
                 </p>
                 <div className='-mx-3 flex items-center'>
