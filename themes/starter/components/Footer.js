@@ -35,67 +35,67 @@ export const Footer = props => {
               </div>
             </div>
 
-            {/* 中间三列菜单组 */}
-            {STARTER_FOOTER_LINK_GROUP?.map((item, index) => {
-              return (
-                <div
-                  key={index}
-                  className='w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12'>
-                  <div className='mb-10 w-full'>
-                    <h4 className='mb-9 text-lg font-semibold text-white'>
-                      {item.TITLE}
-                    </h4>
-                    <ul>
-                      {item?.LINK_GROUP?.map((l, i) => {
-                        return (
-                          <li key={i}>
-                            <SmartLink
-                              href={l.URL}
-                              className='mb-3 inline-block text-base text-gray-7 hover:text-primary'>
-                              {l.TITLE}
-                            </SmartLink>
-                          </li>
-                        )
-                      })}
-                    </ul>
-                  </div>
-                </div>
-              )
-            })}
+        //     {/* 中间三列菜单组 */}
+        //     {STARTER_FOOTER_LINK_GROUP?.map((item, index) => {
+        //       return (
+        //         <div
+        //           key={index}
+        //           className='w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12'>
+        //           <div className='mb-10 w-full'>
+        //             <h4 className='mb-9 text-lg font-semibold text-white'>
+        //               {item.TITLE}
+        //             </h4>
+        //             <ul>
+        //               {item?.LINK_GROUP?.map((l, i) => {
+        //                 return (
+        //                   <li key={i}>
+        //                     <SmartLink
+        //                       href={l.URL}
+        //                       className='mb-3 inline-block text-base text-gray-7 hover:text-primary'>
+        //                       {l.TITLE}
+        //                     </SmartLink>
+        //                   </li>
+        //                 )
+        //               })}
+        //             </ul>
+        //           </div>
+        //         </div>
+        //       )
+        //     })}
 
-            {/* 页脚右侧最新博文 */}
-            <div className='w-full px-4 md:w-2/3 lg:w-6/12 xl:w-3/12'>
-              <div className='mb-10 w-full'>
-                <h4 className='mb-9 text-lg font-semibold text-white'>
-                  {siteConfig('STARTER_FOOTER_BLOG_LATEST_TITLE')}
-                </h4>
-                {/* 展示两条最新博客文章 */}
-                <div className='flex flex-col gap-8'>
-                  {latestPosts?.map((item, index) => {
-                    return (
-                      <SmartLink
-                        key={index}
-                        href={item?.href}
-                        className='group flex items-center gap-[22px]'>
-                        {item.pageCoverThumbnail && (
-                          <div className='overflow-hidden rounded w-20 h-12'>
-                            <img
-                              src={item.pageCoverThumbnail}
-                              alt={item.title}
-                            />
-                          </div>
-                        )}
-                        <span className='line-clamp-2 max-w-[180px] text-base text-gray-7 group-hover:text-white'>
-                          {item.title}
-                        </span>
-                      </SmartLink>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        //     {/* 页脚右侧最新博文 */}
+        //     <div className='w-full px-4 md:w-2/3 lg:w-6/12 xl:w-3/12'>
+        //       <div className='mb-10 w-full'>
+        //         <h4 className='mb-9 text-lg font-semibold text-white'>
+        //           {siteConfig('STARTER_FOOTER_BLOG_LATEST_TITLE')}
+        //         </h4>
+        //         {/* 展示两条最新博客文章 */}
+        //         <div className='flex flex-col gap-8'>
+        //           {latestPosts?.map((item, index) => {
+        //             return (
+        //               <SmartLink
+        //                 key={index}
+        //                 href={item?.href}
+        //                 className='group flex items-center gap-[22px]'>
+        //                 {item.pageCoverThumbnail && (
+        //                   <div className='overflow-hidden rounded w-20 h-12'>
+        //                     <img
+        //                       src={item.pageCoverThumbnail}
+        //                       alt={item.title}
+        //                     />
+        //                   </div>
+        //                 )}
+        //                 <span className='line-clamp-2 max-w-[180px] text-base text-gray-7 group-hover:text-white'>
+        //                   {item.title}
+        //                 </span>
+        //               </SmartLink>
+        //             )
+        //           })}
+        //         </div>
+        //       </div>
+        //     </div>
+        //   </div>
+        // </div>
 
         {/* 底部版权信息相关 */}
 
