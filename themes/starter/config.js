@@ -362,9 +362,9 @@ const CONFIG = {
   // 页面底部的行动呼吁模块
   STARTER_CTA_ENABLE: true,
   STARTER_CTA_TITLE: '您还在等待什么呢？',
-  STARTER_CTA_TITLE_2: '与Seaportcy取得联系！',
+  STARTER_CTA_TITLE_2: '与我们取得联系！',
   STARTER_CTA_DESCRIPTION:
-    'Seaportcy始终愿意与您共同发展',
+    'Seaportcy始终愿与您共同发展',
   STARTER_CTA_BUTTON: false, // 是否显示按钮
   STARTER_CTA_BUTTON_URL:
     '',
