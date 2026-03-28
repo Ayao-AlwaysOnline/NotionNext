@@ -151,6 +151,60 @@ const CONFIG = {
       STARTER_TESTIMONIALS_ITEM_TEXT:
         'XXXXXXXXXXXXXXXXX',
       STARTER_TESTIMONIALS_ITEM_AVATAR:
+        'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6c096b44-beb9-48ee-8f92-1efdde47f3a3%2F338962f1-d352-49c7-9a1b-746e35a7005c%2Fhf.png?table=block&id=ce5a48a9-d77a-4843-a3d9-a78cd4f794ce&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'XXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'XXXXXXXXXXXXXXX',  
+      STARTER_TESTIMONIALS_ITEM_URL: ''
+    },
+    {
+      STARTER_TESTIMONIALS_ITEM_TEXT:
+        'XXXXXXXXXXXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_AVATAR:
+        'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6c096b44-beb9-48ee-8f92-1efdde47f3a3%2F338962f1-d352-49c7-9a1b-746e35a7005c%2Fhf.png?table=block&id=ce5a48a9-d77a-4843-a3d9-a78cd4f794ce&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'XXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'XXXXXXXXXXXXXXX',  
+      STARTER_TESTIMONIALS_ITEM_URL: ''
+    },
+    {
+      STARTER_TESTIMONIALS_ITEM_TEXT:
+        'XXXXXXXXXXXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_AVATAR:
+        'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6c096b44-beb9-48ee-8f92-1efdde47f3a3%2F338962f1-d352-49c7-9a1b-746e35a7005c%2Fhf.png?table=block&id=ce5a48a9-d77a-4843-a3d9-a78cd4f794ce&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'XXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'XXXXXXXXXXXXXXX',  
+      STARTER_TESTIMONIALS_ITEM_URL: ''
+    },
+    {
+      STARTER_TESTIMONIALS_ITEM_TEXT:
+        'XXXXXXXXXXXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_AVATAR:
+        'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6c096b44-beb9-48ee-8f92-1efdde47f3a3%2F338962f1-d352-49c7-9a1b-746e35a7005c%2Fhf.png?table=block&id=ce5a48a9-d77a-4843-a3d9-a78cd4f794ce&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'XXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'XXXXXXXXXXXXXXX',  
+      STARTER_TESTIMONIALS_ITEM_URL: ''
+    },
+    {
+      STARTER_TESTIMONIALS_ITEM_TEXT:
+        'XXXXXXXXXXXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_AVATAR:
+        'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6c096b44-beb9-48ee-8f92-1efdde47f3a3%2F338962f1-d352-49c7-9a1b-746e35a7005c%2Fhf.png?table=block&id=ce5a48a9-d77a-4843-a3d9-a78cd4f794ce&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'XXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'XXXXXXXXXXXXXXX',  
+      STARTER_TESTIMONIALS_ITEM_URL: ''
+    },
+    {
+      STARTER_TESTIMONIALS_ITEM_TEXT:
+        'XXXXXXXXXXXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_AVATAR:
+        'https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F6c096b44-beb9-48ee-8f92-1efdde47f3a3%2F338962f1-d352-49c7-9a1b-746e35a7005c%2Fhf.png?table=block&id=ce5a48a9-d77a-4843-a3d9-a78cd4f794ce&spaceId=6c096b44-beb9-48ee-8f92-1efdde47f3a3&width=100&userId=27074aef-7216-41ed-baef-d9b53addd870&cache=v2',
+      STARTER_TESTIMONIALS_ITEM_NICKNAME: 'XXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'XXXXXXXXXXXXXXX',  
+      STARTER_TESTIMONIALS_ITEM_URL: ''
+    },
+    {
+      STARTER_TESTIMONIALS_ITEM_TEXT:
+        'XXXXXXXXXXXXXXXXX',
+      STARTER_TESTIMONIALS_ITEM_AVATAR:
         'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd52f6766-3e32-4c3d-8529-46e1f214360f%2Ffavicon.svg?table=collection&id=7d76aad5-a2c4-4d9a-887c-c7913fae4eed&width=400',
       STARTER_TESTIMONIALS_ITEM_NICKNAME: 'XXX',
       STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'XXXXXXX',
