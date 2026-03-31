@@ -1,5 +1,3 @@
-
-
 (function() {
   // ==================== 菜单悬停效果 ====================
   const menuModule = (function() {
@@ -200,6 +198,21 @@
         const p = center.querySelector('.mb-5.text-sm.text-body-color.dark\\:text-dark-6');
         if (p) p.textContent = groups[i].p;
       }
+    });
+  })();
+
+  // ==================== 调整图片尺寸和圆角 ====================
+  (function() {
+    const elements = document.querySelectorAll('.relative.z-10.mx-auto.mb-5.h-\\[120px\\].w-\\[120px\\]');
+    elements.forEach(el => {
+      const img = el.querySelector('img');
+      if (img) {
+        img.style.borderRadius = '0';
+        img.style.width = '143px';
+        img.style.height = '206px';
+      }
+      el.style.width = '143px';
+      el.style.height = '206px';
     });
   })();
 })();
