@@ -266,17 +266,17 @@ const CONFIG = {
       STARTER_TEAM_ITEM_DESCRIPTION: 'XXXX'
     },
     {
-      STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-01.png',
-      STARTER_TEAM_ITEM_NICKNAME: 'XXXXXXXX',
-      STARTER_TEAM_ITEM_DESCRIPTION: 'XXXX'
-    },
-    {
       STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-02.png',
       STARTER_TEAM_ITEM_NICKNAME: 'XXXXXXXX',
       STARTER_TEAM_ITEM_DESCRIPTION: 'XXXX'
     },
     {
       STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-03.png',
+      STARTER_TEAM_ITEM_NICKNAME: 'XXXXXXXX',
+      STARTER_TEAM_ITEM_DESCRIPTION: 'XXXX'
+    },
+    {
+      STARTER_TEAM_ITEM_AVATAR: '/images/starter/team/team-04.png',
       STARTER_TEAM_ITEM_NICKNAME: 'XXXXXXXX',
       STARTER_TEAM_ITEM_DESCRIPTION: 'XXXX'
     }
