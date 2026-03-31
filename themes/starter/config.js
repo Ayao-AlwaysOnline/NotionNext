@@ -124,7 +124,7 @@ const CONFIG = {
       STARTER_TESTIMONIALS_ITEM_TEXT:
         'XXXXXXXXXXXXXXX',
       STARTER_TESTIMONIALS_ITEM_AVATAR:
-        'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F22de3fcb-d90d-4271-bc01-f815f476122b%2F4FE0A0C0-E487-4C74-BF8E-6F01A27461B8-14186-000008094BC289A6.jpg?table=collection&id=a320a2cc-6ebe-4a8d-95cc-ea94e63bced9&width=200',
+        '/images/starter/team/CST.png',
       STARTER_TESTIMONIALS_ITEM_NICKNAME: 'XXX',
       STARTER_TESTIMONIALS_ITEM_DESCRIPTION: 'XXXXXX',
       STARTER_TESTIMONIALS_ITEM_URL: ''
