@@ -21,7 +21,7 @@ const CONFIG = {
   STARTER_HERO_BUTTON_2_ICON: '', // 英雄区按钮2的图标，不需要则留空/images/starter/github.svg
 
   // 英雄区配图，如需隐藏，改为空值即可 ''
-  STARTER_HERO_PREVIEW_IMAGE: '/images/starter/hero/hero-image.webp', // 产品预览图 ，默认读取public目录下图片
+  STARTER_HERO_PREVIEW_IMAGE: '/images/starter/team/test.webp', // 产品预览图 ，默认读取public目录下图片
   STARTER_HERO_BANNER_IMAGE: '', // hero区下方的全宽图
 
   // 顶部右侧导航暗流
@@ -66,8 +66,8 @@ const CONFIG = {
     '"Seaportcy的愿景是帮助每个有想法的客人，以合理的成本、稳定无忧地生产自己的产品，帮助您将自己的产品与故事高效地传达给世界。 <br /> <br /> 可靠的Seaportcy服务，稳定可控的生产平台，组成一个轻松的体验。',
   STARTER_ABOUT_BUTTON_TEXT: '与我们联系',
   STARTER_ABOUT_BUTTON_URL: '',
-  STARTER_ABOUT_IMAGE_1: '/images/starter/about/about-image-01.jpg',
-  STARTER_ABOUT_IMAGE_2: '/images/starter/about/about-image-02.jpg',
+  STARTER_ABOUT_IMAGE_1: '/images/starter/team/test.png',
+  STARTER_ABOUT_IMAGE_2: '/images/starter/team/test.png',
   STARTER_ABOUT_TIPS_1: '400+',
   STARTER_ABOUT_TIPS_2: '产品项目',
   STARTER_ABOUT_TIPS_3: '满意交付',
