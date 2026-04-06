@@ -31,7 +31,7 @@ const BLOG = {
 
   AUTHOR: process.env.NEXT_PUBLIC_AUTHOR || 'Seaportcy', // 您的昵称 例如 
   BIO: process.env.NEXT_PUBLIC_BIO || '', // 作者简介
-  LINK: process.env.NEXT_PUBLIC_LINK || 'https://company-websit.vercel.app/', // 网站地址
+  LINK: process.env.NEXT_PUBLIC_LINK || 'https://ayao.club', // 网站地址
   KEYWORDS: process.env.NEXT_PUBLIC_KEYWORD || '', // 网站关键词 英文逗号隔开
 
   // 社交链接，不需要可留空白，例如 CONTACT_WEIBO:''
