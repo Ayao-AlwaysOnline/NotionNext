@@ -150,25 +150,25 @@ target && window.scrollTo({ top: target, behavior: 'smooth' });
 btn.addEventListener('click', handler);
 })();
 
- // ==================== 滚动到contact section（其他按钮） ====================
-(function() {
-const getContactSection = () => document.querySelector('#[contact.relative.py-20.md](http://contact.relative.py-20.md/)\\:py-\\[120px\\]');
-const getTargetScroll = () => {
-const section = getContactSection();
-return section ? section.getBoundingClientRect().top + window.scrollY : 0;
-};
-const selectors = [
-'.mb-12.max-w-\\[540px\\].lg\\:mb-0 .inline-flex.items-center.justify-center.rounded-md.border.border-primary.bg-primary.px-7.py-3.text-center.text-base.font-medium.text-white.hover\\:border-blue-dark.hover\\:bg-blue-dark',
-'.\\-mx-4.flex.flex-wrap.justify-center .inline-block.rounded-md.bg-primary.px-7.py-3.text-center.text-base.font-medium.text-white.transition.hover\\:bg-blue-dark'
-];
-const btns = [];
-selectors.forEach(s => document.querySelectorAll(s).forEach(el => btns.push(el)));
-btns.forEach(btn => btn.addEventListener('click', e => {
-e.preventDefault();
-const target = getTargetScroll();
-target && window.scrollTo({ top: target, behavior: 'smooth' });
-}));
-})();
+  // ==================== 滚动到contact section（其他按钮） ====================
+  (function() {
+    const getContactSection = () => document.querySelector('#contact.relative.py-20.md\\:py-\\[120px\\]');
+    const getTargetScroll = () => {
+      const section = getContactSection();
+      return section ? section.getBoundingClientRect().top + window.scrollY : 0;
+    };
+    const selectors = [
+      '.mb-12.max-w-\\[540px\\].lg\\:mb-0 .inline-flex.items-center.justify-center.rounded-md.border.border-primary.bg-primary.px-7.py-3.text-center.text-base.font-medium.text-white.hover\\:border-blue-dark.hover\\:bg-blue-dark',
+      '.\\-mx-4.flex.flex-wrap.justify-center .inline-block.rounded-md.bg-primary.px-7.py-3.text-center.text-base.font-medium.text-white.transition.hover\\:bg-blue-dark'
+    ];
+    const btns = [];
+    selectors.forEach(s => document.querySelectorAll(s).forEach(el => btns.push(el)));
+    btns.forEach(btn => btn.addEventListener('click', e => {
+      e.preventDefault();
+      const target = getTargetScroll();
+      target && window.scrollTo({ top: target, behavior: 'smooth' });
+    }));
+  })();
 
 
 // ==================== 隐藏滚动条 ====================
