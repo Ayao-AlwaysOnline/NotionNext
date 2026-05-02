@@ -281,3 +281,33 @@ document.addEventListener('DOMContentLoaded', updateImages);
 updateImages();
 }
 })();
+
+
+// ==================== 调整底部表单 ====================
+
+(function() {
+    const iframe = document.querySelector('iframe[src*="noteforms.com"]');
+    if (!iframe) {
+        console.error('未找到 iframe');
+        return;
+    }
+    
+    // 记录原始尺寸
+    const originalHeight = iframe.offsetHeight;
+    const targetHeight = 450; // 想要显示的高度（裁掉底部）
+    
+    // 获取父容器
+    const parent = iframe.parentNode;
+    
+    // 设置父容器为裁剪容器
+    parent.style.position = 'relative';
+    parent.style.overflow = 'hidden';
+    parent.style.height = targetHeight + 'px';
+    
+    // 调整 iframe 位置，使其向上偏移（隐藏底部）
+    iframe.style.position = 'relative';
+    iframe.style.top = '-' + (originalHeight - targetHeight) + 'px';
+    iframe.style.height = originalHeight + 'px'; // 保持原高度
+    
+    console.log(`✅ 已裁剪 iframe 底部，当前显示高度 ${targetHeight}px`);
+})();
