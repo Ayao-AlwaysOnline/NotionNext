@@ -308,8 +308,31 @@ updateImages();
     iframe.style.position = 'relative';
     iframe.style.top = '-' + (originalHeight - targetHeight) + 'px';
     iframe.style.height = originalHeight + 'px'; // 保持原高度
+
+  // ==================== 修改 iframe padding-top ====================
+(function() {
+    const iframe = document.querySelector('iframe[src*="noteforms.com"]');
+    if (!iframe) return;
     
-    console.log(`✅ 已裁剪 iframe 底部，当前显示高度 ${targetHeight}px`);
+    // 向上查找最多5层，修改包含 padding-top 的父容器
+    let target = iframe;
+    let depth = 0;
+    while (target && depth < 5) {
+        const style = window.getComputedStyle(target);
+        if (style.paddingTop !== '0px') {
+            target.style.paddingTop = '4.5rem';
+            break;
+        }
+        target = target.parentElement;
+        depth++;
+    }
+    
+    // 如果没找到特定容器，直接设置 iframe 本身
+    if (!target || depth === 5) {
+        iframe.style.paddingTop = '4.5rem';
+    }
+})();
+    
 })();
 
 
