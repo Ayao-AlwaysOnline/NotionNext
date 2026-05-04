@@ -311,3 +311,7 @@ updateImages();
     
     console.log(`✅ 已裁剪 iframe 底部，当前显示高度 ${targetHeight}px`);
 })();
+
+
+// ==================== 浏览器背景色 ====================
+document.documentElement.style.backgroundColor = '#1a1a1a';
