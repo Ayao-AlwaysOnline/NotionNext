@@ -44,9 +44,6 @@ export default function Footer() {
                         <div className="mb-2">
                             <Logo />
                         </div>
-                        <div className="text-sm text-gray-600">
-                        有我们，您的稳定与从容，理所当然
-                        </div>
                     </div>
 
                     {/* 2nd block */}
@@ -172,7 +169,7 @@ export default function Footer() {
                     </ul>
 
                     {/* Copyrights note */}
-                    <div className="text-sm text-gray-600 mr-4"><img src="/public/images/starter/logo/logo.svg" className="seaportcyicon" alt="" /><div className="biaoyu">Seaportcy始终愿与您共同成长</div></div>
+                    <div className="text-sm text-gray-600 mr-4"><img src="images/starter/logo/logo.svg" className="seaportcyicon" alt="" /><div className="biaoyu">Seaportcy始终愿与您共同成长</div></div>
 
                 </div>
 
