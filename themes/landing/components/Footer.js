@@ -150,7 +150,7 @@ export default function Footer() {
                     {/* Social as */}
                     <ul className="flex mb-4 md:order-1 md:ml-4 md:mb-0">
                         <li>
-                          <div className='h-full flex justify-center items-center text-gray-600 hover:text-gray-900 bg-white hover:bg-white-100'>
+                          <div className='h-full flex justify-center items-center text-gray-600 hover:text-gray-900'>
                              Designed and Developed by SeaportcyStudios
                           </div>
                         </li>
@@ -172,7 +172,7 @@ export default function Footer() {
                     </ul>
 
                     {/* Copyrights note */}
-                    <div className="text-sm text-gray-600 mr-4"><Logo />Seaportcy始终愿与您共同成长</div>
+                    <div className="text-sm text-gray-600 mr-4"><Logo /><div className="biaoyu">Seaportcy始终愿与您共同成长</div></div>
 
                 </div>
 
