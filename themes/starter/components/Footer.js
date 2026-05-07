@@ -19,12 +19,12 @@ export const Footer = props => {
         data-wow-delay='.15s'>
         <div className='container'>
           <div className='-mx-4 flex flex-wrap'>
-            <div className='w-full px-4 sm:w-1/2 md:w-1/2 lg:w-4/12 xl:w-3/12'>
+            <div className='w-full px-4 sm:w-2/2 md:w-2/2 lg:w-12/12 xl:w-12/12'>
               <div className='mb-10 w-full'>
-                <a className='-mx-4 mb-6 inline-block max-w-[160px]'>
+                <a className='-mx-4 mb-6 inline-block max-w-[870px]'>
                   <Logo white={true} />
                 </a>
-                <p className='mb-8 max-w-[270px] text-base text-gray-7'>
+                <p className='mb-8 max-w-[870px] text-base text-gray-7'>
                   {siteConfig('STARTER_FOOTER_SLOGAN')}
                 </p>
                 <div className='-mx-3 flex items-center'>
@@ -35,8 +35,8 @@ export const Footer = props => {
               </div>
             </div>
 
-            {/* 中间三列菜单组 */}
-            {STARTER_FOOTER_LINK_GROUP?.map((item, index) => {
+            {/* 中间三列菜单组 - 已删除 */}
+            {/* {STARTER_FOOTER_LINK_GROUP?.map((item, index) => {
               return (
                 <div
                   key={index}
@@ -61,15 +61,14 @@ export const Footer = props => {
                   </div>
                 </div>
               )
-            })}
+            })} */}
 
-            {/* 页脚右侧最新博文 */}
-            <div className='w-full px-4 md:w-2/3 lg:w-6/12 xl:w-3/12'>
+            {/* 页脚右侧最新博文 - 已删除 */}
+            {/* <div className='w-full px-4 md:w-2/3 lg:w-6/12 xl:w-3/12'>
               <div className='mb-10 w-full'>
                 <h4 className='mb-9 text-lg font-semibold text-white'>
                   {siteConfig('STARTER_FOOTER_BLOG_LATEST_TITLE')}
                 </h4>
-                {/* 展示两条最新博客文章 */}
                 <div className='flex flex-col gap-8'>
                   {latestPosts?.map((item, index) => {
                     return (
@@ -93,13 +92,13 @@ export const Footer = props => {
                   })}
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 
         {/* 底部版权信息相关 */}
 
-        <div className='mt-12 border-t border-[#8890A4] border-opacity-40 py-8 lg:mt-[60px]'>
+        <div className='mt-12 border-t border-[#8890A4] border-opacity-40 py-8 lg:mt-[92px]'>
           <div className='container'>
             <div className='-mx-4 flex flex-wrap'>
               <div className='w-full px-4 md:w-2/3 lg:w-1/2'>
@@ -134,11 +133,11 @@ export const Footer = props => {
                   <p className='text-base text-gray-7'>
                     Designed and Developed by
                     <a
-                      href='https://github.com/tangly1024/NotionNext'
+                      href='/studios'
                       rel='nofollow noopner noreferrer'
                       target='_blank'
                       className='px-1 text-gray-1 hover:underline'>
-                      NotionNext {siteConfig('VERSION')}
+                      SeaportcyStudios
                     </a>
                   </p>
                 </div>
