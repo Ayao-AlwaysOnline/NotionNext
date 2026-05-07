@@ -57,7 +57,7 @@ export default function Footer() {
                                 <p>Email: SeaportcyStudios@qq.com</p>
                             </li>
                             <li className="mb-2">
-                                {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Vercel</a> */}
+                                <p>Tel＆Wechat: 15377718690</p>
                             </li>
                             <li className="mb-2">
                                 {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Github</a> */}
