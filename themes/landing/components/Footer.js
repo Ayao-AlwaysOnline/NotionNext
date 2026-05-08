@@ -52,7 +52,7 @@ export default function Footer() {
                                 <p>Email: SeaportcyStudios@qq.com</p>
                             </li>
                             <li className="mb-2">
-                                <p>Tel＆Wechat: 15377718690</p>
+                                <p>Tel＆Wechat: +86-15377718690</p>
                             </li>
                             <li className="mb-2">
                                 {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Github</a> */}
@@ -96,7 +96,7 @@ export default function Footer() {
                                 <a href="https://seaportcy.com/" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy</a>
                             </li>
                             <li className="mb-2">
-                                <a href="https://seaportcy.com/Packaging" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy——包装材料</a>
+                                <a href="https://seaportcy.com/Packaging" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy-包装解决方案</a>
                             </li>
                             <li className="mb-2">
                                 
