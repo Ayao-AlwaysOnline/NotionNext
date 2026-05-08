@@ -45,7 +45,7 @@ export default function Footer() {
                             <Logo />
                         </div>
                         <div className="text-sm text-gray-600">
-                            <SmartLink href="/terms-of-use" className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">服务条款</SmartLink> · <SmartLink href="/privacy-policy" className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">隐私政策</SmartLink>
+                            <SmartLink href="/terms-of-use" className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">服务条款</SmartLink> · <SmartLink href="/privacy-policy" className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">隐私政策</SmartLink> · <SmartLink href="/legacy-notice" className="text-gray-600 hover:text-gray-900 hover:underline transition duration-150 ease-in-out">法律声明</SmartLink>
                         </div>
                     </div>
 
