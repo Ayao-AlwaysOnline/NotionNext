@@ -20,8 +20,7 @@ const CONFIG = {
 
   // 特性介绍
   LANDING_FEATURES_HEADER_1: '在抵达从容之前，总要走过一些弯路',
-  LANDING_FEATURES_HEADER_1_P: "不再需要喧哗的技术、频繁的更新、昂贵的试错<br/>，真正的<strong class='font-bold text-red-500'>从容</strong>来自于一个与你<strong class='font-bold  text-red-500'>同频</strong>的<strong class='font-bold  text-red-500'>幕后团队</strong>，丨 有我们，您的<strong class='font-bold text-red-500'>稳定</strong>与<strong class='font-bold text-red-500'>从容</strong><br/>理所应当",
-  LANDING_FEATURES_HEADER_2: 'Notion+NextJs组合方案',
+LANDING_FEATURES_HEADER_1_P: "不再需要喧哗的技术、频繁的更新、昂贵的试错<br />，真正的<strong class='font-bold text-red-500'>从容</strong>来自于一个与你<strong class='font-bold text-red-500'>同频</strong>的<strong class='font-bold text-red-500'>幕后团队</strong>，有我们，您的<strong class='font-bold text-red-500'>稳定</strong>与<strong class='font-bold text-red-500'>从容</strong><br />理所应当",  LANDING_FEATURES_HEADER_2: 'Notion+NextJs组合方案',
   LANDING_FEATURES_HEADER_2_P: '在Notion笔记中管理文章数据，NextJs将其渲染成网页排版，通过Vercel等第三方平台将您的网站发布到全球。',
   LANDING_FEATURES_CARD_1_TITLE: '简单快速的系统',
   LANDING_FEATURES_CARD_1_P: '在Notion中写下一篇文章，内容立刻在您的网站首页中呈现给互联网',
