@@ -15,8 +15,8 @@ const CONFIG = {
   LANDING_HERO_BUTTON_2_LINK: '',
   LANDING_HERO_VIDEO_IMAGE: '/images/home.png',
   //   HERO_VIDEO_URL: '/videos/video.mp4',
-  LANDING_HERO_VIDEO_IFRAME: '//player.bilibili.com/player.html?aid=913088616&bvid=BV1fM4y1L7Qi&cid=1187218697&page=1&&high_quality=1',
-  LANDING_HERO_VIDEO_TIPS: 'Watch the full video (2 min)',
+  LANDING_HERO_VIDEO_IFRAME: '',
+  LANDING_HERO_VIDEO_TIPS: '',
 
   // 特性介绍
   LANDING_FEATURES_HEADER_1: '在抵达从容之前，总要走过一些弯路',
@@ -60,26 +60,26 @@ const CONFIG = {
   LANDING_POST_REDIRECT_ENABLE: process.env.NEXT_PUBLIC_POST_REDIRECT_ENABLE || false, // 是否开启文章地址重定向 ； 用于迁移旧网站域名
   LANDING_POST_REDIRECT_URL: process.env.NEXT_PUBLIC_POST_REDIRECT_URL || '', // 重定向网站地址
 
-  LANDING_PRICING_TITLE: '价格表',
-  LANDING_PRICING_P: 'NotionNext开源免费，此处仅演示订阅付费功能！请勿购买！',
+  LANDING_PRICING_TITLE: '我们能为你做的',
+  LANDING_PRICING_P: '不只是建站与设计，还有一整套可被长期选择的数字服务',
 
-  LANDING_PRICING_1_TITLE: '个人版',
-  LANDING_PRICING_1_PRICE: '免费',
-  LANDING_PRICING_1_CONTENT: '项目源代码,部署教程,不定时技术答疑',
-  LANDING_PRICING_1_BUTTON: '开始体验',
-  LANDING_PRICING_1_URL: 'https://docs.tangly1024.com/about',
+  LANDING_PRICING_1_TITLE: '建站与技术',
+  LANDING_PRICING_1_PRICE: '核心业务',
+  LANDING_PRICING_1_CONTENT: '项目源代码开发,网站上线,SEO优化,维护与托管',
+  LANDING_PRICING_1_BUTTON: '与我们联系',
+  LANDING_PRICING_1_URL: '',
 
-  LANDING_PRICING_2_TITLE: '捐赠版',
-  LANDING_PRICING_2_PRICE: '$9.9/月',
-  LANDING_PRICING_2_CONTENT: '项目源代码,部署教程,长期技术答疑,代码升级合并,内部社群',
-  LANDING_PRICING_2_BUTTON: '立即购买',
-  LANDING_PRICING_2_URL: 'https://tangly1024.lemonsqueezy.com/checkout/buy/0adb9153-0799-4f51-91aa-1f06391ea4e0',
+  LANDING_PRICING_2_TITLE: '设计与策略咨询',
+  LANDING_PRICING_2_PRICE: '分支业务',
+  LANDING_PRICING_2_CONTENT: '徽标与界面设计,品牌数字形象,线上战略咨询,长期技术答疑',
+  LANDING_PRICING_2_BUTTON: '与我们联系',
+  LANDING_PRICING_2_URL: '',
 
-  LANDING_PRICING_3_TITLE: '企业版',
-  LANDING_PRICING_3_PRICE: '$59/月',
-  LANDING_PRICING_3_CONTENT: '项目源代码,部署教程,VIP技术咨询,代码升级合并,内部社群,定制功能开发,SEO优化',
-  LANDING_PRICING_3_BUTTON: '立即购买',
-  LANDING_PRICING_3_URL: 'https://tangly1024.lemonsqueezy.com/checkout/buy/df924d66-09dc-42a4-a632-a6b0c5cc4f28',
+  LANDING_PRICING_3_TITLE: '委托与长期协同',
+  LANDING_PRICING_3_PRICE: '定制服务',
+  LANDING_PRICING_3_CONTENT: '供应商对接,长期事务主理,非公开委托,产品需求,紧急问题响应,线上/下委托,特别定制',
+  LANDING_PRICING_3_BUTTON: '与我们联系',
+  LANDING_PRICING_3_URL: '',
 
   LANDING_NEWSLETTER: process.env.NEXT_PUBLIC_THEME_LANDING_NEWSLETTER || false // 是否开启邮件订阅 请先配置mailchimp功能 https://docs.tangly1024.com/article/notion-next-mailchimp
 }
