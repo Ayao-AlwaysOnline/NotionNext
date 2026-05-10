@@ -7,7 +7,7 @@ const CONFIG = {
   LANDING_HEADER_BUTTON_2_URL: '',
 
   // 首页大图英雄板块
-  LANDING_HERO_TITLE_1: 'SeaportcyStudios',
+  LANDING_HERO_TITLE_1: 'Seaportcy<wbr>Studios',
   LANDING_HERO_P_1: '因为我们，您的稳定与从容，理所当然',
   LANDING_HERO_BUTTON_1_TEXT: '探索',
   LANDING_HERO_BUTTON_1_LINK: '',
