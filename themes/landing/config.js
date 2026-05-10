@@ -71,7 +71,7 @@ const CONFIG = {
 
   LANDING_PRICING_2_TITLE: '核心业务',
   LANDING_PRICING_2_PRICE: '建站与技术',
-  LANDING_PRICING_2_CONTENT: '项目源代码开发,网站上线,SEO优化,维护与托管',
+  LANDING_PRICING_2_CONTENT: '项目源代码开发,网站上线,SEO优化,维护与托管,域名与邮箱配置,小程序',
   LANDING_PRICING_2_BUTTON: '与我们联系',
   LANDING_PRICING_2_URL: '',
 
