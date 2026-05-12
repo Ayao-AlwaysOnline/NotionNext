@@ -50,7 +50,7 @@ const CONFIG = {
   LANDING_TESTIMONIALS_HEADER: '已服务超6000个品牌/个人、上线站点总浏览量突破70,000,000+、解决超8000＋需求',
   LANDING_TESTIMONIALS_P: '用户涵盖个人，地产、教育、建筑、医学、机械、IT、电子、软件、自媒体、数位游民、短视频、电商、学生、摄影爱好者、旅行爱好者等等各行各业',
 
-  LANDING_TESTIMONIALS_AVATAR: 'https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2F22de3fcb-d90d-4271-bc01-f815f476122b%2F4FE0A0C0-E487-4C74-BF8E-6F01A27461B8-14186-000008094BC289A6.jpg?table=collection&id=a320a2cc-6ebe-4a8d-95cc-ea94e63bced9&width=200',
+  LANDING_TESTIMONIALS_AVATAR: '/images/starter/team/CST.png',
   LANDING_TESTIMONIALS_NICKNAME: '建站服务',
   LANDING_TESTIMONIALS_ID: 'A先生',
   LANDING_TESTIMONIALS_SOCIAL_NAME: '外贸行业',
