@@ -79,6 +79,7 @@ export default function MobileMenu() {
                 </svg>
               </SmartLink>
             </li>
+            <a class="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2" href="https://seaportcy.com/studios-en"></a>
           </ul>
         </Transition>
       </div>
