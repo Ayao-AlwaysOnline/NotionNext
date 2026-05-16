@@ -1,5 +1,4 @@
 const CONFIG = {
-
   LANDING_HEADER_BUTTON_1_TITLE: '日本语',
   LANDING_HEADER_BUTTON_1_URL: 'https://seaportcy.com/studios-ja',
 
@@ -9,11 +8,14 @@ const CONFIG = {
   // 首页大图英雄板块
   LANDING_HERO_TITLE_1: 'Seaportcy\u200BStudios',
   LANDING_HERO_P_1: '因为我们，您的稳定与从容，理所当然',
+
   LANDING_HERO_BUTTON_1_TEXT: '探索',
   LANDING_HERO_BUTTON_1_LINK: '',
   LANDING_HERO_BUTTON_2_TEXT: '联系我们',
   LANDING_HERO_BUTTON_2_LINK: '',
+
   LANDING_HERO_VIDEO_IMAGE: '/images/home.webp',
+
   //   HERO_VIDEO_URL: '/videos/video.mp4',
   LANDING_HERO_VIDEO_IFRAME: '',
   LANDING_HERO_VIDEO_TIPS: '',
