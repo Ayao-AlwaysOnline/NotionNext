@@ -13,7 +13,7 @@ const CONFIG = {
   LANDING_HERO_BUTTON_1_LINK: '',
   LANDING_HERO_BUTTON_2_TEXT: '联系我们',
   LANDING_HERO_BUTTON_2_LINK: '',
-  LANDING_HERO_VIDEO_IMAGE: '/images/home.png',
+  LANDING_HERO_VIDEO_IMAGE: '/images/home.webp',
   //   HERO_VIDEO_URL: '/videos/video.mp4',
   LANDING_HERO_VIDEO_IFRAME: '',
   LANDING_HERO_VIDEO_TIPS: '',
