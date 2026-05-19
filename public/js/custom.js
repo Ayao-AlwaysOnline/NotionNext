@@ -1,168 +1,99 @@
-
-// ==================== JA Studios站footer多语言 ====================
+// ==================== studios站根据目标语言自动更改footer内容 ====================
 (function() {
-  // 定义日文翻译内容
-  const translations = {
-    // 版权区域链接
+  // 检测当前页面语言（根据 URL 中的 studios-ja 或 studios-en）
+  const url = window.location.href;
+  const isJapanese = url.includes('studios-ja');
+  const isEnglish = url.includes('studios-en');
+  
+  // 日文翻译
+  const jaTranslations = {
     termsOfService: '利用規約',
     privacyPolicy: 'プライバシーポリシー',
     legalNotice: '法律情報',
-    
-    // 联系方式区域
     contactTitle: 'お問い合わせ',
     emailLabel: 'メール: SeaportcyStudios@qq.com',
     phoneLabel: '電話＆Wechat: +86-15377718690',
-    
-    // 旗下其他业务区域
     otherBusinessTitle: 'その他のサービス',
     seaportcyLabel: 'Seaportcy',
     packagingLabel: 'Seaportcy - 包装ソリューション',
-    
-    // slogan
     slogan: 'Seaportcy — 共に成長し、未来を創ります'
   };
   
-  // 修改 slogan 区域
-  const sloganDiv = document.querySelector('.text-sm.text-gray-600.mr-4');
-  if (sloganDiv) {
-    const img = sloganDiv.querySelector('img');
-    sloganDiv.innerHTML = '';
-    if (img) sloganDiv.appendChild(img);
-    sloganDiv.appendChild(document.createTextNode(translations.slogan));
-  }
-  
-  // 修改版权区域链接文字
-  const termsLink = document.querySelector('.sm\\:col-span-12.lg\\:col-span-3 .text-sm.text-gray-600 a:nth-child(1)');
-  if (termsLink && termsLink.textContent.trim() === '服务条款') {
-    termsLink.textContent = translations.termsOfService;
-  }
-  
-  const privacyLink = document.querySelector('.sm\\:col-span-12.lg\\:col-span-3 .text-sm.text-gray-600 a:nth-child(2)');
-  if (privacyLink && privacyLink.textContent.trim() === '隐私政策') {
-    privacyLink.textContent = translations.privacyPolicy;
-  }
-  
-  const legalLink = document.querySelector('.sm\\:col-span-12.lg\\:col-span-3 .text-sm.text-gray-600 a:nth-child(3)');
-  if (legalLink && legalLink.textContent.trim() === '法律声明') {
-    legalLink.textContent = translations.legalNotice;
-  }
-  
-  // 修改联系方式区域标题
-  const contactTitle = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2 h6');
-  if (contactTitle && contactTitle.textContent.trim() === '联系方式') {
-    contactTitle.textContent = translations.contactTitle;
-  }
-  
-  // 修改联系方式内容
-  const email = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2 ul li:first-child p');
-  if (email && email.textContent.trim().includes('Email:')) {
-    email.textContent = translations.emailLabel;
-  }
-  
-  const phone = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2 ul li:nth-child(2) p');
-  if (phone && phone.textContent.trim().includes('Tel＆Wechat:')) {
-    phone.textContent = translations.phoneLabel;
-  }
-  
-  // 修改旗下其他业务区域标题
-  const otherBusinessTitle = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2:last-child h6');
-  if (otherBusinessTitle && otherBusinessTitle.textContent.trim() === '旗下其他业务') {
-    otherBusinessTitle.textContent = translations.otherBusinessTitle;
-  }
-  
-  // 修改旗下其他业务链接
-  const seaportcyLink = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2:last-child ul li:first-child a');
-  if (seaportcyLink && seaportcyLink.textContent.trim() === 'Seaportcy') {
-    seaportcyLink.textContent = translations.seaportcyLabel;
-  }
-  
-  const packagingLink = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2:last-child ul li:nth-child(2) a');
-  if (packagingLink && packagingLink.textContent.trim() === 'Seaportcy-包装解决方案') {
-    packagingLink.textContent = translations.packagingLabel;
-  }
-})();
-
-// ==================== EN Studios站footer多语言更改 ====================
-(function() {
-  // 定义英文翻译内容
-  const translations = {
-    // 版权区域链接
+  // 英文翻译
+  const enTranslations = {
     termsOfService: 'Terms of Service',
     privacyPolicy: 'Privacy Policy',
     legalNotice: 'Legal Notice',
-    
-    // 联系方式区域
     contactTitle: 'Contact',
     emailLabel: 'Email: SeaportcyStudios@qq.com',
     phoneLabel: 'Tel & Wechat: +86-15377718690',
-    
-    // 旗下其他业务区域
     otherBusinessTitle: 'Other Services',
     seaportcyLabel: 'Seaportcy',
     packagingLabel: 'Seaportcy - Packaging Solutions',
-    
-    // 新增 slogan
     slogan: 'Seaportcy — Growing with you, every step of the way'
   };
+  
+  // 选择对应翻译
+  const t = isJapanese ? jaTranslations : (isEnglish ? enTranslations : null);
+  if (!t) return;
   
   // 修改 slogan 区域
   const sloganDiv = document.querySelector('.text-sm.text-gray-600.mr-4');
   if (sloganDiv) {
-    // 保留 img，替换文本内容
     const img = sloganDiv.querySelector('img');
     sloganDiv.innerHTML = '';
     if (img) sloganDiv.appendChild(img);
-    sloganDiv.appendChild(document.createTextNode(translations.slogan));
+    sloganDiv.appendChild(document.createTextNode(t.slogan));
   }
   
   // 修改版权区域链接文字
   const termsLink = document.querySelector('.sm\\:col-span-12.lg\\:col-span-3 .text-sm.text-gray-600 a:nth-child(1)');
   if (termsLink && termsLink.textContent.trim() === '服务条款') {
-    termsLink.textContent = translations.termsOfService;
+    termsLink.textContent = t.termsOfService;
   }
   
   const privacyLink = document.querySelector('.sm\\:col-span-12.lg\\:col-span-3 .text-sm.text-gray-600 a:nth-child(2)');
   if (privacyLink && privacyLink.textContent.trim() === '隐私政策') {
-    privacyLink.textContent = translations.privacyPolicy;
+    privacyLink.textContent = t.privacyPolicy;
   }
   
   const legalLink = document.querySelector('.sm\\:col-span-12.lg\\:col-span-3 .text-sm.text-gray-600 a:nth-child(3)');
   if (legalLink && legalLink.textContent.trim() === '法律声明') {
-    legalLink.textContent = translations.legalNotice;
+    legalLink.textContent = t.legalNotice;
   }
   
   // 修改联系方式区域标题
   const contactTitle = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2 h6');
   if (contactTitle && contactTitle.textContent.trim() === '联系方式') {
-    contactTitle.textContent = translations.contactTitle;
+    contactTitle.textContent = t.contactTitle;
   }
   
   // 修改联系方式内容
   const email = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2 ul li:first-child p');
   if (email && email.textContent.trim().includes('Email:')) {
-    email.textContent = translations.emailLabel;
+    email.textContent = t.emailLabel;
   }
   
   const phone = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2 ul li:nth-child(2) p');
   if (phone && phone.textContent.trim().includes('Tel＆Wechat:')) {
-    phone.textContent = translations.phoneLabel;
+    phone.textContent = t.phoneLabel;
   }
   
   // 修改旗下其他业务区域标题
   const otherBusinessTitle = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2:last-child h6');
   if (otherBusinessTitle && otherBusinessTitle.textContent.trim() === '旗下其他业务') {
-    otherBusinessTitle.textContent = translations.otherBusinessTitle;
+    otherBusinessTitle.textContent = t.otherBusinessTitle;
   }
   
   // 修改旗下其他业务链接
   const seaportcyLink = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2:last-child ul li:first-child a');
   if (seaportcyLink && seaportcyLink.textContent.trim() === 'Seaportcy') {
-    seaportcyLink.textContent = translations.seaportcyLabel;
+    seaportcyLink.textContent = t.seaportcyLabel;
   }
   
   const packagingLink = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2:last-child ul li:nth-child(2) a');
   if (packagingLink && packagingLink.textContent.trim() === 'Seaportcy-包装解决方案') {
-    packagingLink.textContent = translations.packagingLabel;
+    packagingLink.textContent = t.packagingLabel;
   }
 })();
 
