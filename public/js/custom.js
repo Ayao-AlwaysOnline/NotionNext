@@ -166,27 +166,6 @@
   }
 })();
 
-// ==================== banner按钮隐藏 ====================
-(function() {
-  const links = document.querySelectorAll('.btn-sm.text-gray-200.hover\\:bg-gray-800.ml-3');
-  links.forEach(link => {
-    link.style.setProperty('visibility', 'hidden', 'important');
-    link.style.setProperty('opacity', '0', 'important');
-    link.style.setProperty('pointer-events', 'none', 'important');
-  });
-})();
-
-(function() {
-  const isMobile = () => window.innerWidth < 768;
-  
-  if (isMobile()) {
-    const hamburgerBtn = document.querySelector('.flex.md\\:hidden .hamburger');
-    if (hamburgerBtn) {
-      hamburgerBtn.style.display = 'none';
-    }
-  }
-})();
-
 
 // ==================== hero按钮滚动 ====================
 (function() {
