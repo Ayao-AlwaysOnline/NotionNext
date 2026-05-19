@@ -199,18 +199,22 @@
 
 
 
-// ==================== EN主站底部工作室多语言 ====================
+// ==================== 主站底部工作室多语言 ====================
 (function() {
+  const url = window.location.href;
+  const isJapanese = url.includes('/ja') || url.endsWith('/ja');
+  const isEnglish = url.includes('/en') || url.endsWith('/en');
+  
   const link = document.querySelector('.px-1.text-gray-1.hover\\:underline');
-  if (link) {
-    link.setAttribute('href', '/studios-en');
-  }
-})();
-  // ==================== JA底部工作室多语言 ====================
-(function() {
-  const link = document.querySelector('.px-1.text-gray-1.hover\\:underline');
-  if (link) {
-    link.setAttribute('href', '/studios-ja');
+  if (!link) return;
+  
+  if (isEnglish) {
+    link.setAttribute('href', 'https://seaportcy.com/studios-en');
+  } else if (isJapanese) {
+    link.setAttribute('href', 'https://seaportcy.com/studios-ja');
+  } else {
+    // 默认中文站
+    link.setAttribute('href', 'https://seaportcy.com/studios');
   }
 })();
 
