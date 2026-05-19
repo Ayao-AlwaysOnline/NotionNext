@@ -1,9 +1,9 @@
 const CONFIG = {
-  LANDING_HEADER_BUTTON_1_TITLE: '日本语',
-  LANDING_HEADER_BUTTON_1_URL: 'https://seaportcy.com/studios-ja',
+  LANDING_HEADER_BUTTON_1_TITLE: 'English',
+  LANDING_HEADER_BUTTON_1_URL: 'https://seaportcy.com/studios-en',
 
-  LANDING_HEADER_BUTTON_2_TITLE: 'English',
-  LANDING_HEADER_BUTTON_2_URL: 'https://seaportcy.com/studios-en',
+  LANDING_HEADER_BUTTON_2_TITLE: '日本语',
+  LANDING_HEADER_BUTTON_2_URL: 'https://seaportcy.com/studios-ja',
 
   // 首页大图英雄板块
   LANDING_HERO_TITLE_1: 'Seaportcy\u200BStudios',
