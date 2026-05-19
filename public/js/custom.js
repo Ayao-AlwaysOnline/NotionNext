@@ -500,23 +500,48 @@ if (el2) el2.style.display = 'none';
 })();
 // ==================== 替换团队卡片内容 ====================
 (function() {
-const items = document.querySelectorAll('.group.mb-8.rounded-xl.bg-white.px-5.pb-10.pt-12.shadow-testimonial.dark\\:bg-dark.dark\\:shadow-none');
-const groups = [
-{ h4: '业务/市场部门', p: '与您共同进步' },
-{ h4: '客户/服务部门', p: '我们经理很帅' },
-{ h4: '研发/设计部门', p: '从“差不多”到“就是它”' },
-{ h4: '生产/制造部门', p: '精益求精，始终如一' }
-];
-items.forEach((item, i) => {
-if (i >= groups.length) return;
-const center = item.querySelector('.text-center');
-if (center) {
-const h4 = center.querySelector('.mb-1.text-lg.font-semibold.text-dark.dark\\:text-white');
-if (h4) h4.textContent = groups[i].h4;
-const p = center.querySelector('.mb-5.text-sm.text-body-color.dark\\:text-dark-6');
-if (p) p.textContent = groups[i].p;
-}
-});
+  const items = document.querySelectorAll('.group.mb-8.rounded-xl.bg-white.px-5.pb-10.pt-12.shadow-testimonial.dark\\:bg-dark.dark\\:shadow-none');
+  
+  // 检测当前页面语言（主站）
+  const url = window.location.href;
+  const isJapanese = url.includes('/ja') || url.endsWith('/ja');
+  const isEnglish = url.includes('/en') || url.endsWith('/en');
+  
+  let groups;
+  
+  if (isJapanese) {
+    groups = [
+      { h4: '業務／マーケティング部門', p: 'お客様と共に前進します。' },
+      { h4: 'カスタマー／サービス部門', p: 'お客様がどこにいらしても、サービスは共にあります。' },
+      { h4: '研究開発／デザイン部門', p: '「まあいいか」から「これだ」へ。' },
+      { h4: '生産／製造部門', p: '一厘一毫に宿る匠の心' }
+    ];
+  } else if (isEnglish) {
+    groups = [
+      { h4: 'Business & Marketing Department', p: 'Growing together with you.' },
+      { h4: 'Customer & Service Department', p: 'Wherever you are, our service is right there with you.' },
+      { h4: 'R&D & Design Department', p: 'From "good enough" to "this is it."' },
+      { h4: 'Production & Manufacturing Department', p: 'Precision in every detail. Craftsmanship in every part.' }
+    ];
+  } else {
+    groups = [
+      { h4: '业务/市场部门', p: '与您共同进步' },
+      { h4: '客户/服务部门', p: '我们经理很帅' },
+      { h4: '研发/设计部门', p: '从“差不多”到“就是它”' },
+      { h4: '生产/制造部门', p: '精益求精，始终如一' }
+    ];
+  }
+  
+  items.forEach((item, i) => {
+    if (i >= groups.length) return;
+    const center = item.querySelector('.text-center');
+    if (center) {
+      const h4 = center.querySelector('.mb-1.text-lg.font-semibold.text-dark.dark\\:text-white');
+      if (h4) h4.textContent = groups[i].h4;
+      const p = center.querySelector('.mb-5.text-sm.text-body-color.dark\\:text-dark-6');
+      if (p) p.textContent = groups[i].p;
+    }
+  });
 })();
 
 // ==================== 调整图片尺寸和圆角 ====================
