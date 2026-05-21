@@ -98,9 +98,9 @@
     
     // 修改链接地址（根据语言跳转对应多语言站点）
     if (isJapanese) {
-      packagingLink.href = 'https://seaportcy.com/packing-ja';
+      packagingLink.href = 'https://seaportcy.com/packaging-ja';
     } else if (isEnglish) {
-      packagingLink.href = 'https://seaportcy.com/packing-en';
+      packagingLink.href = 'https://seaportcy.com/packaging-en';
     }
   }
 })();
