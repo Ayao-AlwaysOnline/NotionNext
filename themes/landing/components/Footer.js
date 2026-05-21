@@ -101,7 +101,7 @@ export default function Footer() {
                                 <a href="/" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy</a>
                             </li>
                             <li className="mb-2">
-                                <a href="/Packaging" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy-包装解决方案</a>
+                                <a href="/packaging" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy-包装解决方案</a>
                             </li>
                             <li className="mb-2">
                                 
