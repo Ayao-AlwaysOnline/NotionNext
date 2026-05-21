@@ -1,13 +1,15 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
+import { useRouter } from 'next/router'  // 新增
 import { Transition } from '@headlessui/react'
-import SmartLink from '@/components/SmartLink'
-import CONFIG from '../config'
-import { siteConfig } from '@/lib/config'
 
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
+  const router = useRouter();  // 新增
+  const path = router.asPath;  // 新增
+  const isPacking = path.startsWith('/packing');  // 新增
+  const langBase = isPacking ? '/packing' : '/studios';  // 新增
 
   const trigger = useRef(null)
   const mobileNav = useRef(null)
@@ -67,7 +69,8 @@ export default function MobileMenu() {
         >
           <ul className="px-5 py-2">
             <li>
-              <a href="https://seaportcy.com/studios-en" rel="noopener noreferrer" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2 flex items-center justify-center">
+              {/* 只改 href */}
+              <a href={`https://seaportcy.com${langBase}-en`} rel="noopener noreferrer" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2 flex items-center justify-center">
                 <span>English</span>
                 <svg className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" fill="#999" fillRule="nonzero" />
@@ -75,7 +78,8 @@ export default function MobileMenu() {
               </a>
             </li>
             <li>
-              <a href="https://seaportcy.com/studios-ja" rel="noopener noreferrer" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2 flex items-center justify-center">
+              {/* 只改 href */}
+              <a href={`https://seaportcy.com${langBase}-ja`} rel="noopener noreferrer" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2 flex items-center justify-center">
                 <span>日本语</span>
                 <svg className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" fill="#999" fillRule="nonzero" />
