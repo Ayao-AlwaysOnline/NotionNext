@@ -9,7 +9,7 @@ export default function Logo() {
   if (path.startsWith('/packing')) {
     return (
       <SmartLink href="/" className="block" aria-label="Cruip">
-        <img src="images/starter/team/A.png" className="w-8 h-8" alt="icon" />
+        <img src="images/starter/team/packing.png" className="w-8 h-8" alt="icon" />
       </SmartLink>
     );
   }
@@ -18,7 +18,7 @@ export default function Logo() {
   if (path.startsWith('/studios')) {
     return (
       <SmartLink href="/" className="block" aria-label="Cruip">
-        <img src="images/starter/team/test.png" className="w-8 h-8" alt="icon" />
+        <img src="images/starter/team/studios.png" className="w-8 h-8" alt="icon" />
       </SmartLink>
     );
   }
@@ -26,7 +26,7 @@ export default function Logo() {
   // 主站默认
   return (
     <SmartLink href="/" className="block" aria-label="Cruip">
-      <img src="images/starter/team/test.png" className="w-8 h-8" alt="icon" />
+      <img src="images/starter/team/studios.png" className="w-8 h-8" alt="icon" />
     </SmartLink>
   );
 }
