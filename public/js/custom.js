@@ -92,8 +92,16 @@
   }
   
   const packagingLink = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2:last-child ul li:nth-child(2) a');
-  if (packagingLink && packagingLink.textContent.trim() === 'Seaportcy-包装解决方案') {
+  if (packagingLink) {
+    // 修改链接文字
     packagingLink.textContent = t.packagingLabel;
+    
+    // 修改链接地址（根据语言跳转对应多语言站点）
+    if (isJapanese) {
+      packagingLink.href = 'https://seaportcy.com/packing-ja';
+    } else if (isEnglish) {
+      packagingLink.href = 'https://seaportcy.com/packing-en';
+    }
   }
 })();
 
