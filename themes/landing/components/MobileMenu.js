@@ -1,20 +1,22 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { useRouter } from 'next/router'  // 新增
+import { useRouter } from 'next/router'
 import { Transition } from '@headlessui/react'
 
 export default function MobileMenu() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false)
-  const router = useRouter();  // 新增
-  const path = router.asPath;  // 新增
-  const isPacking = path.startsWith('/packing');  // 新增
-  const langBase = isPacking ? '/packing' : '/studios';  // 新增
+  const router = useRouter();
+  const path = router.asPath;
+
+  const isPacking = path.startsWith('/packing');
+  const langBase = isPacking ? '/packing' : '/studios';
+  const enUrl = `https://seaportcy.com${langBase}-en`;
+  const jaUrl = `https://seaportcy.com${langBase}-ja`;
 
   const trigger = useRef(null)
   const mobileNav = useRef(null)
 
-  // close the mobile menu on click outside
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!mobileNav.current || !trigger.current) return
@@ -25,7 +27,6 @@ export default function MobileMenu() {
     return () => document.removeEventListener('click', clickHandler)
   })
 
-  // close the mobile menu if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
       if (!mobileNavOpen || keyCode !== 27) return
@@ -37,7 +38,6 @@ export default function MobileMenu() {
 
   return (
     <div className="flex md:hidden">
-      {/* Hamburger button */}
       <button
         ref={trigger}
         className={`hamburger ${mobileNavOpen && 'active'}`}
@@ -53,7 +53,6 @@ export default function MobileMenu() {
         </svg>
       </button>
 
-      {/* Mobile navigation */}
       <div ref={mobileNav}>
         <Transition
           show={mobileNavOpen}
@@ -69,8 +68,7 @@ export default function MobileMenu() {
         >
           <ul className="px-5 py-2">
             <li>
-              {/* 只改 href */}
-              <a href={`https://seaportcy.com${langBase}-en`} rel="noopener noreferrer" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2 flex items-center justify-center">
+              <a href={enUrl} rel="noopener noreferrer" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2 flex items-center justify-center">
                 <span>English</span>
                 <svg className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" fill="#999" fillRule="nonzero" />
@@ -78,8 +76,7 @@ export default function MobileMenu() {
               </a>
             </li>
             <li>
-              {/* 只改 href */}
-              <a href={`https://seaportcy.com${langBase}-ja`} rel="noopener noreferrer" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2 flex items-center justify-center">
+              <a href={jaUrl} rel="noopener noreferrer" className="btn-sm text-gray-200 bg-gray-900 hover:bg-gray-800 w-full my-2 flex items-center justify-center">
                 <span>日本语</span>
                 <svg className="w-3 h-3 fill-current text-gray-400 shrink-0 ml-2 -mr-1" viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg">
                   <path d="M11.707 5.293L7 .586 5.586 2l3 3H0v2h8.586l-3 3L7 11.414l4.707-4.707a1 1 0 000-1.414z" fill="#999" fillRule="nonzero" />
