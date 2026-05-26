@@ -15,7 +15,7 @@
     phoneLabel: '電話＆Wechat: +86-15377718690',
     otherBusinessTitle: 'その他のサービス',
     seaportcyLabel: 'Seaportcy',
-    packagingLabel: 'Seaportcy - 包装ソリューション',
+    packagingLabel: 'Seaportcy丨包装ソリューション',
     slogan: 'Seaportcy — 共に成長し、未来を創ります'
   };
   
@@ -29,7 +29,7 @@
     phoneLabel: 'Tel & Wechat: +86-15377718690',
     otherBusinessTitle: 'Other Services',
     seaportcyLabel: 'Seaportcy',
-    packagingLabel: 'Seaportcy - Packaging Solutions',
+    packagingLabel: 'Seaportcy丨Packaging Solutions',
     slogan: 'Seaportcy — Growing with you, every step of the way'
   };
   
