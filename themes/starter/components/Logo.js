@@ -49,12 +49,12 @@ export const Logo = props => {
       <div className='navbar-logo flex items-center w-full py-5 cursor-pointer'>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         {logo && (
-          <LazyImage
+          <img
             priority
             onClick={() => {
               router.push('/')
             }}
-            src="images/starter/logo/logo.svg"
+            src="/images/starter/logo/logo.svg"
             alt='logo'
             className='header-logo mr-1 h-8'
           />
