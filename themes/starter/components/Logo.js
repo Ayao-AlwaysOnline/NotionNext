@@ -54,7 +54,7 @@ export const Logo = props => {
             onClick={() => {
               router.push('/')
             }}
-            src={logo}
+            src="images/starter/logo/logo.svg"
             alt='logo'
             className='header-logo mr-1 h-8'
           />
