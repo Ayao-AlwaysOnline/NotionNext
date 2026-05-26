@@ -46,8 +46,8 @@ export const Logo = props => {
         <LazyImage
           priority
           src="/images/starter/team/packaging.png"
-          width={40}
-          height={40}
+          width={50}
+          height={50}
           alt={siteConfig('AUTHOR')}
           className='mr-2 hidden md:inline-block'
         />
