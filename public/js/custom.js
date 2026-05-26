@@ -209,22 +209,37 @@
 
 // ==================== 主站底部工作室多语言 ====================
 (function() {
-  const url = window.location.href;
-  const isJapanese = url.includes('/ja') || url.endsWith('/ja');
-  const isEnglish = url.includes('/en') || url.endsWith('/en');
+  const fixFooterLink = () => {
+    const url = window.location.href;
+    const isJapanese = url.includes('/ja') || url.endsWith('/ja');
+    const isEnglish = url.includes('/en') || url.endsWith('/en');
+    
+    const link = document.querySelector('.px-1.text-gray-1.hover\\:underline');
+    if (!link) return;
+    
+    if (isEnglish) {
+      link.setAttribute('href', 'https://seaportcy.com/studios-en');
+    } else if (isJapanese) {
+      link.setAttribute('href', 'https://seaportcy.com/studios-ja');
+    } else {
+      link.setAttribute('href', 'https://seaportcy.com/studios');
+    }
+  };
   
-  const link = document.querySelector('.px-1.text-gray-1.hover\\:underline');
-  if (!link) return;
-  
-  if (isEnglish) {
-    link.setAttribute('href', 'https://seaportcy.com/studios-en');
-  } else if (isJapanese) {
-    link.setAttribute('href', 'https://seaportcy.com/studios-ja');
+  // 页面加载时执行
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', fixFooterLink);
   } else {
-    // 默认中文站
-    link.setAttribute('href', 'https://seaportcy.com/studios');
+    fixFooterLink();
   }
+  
+  // 关键：监听 pageshow 事件，解决后退/前进缓存问题
+  window.addEventListener('pageshow', fixFooterLink);
 })();
+
+
+
+
 
 (function() {
   // ==================== 菜单悬停效果 ====================
