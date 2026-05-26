@@ -48,17 +48,13 @@ export const Logo = props => {
     <div className='w-60 max-w-full px-4'>
       <div className='navbar-logo flex items-center w-full py-5 cursor-pointer'>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        {logo && (
+        
           <img
-            priority
-            onClick={() => {
-              router.push('/')
-            }}
             src="/images/starter/logo/logo.svg"
             alt='logo'
             className='header-logo mr-1 h-8'
           />
-        )}
+        
         {/* logo文字 */}
         <span
           onClick={() => {
