@@ -226,18 +226,19 @@
     }
   };
   
-  // 页面加载时执行
+  // 初始执行
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', fixFooterLink);
   } else {
     fixFooterLink();
   }
   
-  // 关键：监听 pageshow 事件，解决后退/前进缓存问题
-  window.addEventListener('pageshow', fixFooterLink);
+  // 监听 popstate（后退/前进）
+  window.addEventListener('popstate', fixFooterLink);
+  
+  // 额外：监听 hashchange（如果 URL 中有 hash）
+  window.addEventListener('hashchange', fixFooterLink);
 })();
-
-
 
 
 
