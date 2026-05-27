@@ -121,7 +121,7 @@ export const Testimonials = () => {
                   >
                     <div className="h-[50px] w-[50px] overflow-hidden rounded-full">
                       <img
-                        src={item.PROXIO_TESTIMONIALS_ITEM_AVATAR}
+                        src="/images/starter/team/CST.png"
                         alt="author"
                         className="h-[50px] w-[50px] overflow-hidden rounded-full object-cover"
                       />
