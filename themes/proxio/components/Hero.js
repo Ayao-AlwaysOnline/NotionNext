@@ -35,7 +35,7 @@ export const Hero = props => {
         {/* 横幅图片 */}
         {!bannerIframe && bannerImage && (
           <img
-            className='w-full object-cover absolute h-screen left-0 top-0 pointer-events-none'
+            className='w-full object-cover absolute h-full left-0 top-0 pointer-events-none'
             src={bannerImage}
             alt="hero banner"
             loading="eager"  // 可选：强制立即加载
