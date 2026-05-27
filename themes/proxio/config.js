@@ -137,7 +137,7 @@ const CONFIG = {
     },
     {
       PROXIO_TESTIMONIALS_ITEM_TEXT:
-        '进出口猫一，我们最担心包装在长途运输中出问题。Seaportcy的工业包装方案非常可靠，破损率大幅降低。服务团队响应也很及时。',
+        '进出口贸易，我们最担心包装在长途运输中出问题。Seaportcy的工业包装方案非常可靠，破损率大幅降低。服务团队响应也很及时。',
       PROXIO_TESTIMONIALS_ITEM_AVATAR: '',
       PROXIO_TESTIMONIALS_ITEM_NICKNAME: '陈生',
       PROXIO_TESTIMONIALS_ITEM_DESCRIPTION: '净化设备出口商·深圳·广东',
