@@ -1,7 +1,3 @@
-import AnalyticsBusuanzi from '@/components/AnalyticsBusuanzi'
-import { BeiAnGongAn } from '@/components/BeiAnGongAn'
-import BeiAnSite from '@/components/BeiAnSite'
-import CopyRightDate from '@/components/CopyRightDate'
 import DarkModeButton from '@/components/DarkModeButton'
 import LazyImage from '@/components/LazyImage'
 import PoweredBy from '@/components/PoweredBy'
@@ -35,8 +31,11 @@ export const Footer = ({ title }) => {
                 width={40}
                 alt={siteConfig('AUTHOR')}
               />
-              <h1 className='text-lg' style={{ color: '#ecbc56' }}>{title}</h1>
-                  
+              <h1 className='text-lg'>{title}</h1>
+              <span
+                className='underline font-bold justify-start'>
+                {siteConfig('AUTHOR')}
+              </span>
             </div>
             <div className='px-1'>{siteConfig('DESCRIPTION')}</div>
             {contactEmailDisplay && (
@@ -52,8 +51,7 @@ export const Footer = ({ title }) => {
                   <div className='font-bold text-xl dark:text-white lg:pb-8 pb-4'>
                     {group.name}
                   </div>
-                </div>
-                <div className='flex flex-col gap-y-2'>
+                  <div className='flex flex-col gap-y-2'>
                     {group?.menus?.map((menu, index) => {
                       return (
                         <div key={index}>
@@ -63,7 +61,8 @@ export const Footer = ({ title }) => {
                         </div>
                       )
                     })}
-                </div>                      
+                  </div>
+                </div>
               )
             })}
           </div>
@@ -79,7 +78,6 @@ export const Footer = ({ title }) => {
 
           <div className='flex justify-between items-center gap-x-2'>
             <div className='flex items-center gap-x-4'>
-
             </div>
           </div>
         </div>
