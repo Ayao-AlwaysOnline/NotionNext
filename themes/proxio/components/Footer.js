@@ -46,7 +46,6 @@ export const Footer = ({ title }) => {
           </div>
 
           {/* 右侧链接区块 */}
-          <div className='flex gap-x-4'>
             {PROXIO_FOOTER_LINKS?.map((group, index) => {
               return (
                 <div key={index}>
@@ -67,7 +66,6 @@ export const Footer = ({ title }) => {
                 </div>
               )
             })}
-          </div>
         </div>
 
         {/* 页脚 */}
