@@ -1,3 +1,5 @@
+import BeiAnSite from '@/components/BeiAnSite'
+import { BeiAnGongAn } from '@/components/BeiAnGongAn'
 import DarkModeButton from '@/components/DarkModeButton'
 import LazyImage from '@/components/LazyImage'
 import PoweredBy from '@/components/PoweredBy'
