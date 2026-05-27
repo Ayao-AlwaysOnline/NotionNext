@@ -30,16 +30,23 @@ export const Footer = ({ title }) => {
           <div className='gap-y-2 flex flex-col items-start dark:text-gray-200'>
             <div className='flex gap-x-1'>
               <img
-                src="/images/starter/team/CST.png"
+                src="/images/starter/team/packaging.png"
                 className='rounded-full'
-                width={24}
+                width={40}
                 alt={siteConfig('AUTHOR')}
               />
-              <h1 className='text-lg'>{title}</h1>
-              <span
-                className='underline font-bold justify-start'>
-                {siteConfig('AUTHOR')}
-              </span>
+              <h1 className='text-lg' style={{ color: '#ecbc56' }}>{title}</h1>
+                  <div className='flex flex-col gap-y-2'>
+                    {group?.menus?.map((menu, index) => {
+                      return (
+                        <div key={index}>
+                          <SmartLink href={menu.href} className='hover:underline dark:text-gray-200'>
+                            {menu.title}
+                          </SmartLink>
+                        </div>
+                      )
+                    })}
+                  </div>
             </div>
             <div className='px-1'>{siteConfig('DESCRIPTION')}</div>
             {contactEmailDisplay && (
@@ -54,17 +61,6 @@ export const Footer = ({ title }) => {
                 <div key={index}>
                   <div className='font-bold text-xl dark:text-white lg:pb-8 pb-4'>
                     {group.name}
-                  </div>
-                  <div className='flex flex-col gap-y-2'>
-                    {group?.menus?.map((menu, index) => {
-                      return (
-                        <div key={index}>
-                          <SmartLink href={menu.href} className='hover:underline dark:text-gray-200'>
-                            {menu.title}
-                          </SmartLink>
-                        </div>
-                      )
-                    })}
                   </div>
                 </div>
               )
