@@ -191,7 +191,7 @@ const CONFIG = {
   PROXIO_ABOUT_TEXT_1: '一套优质可靠的一站式包装解决方案',
   PROXIO_ABOUT_TEXT_2:
     'Seaportcy丨包装解决方案的愿景是帮助每个有想法的客人，以合理的成本、稳定无忧地保护自己的产品，帮助您将产品与故事高效地传达给世界。<br/><br/>可靠的Seaportcy服务，稳定可控的生产平台，组成一个轻松的体验。',
-  PROXIO_ABOUT_PHOTO_URL: '',
+  PROXIO_ABOUT_PHOTO_URL: '/images/starter/team/packaging.png',
   PROXIO_ABOUT_KEY_1: '累积生产经验（年）',
   PROXIO_ABOUT_VAL_1: '20＋',
   PROXIO_ABOUT_KEY_2: '服务客户',
@@ -223,6 +223,16 @@ const CONFIG = {
   // 页脚菜单
   PROXIO_FOOTER_LINKS: [
     {
+      name: '联系方式',
+      menus: [
+        { title: 'Email：seaportcy.info@gmail.com', href: '' },
+        {
+          title: 'Tel＆Wechat: +86-15377718690',
+          href: ''
+        }
+      ]
+    },
+    {
       name: '',
       menus: [
         {
@@ -236,16 +246,6 @@ const CONFIG = {
         {
           title: '服务协议',
           href: '/terms-of-use'
-        }
-      ]
-    },
-    {
-      name: '联系方式',
-      menus: [
-        { title: 'Email：seaportcy.info@gmail.com', href: '' },
-        {
-          title: 'Tel＆Wechat: +86-15377718690',
-          href: ''
         }
       ]
     }
