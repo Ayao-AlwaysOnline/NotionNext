@@ -31,19 +31,16 @@ export const Hero = props => {
   return (
     <>
       {/* <!-- ====== Hero Section Start --> */}
-      <div id='home' className='h-screen relative overflow-hidden bg-primary '>
+      <div id='home' className='h-dvh relative overflow-hidden bg-primary '>
         {/* 横幅图片 */}
         {!bannerIframe && bannerImage && (
-          <LazyImage
-            priority
+          <img
             className='w-full object-cover absolute h-screen left-0 top-0 pointer-events-none'
             src={bannerImage}
+            alt="hero banner"
+            loading="eager"  // 可选：强制立即加载
           />
         )}
-        <iframe
-          src={bannerIframe}
-          className='w-full absolute h-screen left-0 top-0 pointer-events-none'
-        />
         {/* 阴影遮罩 */}
         <div className='h-1/3 w-full absolute left-0 bottom-0 z-10'>
           <div
