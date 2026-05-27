@@ -36,17 +36,7 @@ export const Footer = ({ title }) => {
                 alt={siteConfig('AUTHOR')}
               />
               <h1 className='text-lg' style={{ color: '#ecbc56' }}>{title}</h1>
-                  <div className='flex flex-col gap-y-2'>
-                    {group?.menus?.map((menu, index) => {
-                      return (
-                        <div key={index}>
-                          <SmartLink href={menu.href} className='hover:underline dark:text-gray-200'>
-                            {menu.title}
-                          </SmartLink>
-                        </div>
-                      )
-                    })}
-                  </div>
+                  
             </div>
             <div className='px-1'>{siteConfig('DESCRIPTION')}</div>
             {contactEmailDisplay && (
@@ -63,6 +53,17 @@ export const Footer = ({ title }) => {
                     {group.name}
                   </div>
                 </div>
+                <div className='flex flex-col gap-y-2'>
+                    {group?.menus?.map((menu, index) => {
+                      return (
+                        <div key={index}>
+                          <SmartLink href={menu.href} className='hover:underline dark:text-gray-200'>
+                            {menu.title}
+                          </SmartLink>
+                        </div>
+                      )
+                    })}
+                </div>                      
               )
             })}
           </div>
