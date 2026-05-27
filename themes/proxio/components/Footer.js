@@ -33,11 +33,7 @@ export const Footer = ({ title }) => {
                 width={40}
                 alt={siteConfig('AUTHOR')}
               />
-              <h1 className='text-lg'>{title}</h1>
-              <span
-                className='underline font-bold justify-start'>
-                {siteConfig('AUTHOR')}
-              </span>
+              <h1 className='text-lg' style={{ color: '#ecbc56' }}>{title}</h1>
             </div>
             <div className='px-1'>{siteConfig('DESCRIPTION')}</div>
             {contactEmailDisplay && (
