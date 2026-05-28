@@ -83,14 +83,11 @@ export const MenuItem = ({ link, isOpen, toggleOpen }) => {
                 finalHref = `https://seaportcy.com/${finalHref}`;
               }
               
-              // 判断是否为外部链接（需要新开页面）- 只针对 packaging 站的链接
-              const isExternal = finalHref && (finalHref.startsWith('http') || finalHref.includes('packaging-ja') || finalHref.includes('packaging-en'));
-              
               return (
                 <SmartLink
                   key={index}
                   href={finalHref}
-                  target={isExternal ? '_blank' : '_self'}
+                  target="_self"
                   className='block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary'
                 >
                   <span className='text-md ml-2 whitespace-nowrap'>
