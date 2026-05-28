@@ -14,7 +14,7 @@
     emailLabel: 'メール: SeaportcyStudios@qq.com',
     phoneLabel: '電話＆Wechat: +86-15377718690',
     otherBusinessTitle: 'その他のサービス',
-    seaportcyLabel: 'Seaportcy',
+    seaportcyLabel: 'Seaportcy丨プロダクトソリューション',
     packagingLabel: 'Seaportcy丨包装ソリューション',
     slogan: 'Seaportcy — 共に成長し、未来を創ります'
   };
@@ -28,7 +28,7 @@
     emailLabel: 'Email: SeaportcyStudios@qq.com',
     phoneLabel: 'Tel & Wechat: +86-15377718690',
     otherBusinessTitle: 'Other Services',
-    seaportcyLabel: 'Seaportcy',
+    seaportcyLabel: 'Seaportcy丨Products',
     packagingLabel: 'Seaportcy丨Packaging Solutions',
     slogan: 'Seaportcy — Growing with you, every step of the way'
   };
@@ -87,7 +87,7 @@
   
   // 修改旗下其他业务链接
   const seaportcyLink = document.querySelector('.sm\\:col-span-6.md\\:col-span-3.lg\\:col-span-2:last-child ul li:first-child a');
-  if (seaportcyLink && seaportcyLink.textContent.trim() === 'Seaportcy') {
+  if (seaportcyLink && seaportcyLink.textContent.trim() === 'Seaportcy丨产品解决方案') {
     seaportcyLink.textContent = t.seaportcyLabel;
   }
   
