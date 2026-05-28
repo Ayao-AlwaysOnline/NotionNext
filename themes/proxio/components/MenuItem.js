@@ -76,27 +76,19 @@ export const MenuItem = ({ link, isOpen, toggleOpen }) => {
                 ? 'block opacity-100 visible'
                 : 'hidden opacity-0 invisible'
             }`}>
-            {link.subMenus.map((sLink, index) => {
-              // 修复相对路径问题
-              let finalHref = sLink.href;
-              if (finalHref && !finalHref.startsWith('http') && !finalHref.startsWith('/')) {
-                finalHref = `https://seaportcy.com/${finalHref}`;
-              }
-              
-              return (
-                <SmartLink
-                  key={index}
-                  href={finalHref}
-                  target="_self"
-                  className='block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary'
-                >
-                  <span className='text-md ml-2 whitespace-nowrap'>
-                    {link?.icon && <i className={sLink.icon + ' mr-2 my-auto'} />}{' '}
-                    {sLink.title}
-                  </span>
-                </SmartLink>
-              );
-            })}
+            {link.subMenus.map((sLink, index) => (
+              <SmartLink
+                key={index}
+                href={sLink.href}
+                target={link?.target}
+                className='block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary'>
+                {/* 子菜单 SubMenuItem */}
+                <span className='text-md ml-2 whitespace-nowrap'>
+                  {link?.icon && <i className={sLink.icon + ' mr-2 my-auto'} />}{' '}
+                  {sLink.title}
+                </span>
+              </SmartLink>
+            ))}
           </div>
         </li>
       )}
