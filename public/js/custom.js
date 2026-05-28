@@ -14,7 +14,7 @@
     emailLabel: 'メール: SeaportcyStudios@qq.com',
     phoneLabel: '電話＆Wechat: +86-15377718690',
     otherBusinessTitle: 'その他のサービス',
-    seaportcyLabel: 'Seaportcy丨プロダクトソリューション',
+    seaportcyLabel: 'Seaportcy丨製造ソリューション',
     packagingLabel: 'Seaportcy丨包装ソリューション',
     slogan: 'Seaportcy — 共に成長し、未来を創ります'
   };
