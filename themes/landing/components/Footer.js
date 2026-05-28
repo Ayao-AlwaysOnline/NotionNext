@@ -172,7 +172,7 @@ export default function Footer() {
                     </ul>
 
                     {/* Copyrights note */}
-                    <div className="text-sm text-gray-600 mr-4"><img src="images/starter/logo/logo.svg" className="seaportcyicon" alt="" />  Seaportcy始终愿与您共同成长</div>
+                    <div className="text-sm text-gray-600 mr-4"><img src="images/starter/logo/logo.svg" className="seaportcyicon" alt="" />  Seaportcy始终愿与您共同发展</div>
 
                 </div>
 
