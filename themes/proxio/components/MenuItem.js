@@ -69,34 +69,38 @@ export const MenuItem = ({ link, isOpen, toggleOpen }) => {
             </svg>
           </button>
 
-{/* 子菜单 */}
-<div
-  className={`submenu dark:border-gray-600 relative left-0 top-full w-[250px] rounded-sm bg-white p-4 transition-all duration-300 dark:bg-dark-2 lg:absolute lg:shadow-lg ${
-    open
-      ? 'block opacity-100 visible'
-      : 'hidden opacity-0 invisible'
-  }`}>
-  {link.subMenus.map((sLink, index) => {
-    // 修复相对路径问题
-    let finalHref = sLink.href;
-    if (finalHref && !finalHref.startsWith('http') && !finalHref.startsWith('/')) {
-      finalHref = `https://seaportcy.com/${finalHref}`;
-    }
-    
-    return (
-      <SmartLink
-        key={index}
-        href={finalHref}
-        className='block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary'
-      >
-        <span className='text-md ml-2 whitespace-nowrap'>
-          {link?.icon && <i className={sLink.icon + ' mr-2 my-auto'} />}{' '}
-          {sLink.title}
-        </span>
-      </SmartLink>
-    );
-  })}
-</div>
+          {/* 子菜单 */}
+          <div
+            className={`submenu dark:border-gray-600 relative left-0 top-full w-[250px] rounded-sm bg-white p-4 transition-all duration-300 dark:bg-dark-2 lg:absolute lg:shadow-lg ${
+              open
+                ? 'block opacity-100 visible'
+                : 'hidden opacity-0 invisible'
+            }`}>
+            {link.subMenus.map((sLink, index) => {
+              // 修复相对路径问题
+              let finalHref = sLink.href;
+              if (finalHref && !finalHref.startsWith('http') && !finalHref.startsWith('/')) {
+                finalHref = `https://seaportcy.com/${finalHref}`;
+              }
+              
+              // 判断是否为外部链接（需要新开页面）- 只针对 packaging 站的链接
+              const isExternal = finalHref && (finalHref.startsWith('http') || finalHref.includes('packaging-ja') || finalHref.includes('packaging-en'));
+              
+              return (
+                <SmartLink
+                  key={index}
+                  href={finalHref}
+                  target={isExternal ? '_blank' : '_self'}
+                  className='block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary'
+                >
+                  <span className='text-md ml-2 whitespace-nowrap'>
+                    {link?.icon && <i className={sLink.icon + ' mr-2 my-auto'} />}{' '}
+                    {sLink.title}
+                  </span>
+                </SmartLink>
+              );
+            })}
+          </div>
         </li>
       )}
     </>
