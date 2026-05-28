@@ -98,7 +98,7 @@ export default function Footer() {
                         <h6 className="text-gray-800 font-medium mb-2">旗下其他业务</h6>
                         <ul className="text-sm">
                             <li className="mb-2">
-                                <a href="https://seaportcy.com/" target="_blank" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy</a>
+                                <a href="https://seaportcy.com/" target="_blank" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy丨产品解决方案</a>
                             </li>
                             <li className="mb-2">
                                 <a href="https://seaportcy.com/packaging" target="_blank" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Seaportcy丨包装解决方案</a>
