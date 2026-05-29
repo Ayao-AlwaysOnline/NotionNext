@@ -1,3 +1,63 @@
+// ==================== 包装站评价多语言 ====================
+(function() {
+  const url = window.location.href;
+  const isPackagingJa = url.includes('packaging-ja');
+  const isPackagingEn = url.includes('packaging-en');
+  
+  // 只在包装站多语言页面执行
+  if (!isPackagingJa && !isPackagingEn) return;
+  
+  // 查找包装站评价卡片容器
+  const container = document.querySelector('.absolute.top-0.left-0.w-full');
+  if (!container) return;
+  
+  const cards = container.querySelectorAll('.mb-6.rounded-xl');
+  if (cards.length === 0) return;
+  
+  // 英日文数据
+  const enReviews = [
+    { text: "Our products are manufactured in Guangdong. When looking for a packaging partner, someone recommended Seaportcy to us. They've worked very well with our production.", name: "Norman", role: "Importer · California · USA" },
+    { text: "We've been working with Seaportcy long-term. It gives us peace of mind.", name: "Ms. X", role: "XX · XX · XX" },
+    { text: "In import/export trade, our biggest concern is packaging failing during long-haul transit. Seaportcy's industrial packaging solutions are highly reliable, and our damage rate has dropped significantly. Their service team is also very responsive.", name: "Mr. Chen", role: "Air Purification Equipment Exporter · Shenzhen · Guangdong" },
+    { text: "Eco-friendly packaging is a must for us — our clients have very strict requirements. Seaportcy's engineers designed a packaging solution that fully replaces the plastic boxes we used before. Impressive work.", name: "Mr. Z", role: "Export Trader · Dongguan · Guangdong" },
+    { text: "Running my own e-commerce business, packaging is a major cost factor. Going directly to the manufacturer is the smart move.", name: "Founder", role: "Cross-Border E-Commerce · Dongguan · Guangdong" },
+    { text: "Seaportcy has been our go-to packaging supplier all along. No special reason — time tells.", name: "Ms. Xiao", role: "Trader · Shenzhen · Guangdong" }
+  ];
+  
+  const jaReviews = [
+    { text: "当社の製品は広東省で製造しています。協力いただける包装会社を探していたところ、Seaportcyをご紹介いただきました。生産現場での連携もスムーズです。", name: "Norman", role: "輸入業者 · カリフォルニア州 · アメリカ" },
+    { text: "Seaportcyとは長くお付き合いさせていただいています。安心して任せられます。", name: "X様", role: "XX · XX · XX" },
+    { text: "輸出入貿易では、長距離輸送中のパッケージ破損が最大の懸念事項です。Seaportcyの産業用包装ソリューションは非常に信頼性が高く、破損率が大幅に低下しました。サービスチームの対応も迅速です。", name: "陳様", role: "空気清浄装置輸出業者 · 深セン市 · 広東省" },
+    { text: "環境配慮型包装は当社にとって必須であり、取引先の要求も非常に厳しいものです。Seaportcyのエンジニアは、従来使用していたプラスチック箱を完全に代替する包装ソリューションを設計してくださいました。素晴らしい対応です。", name: "Z様", role: "輸出商社 · 東莞市 · 広東省" },
+    { text: "ECを運営する上で、包装は重要なコスト要因です。やはり一次仕入れ先から直接調達するのが安心です。", name: "創業者", role: "クロスボーダーEC · 東莞市 · 広東省" },
+    { text: "Seaportcyは当社が一貫して頼りにしている包装サプライヤーです。特別な理由はありません。時間がすべてを物語ります。", name: "小様", role: "商社 · 深セン市 · 広東省" }
+  ];
+  
+  const reviews = isPackagingEn ? enReviews : jaReviews;
+  
+  // 替换内容函数
+  const replaceContent = () => {
+    const currentCards = container.querySelectorAll('.mb-6.rounded-xl');
+    currentCards.forEach((card, i) => {
+      if (i >= reviews.length) return;
+      const textEl = card.querySelector('.mb-6.text-base');
+      const nameEl = card.querySelector('.text-sm.font-semibold');
+      const roleEl = card.querySelector('.text-xs.text-body-secondary');
+      if (textEl) textEl.textContent = reviews[i].text;
+      if (nameEl) nameEl.textContent = reviews[i].name;
+      if (roleEl) roleEl.textContent = reviews[i].role;
+    });
+  };
+  
+  // 初始执行
+  replaceContent();
+  
+  // 监听 popstate 解决后退/前进时的回退问题
+  window.addEventListener('popstate', replaceContent);
+})();
+
+
+
 // ==================== studios站根据目标语言自动更改footer内容 ====================
 (function() {
   // 检测当前页面语言（根据 URL 中的 studios-ja 或 studios-en）
