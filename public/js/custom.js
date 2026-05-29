@@ -1,20 +1,6 @@
-// ==================== 包装站评价多语言 ====================
+// ==================== 包装站评价多语言（等待卡片加载版） ====================
 (function() {
-  const url = window.location.href;
-  const isPackagingJa = url.includes('packaging-ja');
-  const isPackagingEn = url.includes('packaging-en');
-  
-  // 只在包装站多语言页面执行
-  if (!isPackagingJa && !isPackagingEn) return;
-  
-  // 查找包装站评价卡片容器
-  const container = document.querySelector('.absolute.top-0.left-0.w-full');
-  if (!container) return;
-  
-  const cards = container.querySelectorAll('.mb-6.rounded-xl');
-  if (cards.length === 0) return;
-  
-  // 英日文数据
+  // 英文/日文数据
   const enReviews = [
     { text: "Our products are manufactured in Guangdong. When looking for a packaging partner, someone recommended Seaportcy to us. They've worked very well with our production.", name: "Norman", role: "Importer · California · USA" },
     { text: "We've been working with Seaportcy long-term. It gives us peace of mind.", name: "Ms. X", role: "XX · XX · XX" },
@@ -33,12 +19,21 @@
     { text: "Seaportcyは当社が一貫して頼りにしている包装サプライヤーです。特別な理由はありません。時間がすべてを物語ります。", name: "小様", role: "商社 · 深セン市 · 広東省" }
   ];
   
-  const reviews = isPackagingEn ? enReviews : jaReviews;
+  // 判断当前语言（通过 URL 或 body 类名）
+  const url = window.location.href;
+  const isEn = url.includes('packaging-en');
+  const isJa = url.includes('packaging-ja');
   
-  // 替换内容函数
-  const replaceContent = () => {
-    const currentCards = container.querySelectorAll('.mb-6.rounded-xl');
-    currentCards.forEach((card, i) => {
+  if (!isEn && !isJa) return;
+  
+  const reviews = isEn ? enReviews : jaReviews;
+  
+  // 替换卡片内容的函数
+  const replaceCards = () => {
+    const cards = document.querySelectorAll('.mb-6.rounded-xl');
+    if (cards.length === 0) return false;
+    
+    cards.forEach((card, i) => {
       if (i >= reviews.length) return;
       const textEl = card.querySelector('.mb-6.text-base');
       const nameEl = card.querySelector('.text-sm.font-semibold');
@@ -47,13 +42,27 @@
       if (nameEl) nameEl.textContent = reviews[i].name;
       if (roleEl) roleEl.textContent = reviews[i].role;
     });
+    return true;
   };
   
-  // 初始执行
-  replaceContent();
+  // 立即尝试一次
+  if (replaceCards()) {
+    console.log('评价内容已替换');
+  } else {
+    // 卡片还没加载，等待 DOM 变化
+    const observer = new MutationObserver(() => {
+      if (replaceCards()) {
+        observer.disconnect();
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    
+    // 10 秒后停止监听，避免无限等待
+    setTimeout(() => observer.disconnect(), 10000);
+  }
   
-  // 监听 popstate 解决后退/前进时的回退问题
-  window.addEventListener('popstate', replaceContent);
+  // 监听后退/前进
+  window.addEventListener('popstate', () => replaceCards());
 })();
 
 
