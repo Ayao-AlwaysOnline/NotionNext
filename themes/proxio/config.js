@@ -121,7 +121,7 @@ const CONFIG = {
   PROXIO_TESTIMONIALS_ITEMS: [
     {
       PROXIO_TESTIMONIALS_ITEM_TEXT:
-        '我们的产品在广东制造，在寻找配套时别人为我推荐了Seaportcy，他们和我们的生产方配合得很好。',
+        '我们的产品在广东制造，在寻找配套时别人为我推荐了Seaportcy，他们和我们的生产配合得很好。',
       PROXIO_TESTIMONIALS_ITEM_AVATAR: '',
       PROXIO_TESTIMONIALS_ITEM_NICKNAME: 'Norman',
       PROXIO_TESTIMONIALS_ITEM_DESCRIPTION: '进口商·加州·美国',
@@ -149,6 +149,22 @@ const CONFIG = {
       PROXIO_TESTIMONIALS_ITEM_AVATAR: '',
       PROXIO_TESTIMONIALS_ITEM_NICKNAME: 'Z生',
       PROXIO_TESTIMONIALS_ITEM_DESCRIPTION: '出口贸易商·东莞·广东',
+      PROXIO_TESTIMONIALS_ITEM_URL: ''
+    },
+    {
+      PROXIO_TESTIMONIALS_ITEM_TEXT:
+        '自己做电商快递包装是一个关键的成本点，找一手厂家还是稳妥',
+      PROXIO_TESTIMONIALS_ITEM_AVATAR: '',
+      PROXIO_TESTIMONIALS_ITEM_NICKNAME: '创始人',
+      PROXIO_TESTIMONIALS_ITEM_DESCRIPTION: '跨境电商·东莞·广东',
+      PROXIO_TESTIMONIALS_ITEM_URL: ''
+    },
+    {
+      PROXIO_TESTIMONIALS_ITEM_TEXT:
+        'Seaportcy是我们一贯的包装供应商，不为别的，时间会证明一切',
+      PROXIO_TESTIMONIALS_ITEM_AVATAR: '',
+      PROXIO_TESTIMONIALS_ITEM_NICKNAME: '晓小姐',
+      PROXIO_TESTIMONIALS_ITEM_DESCRIPTION: '贸易商·深圳·广东',
       PROXIO_TESTIMONIALS_ITEM_URL: ''
     }
   ],
