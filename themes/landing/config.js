@@ -23,7 +23,7 @@ const CONFIG = {
   // 特性介绍
   LANDING_FEATURES_HEADER_1: '在抵达从容之前，总要走过一些弯路',
   LANDING_FEATURES_HEADER_1_P: "不再需要喧哗的技术、频繁的更新、昂贵的试错<br/>真正的<strong class='font-bold text-red-500'>从容</strong>来自于一个与你<strong class='font-bold  text-red-500'>同频</strong>的<strong class='font-bold  text-red-500'>幕后团队</strong>丨因为我们，您的<strong class='font-bold text-red-500'>稳定</strong>与<strong class='font-bold text-red-500'>从容</strong><br/><strong class='font-bold text-red-500'>理所应当</strong>",
-  LANDING_FEATURES_HEADER_2: '服务+技术解决方案',
+  LANDING_FEATURES_HEADER_2: '数字资产与品牌策略解决方案',
   LANDING_FEATURES_HEADER_2_P: '为您创造面向个人与全球的数字体验与品牌价值，您的委托、疑问，以及一切未被言明的需求，都将被认真对待',
   LANDING_FEATURES_CARD_1_TITLE: '快速的对接响应',
   LANDING_FEATURES_CARD_1_P: '一对一的固定对接专员，更懂你的服务',
