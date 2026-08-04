@@ -6,3 +6,16 @@
 .fa-info:before {
     content: "\f05a";
 }
+.text-white.logo.dark\:text-white.py-1\.5.header-logo-text.whitespace-nowrap.text-2xl.font-semibold {
+color: #ecbc56 !important;
+font-family: 'Poppins', 'Roboto', 'Helvetica Neue', sans-serif;
+}
+.flex.w-full.items-center.justify-between.px-4 > div:first-child {
+margin-left: auto !important;
+}
+.my-1.flex.justify-center.md\:justify-end p,
+.my-1.flex.justify-center.md\:justify-end p a,
+.my-1.flex.justify-center.md\:justify-end a {
+color: #ecbc56 !important;
+font-family: 'Poppins', 'Roboto', 'Helvetica Neue', sans-serif !important;
+}

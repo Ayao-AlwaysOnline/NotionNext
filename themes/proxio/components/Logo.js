@@ -45,9 +45,9 @@ export const Logo = props => {
       <div className='navbar-logo flex items-center w-full py-5 cursor-pointer'>
         <LazyImage
           priority
-          src={siteInfo?.icon}
-          width={24}
-          height={20}
+          src="/images/starter/team/packaging.png"
+          width={50}
+          height={50}
           alt={siteConfig('AUTHOR')}
           className='mr-2 hidden md:inline-block'
         />
