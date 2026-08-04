@@ -1,7 +1,5 @@
-import AnalyticsBusuanzi from '@/components/AnalyticsBusuanzi'
-import { BeiAnGongAn } from '@/components/BeiAnGongAn'
 import BeiAnSite from '@/components/BeiAnSite'
-import CopyRightDate from '@/components/CopyRightDate'
+import { BeiAnGongAn } from '@/components/BeiAnGongAn'
 import DarkModeButton from '@/components/DarkModeButton'
 import LazyImage from '@/components/LazyImage'
 import PoweredBy from '@/components/PoweredBy'
@@ -29,11 +27,10 @@ export const Footer = ({ title }) => {
         <div className='w-full flex lg:flex-row flex-col justify-between py-16'>
           <div className='gap-y-2 flex flex-col items-start dark:text-gray-200'>
             <div className='flex gap-x-1'>
-              <LazyImage
-                src={siteInfo?.icon}
+              <img
+                src="/images/starter/team/packaging.png"
                 className='rounded-full'
-                width={24}
-                height={24}
+                width={40}
                 alt={siteConfig('AUTHOR')}
               />
               <h1 className='text-lg'>{title}</h1>
@@ -42,14 +39,13 @@ export const Footer = ({ title }) => {
                 {siteConfig('AUTHOR')}
               </span>
             </div>
-            <div className='px-1'>{siteConfig('DESCRIPTION')}</div>
+            
             {contactEmailDisplay && (
               <div className='px-1'>{contactEmailDisplay}</div>
             )}
           </div>
 
           {/* 右侧链接区块 */}
-          <div className='flex gap-x-4'>
             {PROXIO_FOOTER_LINKS?.map((group, index) => {
               return (
                 <div key={index}>
@@ -70,22 +66,17 @@ export const Footer = ({ title }) => {
                 </div>
               )
             })}
-          </div>
         </div>
 
         {/* 页脚 */}
         <div className='dark:text-gray-200 py-4 flex flex-col lg:flex-row  justify-between items-center border-t border-gray-600'>
           <div className='flex gap-x-2 flex-wrap justify-between items-center'>
-            <CopyRightDate />
             <PoweredBy />
           </div>
 
-          <DarkModeButton className='dark:text-white' />
 
           <div className='flex justify-between items-center gap-x-2'>
             <div className='flex items-center gap-x-4'>
-              <AnalyticsBusuanzi />
-              <SocialButton />
             </div>
           </div>
         </div>
