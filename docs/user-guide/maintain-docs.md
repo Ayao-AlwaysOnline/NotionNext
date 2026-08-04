@@ -17,15 +17,21 @@
 | 链接 | 说明 |
 | --- | --- |
 | [docs/](https://github.com/notionnext-org/NotionNext/tree/main/docs) | 目录说明（本 README 在 GitHub 可见） |
-| [docs/user-guide/](https://github.com/notionnext-org/NotionNext/tree/main/docs/user-guide) | **在线站主体**，改教程只动这里 |
-| [docs/developer/](https://github.com/notionnext-org/NotionNext/tree/main/docs/developer) | 开发者文档（不进在线站） |
+| [docs/user-guide/](https://github.com/notionnext-org/NotionNext/tree/main/docs/user-guide) | 使用教程、主题配置、运营与维护 |
+| [docs/developer/](https://github.com/notionnext-org/NotionNext/tree/main/docs/developer) | 架构、贡献、主题迁移与维护文档（在线站可见） |
 
 ## 推荐流程（贡献者）
 
 1. Fork [notionnext-org/NotionNext](https://github.com/notionnext-org/NotionNext) 或具备组织仓库写权限。  
-2. 编辑 `docs/user-guide/**/*.md`（主题配置表可运行 `node scripts/generate-theme-user-docs.mjs`）。  
+2. 编辑 `docs/user-guide/**/*.md` 或 `docs/developer/**/*.md`（主题配置表可运行 `node scripts/generate-theme-user-docs.mjs`）。
 3. 本地预览：`yarn docs:site:dev`。  
 4. 提交 PR，合并 **`main`** 后由 GitHub Actions 部署。  
+
+## 代码 PR 也要检查文档
+
+代码改动只要影响站长使用方式，就应该同步更新文档。常见场景包括新增或修改主题配置、环境变量、Notion Config 键、插件开关、部署步骤、默认行为和可见 UI 交互。
+
+PR 模板中的“用户文档不适用”只适合内部重构、测试、CI、依赖维护、拼写修正等不改变使用方式的改动。新增用户可配置项时，请至少补充对应主题或配置文档，并在 PR 描述里说明文档位置。
 
 详细检查清单：[MAINTENANCE_WORKFLOW.md](./MAINTENANCE_WORKFLOW.md) · 策略：[DOCUMENTATION_POLICY.md](../DOCUMENTATION_POLICY.md)
 
@@ -36,8 +42,6 @@ push main（docs/user-guide/ 等变更）
     → GitHub Actions: yarn docs:site:build
     → .vitepress/dist → Cloudflare Pages
 ```
-
-详见 [cloudflare-pages-docs.md](./deploy/cloudflare-pages-docs.md)。
 
 ## 与旧版在线手册
 
