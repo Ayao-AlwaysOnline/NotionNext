@@ -5,7 +5,7 @@ import { SVGLocation } from './svg/SVGLocation'
 
 /* eslint-disable react/no-unescaped-entities */
 export const Contact = () => {
-  const url = siteConfig('STARTER_CONTACT_MSG_EXTERNAL_URL')
+  const url = siteConfig('STARTER_CONTACT_MSG_EXTERNAL_URL') || CONFIG.STARTER_CONTACT_MSG_EXTERNAL_URL
   return (
     <>
       {/* <!-- ====== Contact Start ====== --> */}
