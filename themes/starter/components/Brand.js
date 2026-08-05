@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-img-element */
 
-import { starterConfig } from '../config'
+import { siteConfig } from '@/lib/config'
 
 /**
  * 合作伙伴
  * @returns
  */
 export const Brand = () => {
-  const brands = starterConfig('STARTER_BRANDS')
+  const brands = siteConfig('STARTER_BRANDS')
   return (
     <>
       {/* <!-- ====== Brands Section Start --> */}

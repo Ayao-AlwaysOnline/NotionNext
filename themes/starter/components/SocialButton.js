@@ -1,4 +1,4 @@
-import { starterConfig } from '../config'
+import { siteConfig } from '@/lib/config'
 import { useRef } from 'react'
 import { handleEmailClick } from '@/lib/plugins/mailEncrypt'
 
@@ -8,17 +8,16 @@ import { handleEmailClick } from '@/lib/plugins/mailEncrypt'
  * @constructor
  */
 const SocialButton = () => {
-  const CONTACT_GITHUB = starterConfig('CONTACT_GITHUB')
-  const CONTACT_ORCID = starterConfig('CONTACT_ORCID')
-  const CONTACT_TWITTER = starterConfig('CONTACT_TWITTER')
-  const CONTACT_TELEGRAM = starterConfig('CONTACT_TELEGRAM')
-  const CONTACT_LINKEDIN = starterConfig('CONTACT_LINKEDIN')
-  const CONTACT_WEIBO = starterConfig('CONTACT_WEIBO')
-  const CONTACT_INSTAGRAM = starterConfig('CONTACT_INSTAGRAM')
-  const CONTACT_EMAIL = starterConfig('CONTACT_EMAIL')
-  const ENABLE_RSS = starterConfig('ENABLE_RSS')
-  const CONTACT_BILIBILI = starterConfig('CONTACT_BILIBILI')
-  const CONTACT_YOUTUBE = starterConfig('CONTACT_YOUTUBE')
+  const CONTACT_GITHUB = siteConfig('CONTACT_GITHUB')
+  const CONTACT_TWITTER = siteConfig('CONTACT_TWITTER')
+  const CONTACT_TELEGRAM = siteConfig('CONTACT_TELEGRAM')
+  const CONTACT_LINKEDIN = siteConfig('CONTACT_LINKEDIN')
+  const CONTACT_WEIBO = siteConfig('CONTACT_WEIBO')
+  const CONTACT_INSTAGRAM = siteConfig('CONTACT_INSTAGRAM')
+  const CONTACT_EMAIL = siteConfig('CONTACT_EMAIL')
+  const ENABLE_RSS = siteConfig('ENABLE_RSS')
+  const CONTACT_BILIBILI = siteConfig('CONTACT_BILIBILI')
+  const CONTACT_YOUTUBE = siteConfig('CONTACT_YOUTUBE')
 
   const emailIcon = useRef(null)
 
@@ -32,15 +31,6 @@ const SocialButton = () => {
             title={'github'}
             href={CONTACT_GITHUB}>
             <i className='fab fa-github transform hover:scale-125 duration-150' />
-          </a>
-        )}
-        {CONTACT_ORCID && (
-          <a
-            target='_blank'
-            rel='noreferrer'
-            title={'ORCID'}
-            href={CONTACT_ORCID}>
-            <i className='fab fa-orcid transform hover:scale-125 duration-150' />
           </a>
         )}
         {CONTACT_TWITTER && (

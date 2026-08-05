@@ -1,4 +1,4 @@
-import { starterConfig } from '../config'
+import { siteConfig } from '@/lib/config'
 import SocialButton from '@/themes/fukasawa/components/SocialButton'
 import { Logo } from './Logo'
 import { SVGFooterCircleBG } from './svg/SVGFooterCircleBG'
@@ -6,11 +6,11 @@ import SmartLink from '@/components/SmartLink'
 
 /* eslint-disable @next/next/no-img-element */
 export const Footer = props => {
-  const footerPostCount = starterConfig('STARTER_FOOTER_POST_COUNT', 2)
+  const footerPostCount = siteConfig('STARTER_FOOTER_POST_COUNT', 2)
   const latestPosts = props?.latestPosts
     ? props?.latestPosts.slice(0, footerPostCount)
     : []
-  const STARTER_FOOTER_LINK_GROUP = starterConfig('STARTER_FOOTER_LINK_GROUP', [])
+  const STARTER_FOOTER_LINK_GROUP = siteConfig('STARTER_FOOTER_LINK_GROUP', [])
   return (
     <>
       {/* <!-- ====== Footer Section Start --> */}
@@ -25,7 +25,7 @@ export const Footer = props => {
                   <Logo white={true} />
                 </a>
                 <p className='mb-8 max-w-[870px] text-base text-gray-7'>
-                  {starterConfig('STARTER_FOOTER_SLOGAN')}
+                  {siteConfig('STARTER_FOOTER_SLOGAN')}
                 </p>
                 <div className='-mx-3 flex items-center'>
                   <div className='mx-3'>
@@ -67,7 +67,7 @@ export const Footer = props => {
             {/* <div className='w-full px-4 md:w-2/3 lg:w-6/12 xl:w-3/12'>
               <div className='mb-10 w-full'>
                 <h4 className='mb-9 text-lg font-semibold text-white'>
-                  {starterConfig('STARTER_FOOTER_BLOG_LATEST_TITLE')}
+                  {siteConfig('STARTER_FOOTER_BLOG_LATEST_TITLE')}
                 </h4>
                 <div className='flex flex-col gap-8'>
                   {latestPosts?.map((item, index) => {
@@ -105,23 +105,23 @@ export const Footer = props => {
                 <div className='my-1'>
                   <div className='-mx-3 flex items-center justify-center md:justify-start'>
                     <SmartLink
-                      href={starterConfig('STARTER_FOOTER_PRIVACY_POLICY_URL', '')}
+                      href={siteConfig('STARTER_FOOTER_PRIVACY_POLICY_URL', '')}
                       className='px-3 text-base text-gray-7 hover:text-white hover:underline'>
-                      {starterConfig('STARTER_FOOTER_PRIVACY_POLICY_TEXT')}
+                      {siteConfig('STARTER_FOOTER_PRIVACY_POLICY_TEXT')}
                     </SmartLink>
                     <SmartLink
-                      href={starterConfig(
+                      href={siteConfig(
                         'STARTER_FOOTER_PRIVACY_LEGAL_NOTICE_URL', ''
                       )}
                       className='px-3 text-base text-gray-7 hover:text-white hover:underline'>
-                      {starterConfig('STARTER_FOOTER_PRIVACY_LEGAL_NOTICE_TEXT')}
+                      {siteConfig('STARTER_FOOTER_PRIVACY_LEGAL_NOTICE_TEXT')}
                     </SmartLink>
                     <SmartLink
-                      href={starterConfig(
+                      href={siteConfig(
                         'STARTER_FOOTER_PRIVACY_TERMS_OF_SERVICE_URL', ''
                       )}
                       className='px-3 text-base text-gray-7 hover:text-white hover:underline'>
-                      {starterConfig(
+                      {siteConfig(
                         'STARTER_FOOTER_PRIVACY_TERMS_OF_SERVICE_TEXT', ''
                       )}
                     </SmartLink>
