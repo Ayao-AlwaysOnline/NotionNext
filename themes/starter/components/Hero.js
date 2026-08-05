@@ -74,7 +74,7 @@ export const Hero = props => {
             </div>
 
             {/* 产品预览图片 */}
-            {siteConfig('STARTER_HERO_PREVIEW_IMAGE', null, config) && (
+            {(siteConfig('STARTER_HERO_PREVIEW_IMAGE', null, config) || CONFIG.STARTER_HERO_PREVIEW_IMAGE) && (
               <div className='w-full px-4'>
                 <div
                   className='wow fadeInUp relative z-10 mx-auto max-w-[845px]'
@@ -85,7 +85,7 @@ export const Hero = props => {
                         'STARTER_HERO_PREVIEW_IMAGE',
                         null,
                         config
-                      )}
+                      ) || CONFIG.STARTER_HERO_PREVIEW_IMAGE}
                       alt={siteConfig('TITLE', null, config)}
                       title={siteConfig('TITLE', null, config)}
                       className='mx-auto max-w-full rounded-t-xl rounded-tr-xl'
@@ -106,7 +106,7 @@ export const Hero = props => {
         </div>
       </div>
       {/* 横幅图片 */}
-      {siteConfig('STARTER_HERO_BANNER_IMAGE', null, config) && (
+      {(siteConfig('STARTER_HERO_BANNER_IMAGE', null, config) || CONFIG.STARTER_HERO_BANNER_IMAGE) && (
         <div className='container'>
           <LazyImage
             priority
@@ -115,7 +115,7 @@ export const Hero = props => {
               'STARTER_HERO_BANNER_IMAGE',
               null,
               config
-            )}></LazyImage>
+            ) || CONFIG.STARTER_HERO_BANNER_IMAGE}></LazyImage>
         </div>
       )}
       {/* <!-- ====== Hero Section End --> */}
