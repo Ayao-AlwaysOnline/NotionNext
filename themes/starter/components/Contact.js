@@ -79,11 +79,7 @@ export const Contact = () => {
                     {/* <MessageForm/> */}
                     {/* 嵌入外部表单 */}
                     <iframe
-                      src={siteConfig(
-                        'STARTER_CONTACT_MSG_EXTERNAL_URL',
-                        null,
-                        CONFIG
-                      )}
+                      src={url}
                       width='100%'
                       height='500px'
                       frameBorder='0'></iframe>
