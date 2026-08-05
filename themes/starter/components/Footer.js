@@ -24,7 +24,7 @@ export const Footer = props => {
                 <a className='-mx-4 mb-6 inline-block max-w-[870px]'>
                   <Logo white={true} />
                 </a>
-                <p className='mb-8 max-w-[270px] text-base text-gray-7'>
+                <p className='mb-8 max-w-[870px] text-base text-gray-7'>
                   {starterConfig('STARTER_FOOTER_SLOGAN')}
                 </p>
                 <div className='-mx-3 flex items-center'>

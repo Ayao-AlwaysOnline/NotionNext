@@ -1,6 +1,4 @@
 const CONFIG = {
-  LANDING_COLOR_PRIMARY: '#ef4444',
-
   LANDING_HEADER_BUTTON_1_TITLE: 'English',
   LANDING_HEADER_BUTTON_1_URL: 'https://seaportcy.com/studios-en',
 
