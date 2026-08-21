@@ -513,10 +513,10 @@ if (el2) el2.style.display = 'none';
 
 // ==================== Swiper 内容替换 ====================
 (function() {
-  const wrapper = document.querySelector('.swiper-wrapper');
-  if (!wrapper) return;
-  
-  const slides = wrapper.querySelectorAll(':scope > div');
+  const replaceSlides = () => {
+    const wrapper = document.querySelector('.swiper-wrapper');
+    if (!wrapper) return false;
+    const slides = wrapper.querySelectorAll(':scope > div');
   
   // 检测当前页面语言（主站）
   const url = window.location.href;
@@ -590,8 +590,27 @@ if (el2) el2.style.display = 'none';
       }
     }
   });
-})();
-// ==================== 替换团队卡片内容 ====================
+    return true;
+  };
+
+  const tryInit = () => {
+    if (replaceSlides()) {
+      console.log('主站评价已替换');
+      return;
+    }
+    const observer = new MutationObserver(() => {
+      if (replaceSlides()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    setTimeout(() => observer.disconnect(), 10000);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryInit);
+  } else {
+    tryInit();
+  }
+})();// ==================== 替换团队卡片内容 ====================
 (function() {
   const items = document.querySelectorAll('.group.mb-8.rounded-xl.bg-white.px-5.pb-10.pt-12.shadow-testimonial.dark\\:bg-dark.dark\\:shadow-none');
   
