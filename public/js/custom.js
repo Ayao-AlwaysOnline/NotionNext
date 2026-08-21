@@ -517,79 +517,79 @@ if (el2) el2.style.display = 'none';
     const wrapper = document.querySelector('.swiper-wrapper');
     if (!wrapper) return false;
     const slides = wrapper.querySelectorAll(':scope > div');
-  
-  // 检测当前页面语言（主站）
-  const url = window.location.href;
-  const isJapanese = url.includes('/ja') || url.endsWith('/ja');
-  const isEnglish = url.includes('/en') || url.endsWith('/en');
-  
-  let groups;
-  
-  if (isJapanese) {
-    groups = [
-      { p1: '何より印象的だったのは、何でもかんでも「はい」と言うのではなく、リスクを指摘してくれたことです。そういう姿勢が、より専門的で信頼できると感じさせました。', h3: '創業者', p2: '日本・神奈川県・湘南地域｜船舶用品サプライヤー' },
-      { p1: '半年間、商社と付き合ってきましたが、問題が起きるたびに「工場に確認します」の繰り返しでした。Seaportcyに切り替えてからは、彼ら自身で全て対応してくれます。正直なところ、今心配なのは値上げだけです。それ以外は何も不安はありません。', h3: 'Jason', p2: 'アメリカ・ロサンゼルス｜アウトドア用品ブランド' },
-      { p1: '私たちの取扱量はそれほど多くありません。以前当たった工場は、そっけない対応ばかりでした。でもSeaportcyはずっと丁寧で、必要なサンプル作りも型修正もきちんとやってくれます。今、徐々に量が増えてきていますが、それでも価格を大きく上げることはありませんでした。', h3: '創業者', p2: 'イスラエル・テルアビブ｜アウトドア用品ブランド' },
-      { p1: 'Amazonの繁忙期前に、何よりも怖いのは在庫切れです。昨年のブラックフライデー直前、在庫数を計算ミスしてしまい、急いで追加発注をお願いしました。すると、彼らは本当に何とかしてくれました。その瞬間、「この会社に決めた」と思いました。', h3: '運営責任者', p2: 'イギリス・マンチェスター｜家庭用品のEC' },
-      { p1: '最初に注文したときは、本当に小さいロットでした。正直、あまり期待していませんでした。でも、彼らは必要な確認をきちんと行い、一度も量が少ないという態度を見せませんでした。', h3: '企業主', p2: 'アラブ首長国連邦・ドバイ｜独立ブランド' },
-      { p1: '多くのものを失った後、私たちのビジネスは混乱しました。しかし、新しい仕入先に切り替えてからは、かつてのようにすべてがうまく回り始め、コストも下がりました。', h3: 'ドミトリー', p2: 'ロシア、モスクワ、輸入業者' },
-      { p1: '当社の製品は、プラスチック部品の質感に対する要求が非常に高く、バリや合わせ目の隙間は許されません。彼らはサンプル製作の際、繰り返し金型を調整していました。彼ら自身も、かなりこだわっている様子でした。最終的に出来上がったものは、私の期待以上でした。', h3: 'ブランドマネージャー', p2: 'フィンランド・ヴァンター｜コーヒー器具ブランド' },
-      { p1: '私たちは頻繁に急な注文を出します。彼らは時々、週末にもメッセージを返してくれます。失礼なことだと分かっているのですが、彼らは一度も何かを言ったことはありません。', h3: '購買責任者', p2: 'フィリピン・マニラ｜ノベルティ商品会社' },
-      { p1: '多くのお客様から、リサイクル可能な製品を求められています。彼らは自ら、どの素材がリサイクル可能で、どの素材が不可能かを説明し、さらに環境に優しい生分解性パッケージへの切り替えを支援してくれました。', h3: '地域マネージャー', p2: 'ベルギー・ブリュッセル｜家具用品サプライヤー' },
-      { p1: '彼らは私の考えをよく聞いてくれます。たまに素人っぽい提案をしても、笑ったりせず、「これはできますが、コストは上がります」とか、「こういう風に変更できますよ」と教えてくれます。', h3: '創業者', p2: 'アイルランド・ダブリン｜家庭用品・ギフトブランド' },
-      { p1: 'これまでずっと気持ちよく取引させてもらっています。ちなみに、マネージャーはイケメンです。', h3: 'Amy', p2: 'アメリカ・ロサンゼルス｜輸入業' },
-      { p1: '彼らの価格は決して最安値ではありません。しかし、私が選んだ中で最も満足している会社です。', h3: '購買マネージャー', p2: 'イスラエル・テルアビブ｜アウトドア用品ブランド' },
-      { p1: '4年間の協業を通じて、私が最も感じるのは、彼らが私たちの言いたいことをきちんと理解してくれているということです。地球の裏側にいるのに、コミュニケーションで困ったことは一度もありません。これは本当に重要なことです。', h3: '購買マネージャー', p2: 'フィンランド・ヘルシンキ｜マリン機器サプライヤー' }
-    ];
-  } else if (isEnglish) {
-    groups = [
-      { p1: 'What impressed me most is that they don\'t just say yes to everything — they point out risks. That makes the partnership feel more professional and trustworthy.', h3: 'Founder', p2: 'Japan, Kanagawa Prefecture, Shonan Area | Marine Equipment Supplier' },
-      { p1: 'For six months, I worked with a trading company. Every time there was an issue, all I heard was "let me check with the factory." After switching to Seaportcy, they just handle things themselves. To be honest, my only worry now is that they might raise prices — nothing else keeps me up at night.', h3: 'Jason', p2: 'Los Angeles, USA | Outdoor Gear Brand' },
-      { p1: 'Our volume isn\'t large. Other factories we approached couldn\'t care less. But Seaportcy has always been patient — they do the sampling, they make the mold adjustments. Now that our order volume is gradually increasing, they still haven\'t raised prices significantly.', h3: 'Founder', p2: 'Tel Aviv, Israel | Outdoor Gear Brand' },
-      { p1: 'Before the Amazon peak season, my biggest fear is running out of stock. Last year, right before Black Friday, I miscalculated my inventory. I rushed to them with a rush order — and somehow, they made it happen. That\'s when I knew — this is the supplier I\'m sticking with.', h3: 'Operations Manager', p2: 'Manchester, UK | Home Goods E‑commerce' },
-      { p1: 'When I first approached them, I placed a really small order. Honestly, I didn\'t expect much. But they went through all the necessary confirmations, and not once did they make me feel that my volume was too small.', h3: 'Business Owner', p2: 'United Arab Emirates, Dubai, Independent Brand' },
-      { p1: 'After we lost a lot, our business went through chaos. But after turning to our new supplier, everything is back to how it used to be — even with lower costs.', h3: 'Dmitry', p2: 'Russia, Moscow, Importer' },
-      { p1: 'Our products have very high standards for plastic parts — no burrs, no visible seams. During sampling, they kept fine-tuning the mold. I could tell they take quality as seriously as we do. The final result turned out even better than I expected.', h3: 'Brand Manager', p2: 'Vantaa, Finland | Coffee Equipment Brand' },
-      { p1: 'We often have urgent orders. Sometimes they reply to messages on weekends. I know it\'s not exactly polite, but they\'ve never once complained.', h3: 'Purchasing Manager', p2: 'Manila, Philippines | Promotional Products Company' },
-      { p1: 'Many of our customers ask for recyclable products. They proactively explained which materials are recyclable and which aren\'t, and even helped us switch to more environmentally friendly biodegradable packaging.', h3: 'Regional Manager', p2: 'Brussels, Belgium | Home Furnishings Supplier' },
-      { p1: 'They\'re always willing to listen to my ideas. Sometimes I suggest things that are pretty amateurish, but they never laugh at me. Instead, they\'ll tell me it\'s doable — but the cost will be higher — or suggest an alternative way to do it.', h3: 'Founder', p2: 'Dublin, Ireland | Home & Gift Brand' },
-      { p1: 'We\'ve always had a great experience working with them. And on a side note — the manager is quite good-looking.', h3: 'Amy', p2: 'Los Angeles, USA | Importer' },
-      { p1: 'Their prices aren\'t the lowest — but they\'re the best choice I\'ve made.', h3: 'Purchasing Manager', p2: 'Tel Aviv, Israel | Outdoor Gear Brand' },
-      { p1: 'After four years of working together, my biggest takeaway is this: they actually understand what we\'re saying. We\'re half a world apart, but communication has never been an issue. That\'s what really matters.', h3: 'Purchasing Manager', p2: 'Helsinki, Finland | Marine Equipment Supplier' }
-    ];
-  } else {
-    groups = [
-      { p1: '最让我印象深的是他们不会一味答应所有要求，而是会指出风险。这种合作方式更专业，也更可信。', h3: '创始人', p2: '日本，神奈川县，湘南地区，船舶用品商' },
-      { p1: '之前跟贸易公司搞了半年，每次出问题都说“我问一下工厂”。换到Seaportcy之后，他们自己就把事情弄好了。说实话，我现在最怕的是他们涨价，其他都不担心。', h3: 'Jason', p2: '美国，洛杉矶，户外用品品牌' },
-      { p1: '我们量不大，之前找的工厂爱答不理的。Seaportcy倒是一直挺耐心，该打样打样，该改模改模。现在量慢慢上来了，他们也没大涨价。', h3: '创始人', p2: '以色列，特拉维夫，户外装备品牌' },
-      { p1: '亚马逊旺季之前，我最怕的就是断货。去年黑五之前库存算错了，赶紧找他们加单。他们居然真给我挤出来了。我当时就想，以后就这家了。', h3: '运营负责人', p2: '英国，曼彻斯特，家居用品电商' },
-      { p1: '我第一次找他们的时候，只下了个很小的单，说实话都没抱太大希望。但他们该确认确认，一点没嫌我量小。', h3: '企业主', p2: '阿联酋，迪拜，独立品牌' },
-      { p1: '自从我们失去了很多，我们的生意经历了混乱，但将目光转向我们的新供应商后一切又像当初那样，成本还低了。', h3: 'Dmitry', p2: '俄罗斯，莫斯科，进口商' },
-      { p1: '我们的产品对塑料件的质感要求很高，不能有毛边、不能有接缝。他们打样的时候反复调模具，我看他们自己也挺较真的。最后出来的东西，比我预期的好。', h3: '品牌经理', p2: '芬兰，赫尔辛基万塔，咖啡器具品牌' },
-      { p1: '我们时常有急单，他们有时候周末也回消息。我知道这不太礼貌，但他们从来没说过什么。', h3: '采购主管', p2: '菲律宾，马尼拉，促销品公司' },
-      { p1: '很多客户要求产品能回收。他们主动跟我说哪些材料能回收、哪些不能，还帮我们换成了更环保的可降解包装。', h3: '区域经理', p2: '比利时，布鲁塞尔，家具用品商' },
-      { p1: '他们很愿意听我说我的想法。有时候我提一些很外行的建议，他们也不会笑话我，而是告诉我这个可以做，但成本会高，或者你可以这样改。', h3: '创始人', p2: '爱尔兰，都柏林，家居礼品品牌' },
-      { p1: '一直以来合作的都很愉快，顺便说一下，经理是个帅哥。', h3: '采购', p2: '美国，洛杉矶，进口商' },
-      { p1: '他们给的价格不是最低的，但是我选出来最满意的。', h3: '采购经理', p2: '以色列，特拉维夫，户外装备品牌' },
-      { p1: '跟他们合作了四年，我最大的感受是：他们能听懂我们在说什么。中间隔了半个地球，但沟通起来没什么障碍。这个很重要。', h3: '采购经理', p2: '芬兰，赫尔辛基，游艇设备公司' }
-    ];
-  }
-  
-  slides.forEach((slide, i) => {
-    if (i >= groups.length) return;
-    const inner = slide.querySelector('.rounded-xl.bg-white.px-4.py-\\[30px\\].shadow-testimonial.dark\\:bg-dark.sm\\:px-\\[30px\\]');
-    if (inner) {
-      const pTag = inner.querySelector('.mb-6.text-base.text-body-color.dark\\:text-dark-6');
-      if (pTag) pTag.textContent = groups[i].p1;
-      const a = inner.querySelector('.flex.items-center.gap-4');
-      if (a) {
-        const h3 = a.querySelector('.text-sm.font-semibold.text-dark.dark\\:text-white');
-        if (h3) h3.textContent = groups[i].h3;
-        const p2 = a.querySelector('.text-xs.text-body-secondary');
-        if (p2) p2.textContent = groups[i].p2;
-      }
+
+    // 检测当前页面语言（主站）
+    const url = window.location.href;
+    const isJapanese = url.includes('/ja') || url.endsWith('/ja');
+    const isEnglish = url.includes('/en') || url.endsWith('/en');
+
+    let groups;
+
+    if (isJapanese) {
+      groups = [
+        { p1: '何より印象的だったのは、何でもかんでも「はい」と言うのではなく、リスクを指摘してくれたことです。そういう姿勢が、より専門的で信頼できると感じさせました。', h3: '創業者', p2: '日本・神奈川県・湘南地域｜船舶用品サプライヤー' },
+        { p1: '半年間、商社と付き合ってきましたが、問題が起きるたびに「工場に確認します」の繰り返しでした。Seaportcyに切り替えてからは、彼ら自身で全て対応してくれます。正直なところ、今心配なのは値上げだけです。それ以外は何も不安はありません。', h3: 'Jason', p2: 'アメリカ・ロサンゼルス｜アウトドア用品ブランド' },
+        { p1: '私たちの取扱量はそれほど多くありません。以前当たった工場は、そっけない対応ばかりでした。でもSeaportcyはずっと丁寧で、必要なサンプル作りも型修正もきちんとやってくれます。今、徐々に量が増えてきていますが、それでも価格を大きく上げることはありませんでした。', h3: '創業者', p2: 'イスラエル・テルアビブ｜アウトドア用品ブランド' },
+        { p1: 'Amazonの繁忙期前に、何よりも怖いのは在庫切れです。昨年のブラックフライデー直前、在庫数を計算ミスしてしまい、急いで追加発注をお願いしました。すると、彼らは本当に何とかしてくれました。その瞬間、「この会社に決めた」と思いました。', h3: '運営責任者', p2: 'イギリス・マンチェスター｜家庭用品のEC' },
+        { p1: '最初に注文したときは、本当に小さいロットでした。正直、あまり期待していませんでした。でも、彼らは必要な確認をきちんと行い、一度も量が少ないという態度を見せませんでした。', h3: '企業主', p2: 'アラブ首長国連邦・ドバイ｜独立ブランド' },
+        { p1: '多くのものを失った後、私たちのビジネスは混乱しました。しかし、新しい仕入先に切り替えてからは、かつてのようにすべてがうまく回り始め、コストも下がりました。', h3: 'ドミトリー', p2: 'ロシア、モスクワ、輸入業者' },
+        { p1: '当社の製品は、プラスチック部品の質感に対する要求が非常に高く、バリや合わせ目の隙間は許されません。彼らはサンプル製作の際、繰り返し金型を調整していました。彼ら自身も、かなりこだわっている様子でした。最終的に出来上がったものは、私の期待以上でした。', h3: 'ブランドマネージャー', p2: 'フィンランド・ヴァンター｜コーヒー器具ブランド' },
+        { p1: '私たちは頻繁に急な注文を出します。彼らは時々、週末にもメッセージを返してくれます。失礼なことだと分かっているのですが、彼らは一度も何かを言ったことはありません。', h3: '購買責任者', p2: 'フィリピン・マニラ｜ノベルティ商品会社' },
+        { p1: '多くのお客様から、リサイクル可能な製品を求められています。彼らは自ら、どの素材がリサイクル可能で、どの素材が不可能かを説明し、さらに環境に優しい生分解性パッケージへの切り替えを支援してくれました。', h3: '地域マネージャー', p2: 'ベルギー・ブリュッセル｜家具用品サプライヤー' },
+        { p1: '彼らは私の考えをよく聞いてくれます。たまに素人っぽい提案をしても、笑ったりせず、「これはできますが、コストは上がります」とか、「こういう風に変更できますよ」と教えてくれます。', h3: '創業者', p2: 'アイルランド・ダブリン｜家庭用品・ギフトブランド' },
+        { p1: 'これまでずっと気持ちよく取引させてもらっています。ちなみに、マネージャーはイケメンです。', h3: 'Amy', p2: 'アメリカ・ロサンゼルス｜輸入業' },
+        { p1: '彼らの価格は決して最安値ではありません。しかし、私が選んだ中で最も満足している会社です。', h3: '購買マネージャー', p2: 'イスラエル・テルアビブ｜アウトドア用品ブランド' },
+        { p1: '4年間の協業を通じて、私が最も感じるのは、彼らが私たちの言いたいことをきちんと理解してくれているということです。地球の裏側にいるのに、コミュニケーションで困ったことは一度もありません。これは本当に重要なことです。', h3: '購買マネージャー', p2: 'フィンランド・ヘルシンキ｜マリン機器サプライヤー' }
+      ];
+    } else if (isEnglish) {
+      groups = [
+        { p1: "What impressed me most is that they don't just say yes to everything — they point out risks. That makes the partnership feel more professional and trustworthy.", h3: 'Founder', p2: 'Japan, Kanagawa Prefecture, Shonan Area | Marine Equipment Supplier' },
+        { p1: 'For six months, I worked with a trading company. Every time there was an issue, all I heard was "let me check with the factory." After switching to Seaportcy, they just handle things themselves. To be honest, my only worry now is that they might raise prices — nothing else keeps me up at night.', h3: 'Jason', p2: 'Los Angeles, USA | Outdoor Gear Brand' },
+        { p1: "Our volume isn't large. Other factories we approached couldn't care less. But Seaportcy has always been patient — they do the sampling, they make the mold adjustments. Now that our order volume is gradually increasing, they still haven't raised prices significantly.", h3: 'Founder', p2: 'Tel Aviv, Israel | Outdoor Gear Brand' },
+        { p1: "Before the Amazon peak season, my biggest fear is running out of stock. Last year, right before Black Friday, I miscalculated my inventory. I rushed to them with a rush order — and somehow, they made it happen. That's when I knew — this is the supplier I'm sticking with.", h3: 'Operations Manager', p2: 'Manchester, UK | Home Goods E-commerce' },
+        { p1: "When I first approached them, I placed a really small order. Honestly, I didn't expect much. But they went through all the necessary confirmations, and not once did they make me feel that my volume was too small.", h3: 'Business Owner', p2: 'United Arab Emirates, Dubai | Independent Brand' },
+        { p1: 'After we lost a lot, our business went through chaos. But after turning to our new supplier, everything is back to how it used to be — even with lower costs.', h3: 'Dmitry', p2: 'Russia, Moscow | Importer' },
+        { p1: 'Our products have very high standards for plastic parts — no burrs, no visible seams. During sampling, they kept fine-tuning the mold. I could tell they take quality as seriously as we do. The final result turned out even better than I expected.', h3: 'Brand Manager', p2: 'Vantaa, Finland | Coffee Equipment Brand' },
+        { p1: "We often have urgent orders. Sometimes they reply to messages on weekends. I know it's not exactly polite, but they've never once complained.", h3: 'Purchasing Manager', p2: 'Manila, Philippines | Promotional Products Company' },
+        { p1: "Many of our customers ask for recyclable products. They proactively explained which materials are recyclable and which aren't, and even helped us switch to more environmentally friendly biodegradable packaging.", h3: 'Regional Manager', p2: 'Brussels, Belgium | Home Furnishings Supplier' },
+        { p1: "They're always willing to listen to my ideas. Sometimes I suggest things that are pretty amateurish, but they never laugh at me. Instead, they'll tell me it's doable — but the cost will be higher — or suggest an alternative way to do it.", h3: 'Founder', p2: 'Dublin, Ireland | Home & Gift Brand' },
+        { p1: "We've always had a great experience working with them. And on a side note — the manager is quite good-looking.", h3: 'Amy', p2: 'Los Angeles, USA | Importer' },
+        { p1: "Their prices aren't the lowest — but they're the best choice I've made.", h3: 'Purchasing Manager', p2: 'Tel Aviv, Israel | Outdoor Gear Brand' },
+        { p1: "After four years of working together, my biggest takeaway is this: they actually understand what we're saying. We're half a world apart, but communication has never been an issue. That's what really matters.", h3: 'Purchasing Manager', p2: 'Helsinki, Finland | Marine Equipment Supplier' }
+      ];
+    } else {
+      groups = [
+        { p1: '最让我印象深的是他们不会一味答应所有要求，而是会指出风险。这种合作方式更专业，也更可信。', h3: '创始人', p2: '日本，神奈川县，湘南地区，船舶用品商' },
+        { p1: '之前跟贸易公司搞了半年，每次出问题都说“我问一下工厂”。换到Seaportcy之后，他们自己就把事情弄好了。说实话，我现在最怕的是他们涨价，其他都不担心。', h3: 'Jason', p2: '美国，洛杉矶，户外用品品牌' },
+        { p1: '我们量不大，之前找的工厂爱答不理的。Seaportcy倒是一直挺耐心，该打样打样，该改模改模。现在量慢慢上来了，他们也没大涨价。', h3: '创始人', p2: '以色列，特拉维夫，户外装备品牌' },
+        { p1: '亚马逊旺季之前，我最怕的就是断货。去年黑五之前库存算错了，赶紧找他们加单。他们居然真给我挤出来了。我当时就想，以后就这家了。', h3: '运营负责人', p2: '英国，曼彻斯特，家居用品电商' },
+        { p1: '我第一次找他们的时候，只下了个很小的单，说实话都没抱太大希望。但他们该确认确认，一点没嫌我量小。', h3: '企业主', p2: '阿联酋，迪拜，独立品牌' },
+        { p1: '自从我们失去了很多，我们的生意经历了混乱，但将目光转向我们的新供应商后一切又像当初那样，成本还低了。', h3: 'Dmitry', p2: '俄罗斯，莫斯科，进口商' },
+        { p1: '我们的产品对塑料件的质感要求很高，不能有毛边、不能有接缝。他们打样的时候反复调模具，我看他们自己也挺较真的。最后出来的东西，比我预期的好。', h3: '品牌经理', p2: '芬兰，赫尔辛基万塔，咖啡器具品牌' },
+        { p1: '我们时常有急单，他们有时候周末也回消息。我知道这不太礼貌，但他们从来没说过什么。', h3: '采购主管', p2: '菲律宾，马尼拉，促销品公司' },
+        { p1: '很多客户要求产品能回收。他们主动跟我说哪些材料能回收、哪些不能，还帮我们换成了更环保的可降解包装。', h3: '区域经理', p2: '比利时，布鲁塞尔，家具用品商' },
+        { p1: '他们很愿意听我说我的想法。有时候我提一些很外行的建议，他们也不会笑话我，而是告诉我这个可以做，但成本会高，或者你可以这样改。', h3: '创始人', p2: '爱尔兰，都柏林，家居礼品品牌' },
+        { p1: '一直以来合作的都很愉快，顺便说一下，经理是个帅哥。', h3: '采购', p2: '美国，洛杉矶，进口商' },
+        { p1: '他们给的价格不是最低的，但是我选出来最满意的。', h3: '采购经理', p2: '以色列，特拉维夫，户外装备品牌' },
+        { p1: '跟他们合作了四年，我最大的感受是：他们能听懂我们在说什么。中间隔了半个地球，但沟通起来没什么障碍。这个很重要。', h3: '采购经理', p2: '芬兰，赫尔辛基，游艇设备公司' }
+      ];
     }
-  });
+
+    slides.forEach((slide, i) => {
+      if (i >= groups.length) return;
+      const inner = slide.querySelector('.rounded-xl.bg-white.px-4.py-\[30px\].shadow-testimonial.dark\:bg-dark.sm\:px-\[30px\]');
+      if (inner) {
+        const pTag = inner.querySelector('.mb-6.text-base.text-body-color.dark\:text-dark-6');
+        if (pTag) pTag.textContent = groups[i].p1;
+        const a = inner.querySelector('.flex.items-center.gap-4');
+        if (a) {
+          const h3 = a.querySelector('.text-sm.font-semibold.text-dark.dark\:text-white');
+          if (h3) h3.textContent = groups[i].h3;
+          const p2 = a.querySelector('.text-xs.text-body-secondary');
+          if (p2) p2.textContent = groups[i].p2;
+        }
+      }
+    });
     return true;
   };
 
@@ -610,7 +610,8 @@ if (el2) el2.style.display = 'none';
   } else {
     tryInit();
   }
-})();// ==================== 替换团队卡片内容 ====================
+})();
+// ==================== 替换团队卡片内容 ====================
 (function() {
   const items = document.querySelectorAll('.group.mb-8.rounded-xl.bg-white.px-5.pb-10.pt-12.shadow-testimonial.dark\\:bg-dark.dark\\:shadow-none');
   
