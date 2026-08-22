@@ -16,6 +16,7 @@ const Style = () => {
         background-color: black;
     }
 
+    // 保留：Hero.js 仍使用 bg-primary 类（上游本次删除了该规则，会导致 hero 背景失效）
     #theme-proxio .bg-primary {
         --tw-bg-opacity: 1;
         background-color: #121212;
@@ -70,7 +71,7 @@ const Style = () => {
   }
   
 
-  .dark\:bg-dark:is(.dark *) {
+  #theme-proxio .dark\:bg-dark:is(.dark *) {
     background-color: black!important;
  }
 
