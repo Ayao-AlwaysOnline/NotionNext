@@ -39,9 +39,9 @@ export const Brand = () => {
   return (
     <>
       {/* <!-- ====== Brands Section Start --> */}
-      <section id='brand' className='proxio-section py-12'>
+      <section id='brand' className='py-12 dark:bg-dark'>
         <div
-          className='proxio-card overflow-hidden whitespace-nowrap container mx-auto p-3 border rounded-2xl'
+          className='overflow-hidden whitespace-nowrap container mx-auto p-3 border rounded-2xl border-gray-200 dark:border-[#333333]'
           ref={scrollContainerRef}
         >
           <div className='inline-block'>
