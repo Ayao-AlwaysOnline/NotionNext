@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/config'
 import SmartLink from '@/components/SmartLink'
 
 /**
- * 首页的生涯模块
+ * ???????
  */
 export const Career = () => {
   const Careers = siteConfig('PROXIO_CAREERS')
@@ -13,17 +13,17 @@ export const Career = () => {
       {/* <!-- ====== About Section Start --> */}
       <section
         id='about'
-        className='proxio-section-muted pb-8 pt-20 lg:pb-[70px] lg:pt-[120px]'>
+        className='bg-gray-1 pb-8 pt-20 dark:bg-black lg:pb-[70px] lg:pt-[120px]'>
         <div className='container'>
           <div className='wow fadeInUp' data-wow-delay='.2s'>
-            {/* 左侧的文字说明板块 */}
+            {/* ????????? */}
             <div className='w-full px-4 lg:w-1/2'>
               <div className='mb-12 max-w-[540px] lg:mb-0'>
-                <span className='proxio-pill px-3 py-0.5 rounded-2xl border'>
+                <span className='px-3 py-0.5 rounded-2xl dark:bg-dark-1 border border-gray-200 dark:border-[#333333] dark:text-white'>
                   {siteConfig('PROXIO_CAREER_TITLE')}
                 </span>
                 <h2
-                  className='mb-10 text-3xl font-semibold leading-relaxed text-dark dark:text-white'
+                  className='mb-10 text-3xl font-semibold leading-relaxed dark:text-dark-6'
                 >{siteConfig('PROXIO_CAREER_TEXT')}</h2>
               </div>
             </div>
@@ -42,7 +42,7 @@ export const Career = () => {
 }
 
 
-// 生涯内容
+// ????
 const CareerItem = ({ title, bio, text }) => {
   return <div className='w-full border-b mb-6 border-gray-200 dark:border-[#333333] px-4 flex justify-between wow fadeInUp'>
     <div className='flex item-start flex-col items-start w-full' data-wow-delay='.1s'>
