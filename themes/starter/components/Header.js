@@ -1,6 +1,6 @@
 /* eslint-disable no-unreachable */
 import DashboardButton from '@/components/ui/dashboard/DashboardButton'
-import { starterConfig } from '../config'
+import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { SignedIn, SignedOut, UserButton } from '@clerk/nextjs'
 import throttle from 'lodash.throttle'
@@ -30,7 +30,7 @@ export const Header = props => {
       setColor('')
     }
     // ======= Sticky
-    window.addEventListener('scroll', navBarScollListener, { passive: true })
+    window.addEventListener('scroll', navBarScollListener)
     return () => {
       window.removeEventListener('scroll', navBarScollListener)
     }

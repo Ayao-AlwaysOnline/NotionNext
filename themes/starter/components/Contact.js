@@ -1,11 +1,11 @@
-import { starterConfig } from '../config'
+import { siteConfig } from '@/lib/config'
 import CONFIG from '../config'
 import { SVGEmail } from './svg/SVGEmail'
 import { SVGLocation } from './svg/SVGLocation'
 
 /* eslint-disable react/no-unescaped-entities */
 export const Contact = () => {
-  const url = starterConfig('STARTER_CONTACT_MSG_EXTERNAL_URL')
+  const url = siteConfig('STARTER_CONTACT_MSG_EXTERNAL_URL') || CONFIG.STARTER_CONTACT_MSG_EXTERNAL_URL
   return (
     <>
       {/* <!-- ====== Contact Start ====== --> */}
@@ -19,10 +19,10 @@ export const Contact = () => {
               <div className='ud-contact-content-wrapper'>
                 <div className='ud-contact-title mb-12 lg:mb-[150px]'>
                   <span className='mb-6 block text-base font-medium text-dark dark:text-white'>
-                    {starterConfig('STARTER_CONTACT_TITLE')}
+                    {siteConfig('STARTER_CONTACT_TITLE')}
                   </span>
                   <h2 className='max-w-[260px] text-[35px] font-semibold leading-[1.14] text-dark dark:text-white'>
-                    {starterConfig('STARTER_CONTACT_TEXT')}
+                    {siteConfig('STARTER_CONTACT_TEXT')}
                   </h2>
                 </div>
                 <div className='mb-12 flex flex-wrap justify-between lg:mb-0'>
@@ -32,14 +32,14 @@ export const Contact = () => {
                     </div>
                     <div>
                       <h5 className='mb-[18px] text-lg font-semibold text-dark dark:text-white'>
-                        {starterConfig(
+                        {siteConfig(
                           'STARTER_CONTACT_LOCATION_TITLE',
                           null,
                           CONFIG
                         )}
                       </h5>
                       <p className='text-base text-body-color dark:text-dark-6'>
-                        {starterConfig(
+                        {siteConfig(
                           'STARTER_CONTACT_LOCATION_TEXT',
                           null,
                           CONFIG
@@ -53,14 +53,14 @@ export const Contact = () => {
                     </div>
                     <div>
                       <h5 className='mb-[18px] text-lg font-semibold text-dark dark:text-white'>
-                        {starterConfig(
+                        {siteConfig(
                           'STARTER_CONTACT_EMAIL_TITLE',
                           null,
                           CONFIG
                         )}
                       </h5>
                       <p className='text-base text-body-color dark:text-dark-6'>
-                        {starterConfig('STARTER_CONTACT_EMAIL_TEXT')}
+                        {siteConfig('STARTER_CONTACT_EMAIL_TEXT')}
                       </p>
                     </div>
                   </div>
@@ -79,11 +79,7 @@ export const Contact = () => {
                     {/* <MessageForm/> */}
                     {/* 嵌入外部表单 */}
                     <iframe
-                      src={starterConfig(
-                        'STARTER_CONTACT_MSG_EXTERNAL_URL',
-                        null,
-                        CONFIG
-                      )}
+                      src={url}
                       width='100%'
                       height='500px'
                       frameBorder='0'></iframe>
