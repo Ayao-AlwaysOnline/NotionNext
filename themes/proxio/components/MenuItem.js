@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 /**
- * ????
+ * 菜单链接
  * @param {*} param0
  * @returns
  */
@@ -11,14 +11,14 @@ export const MenuItem = ({ link, isOpen, toggleOpen }) => {
   const hasSubMenu = link?.subMenus?.length > 0
   const router = useRouter()
 
-  // ??????????
+  // 管理子菜单的展开状态
   const [isSubMenuOpen, setIsSubMenuOpen] = useState(false)
 
   const toggleSubMenu = () => {
     if (toggleOpen) {
       toggleOpen()
     } else {
-      setIsSubMenuOpen(prev => !prev) // ???????
+      setIsSubMenuOpen(prev => !prev) // 切换子菜单状态
     }
   }
 
@@ -26,7 +26,7 @@ export const MenuItem = ({ link, isOpen, toggleOpen }) => {
 
   return (
     <>
-      {/* ?? MenuItem */}
+      {/* 普通 MenuItem */}
       {!hasSubMenu && (
         <li className='group relative whitespace-nowrap'>
           <SmartLink
@@ -43,7 +43,7 @@ export const MenuItem = ({ link, isOpen, toggleOpen }) => {
         </li>
       )}
 
-      {/* ????? MenuItem */}
+      {/* 有子菜单的 MenuItem */}
       {hasSubMenu && (
         <li className='submenu-item group relative whitespace-nowrap'>
           <button
@@ -69,7 +69,7 @@ export const MenuItem = ({ link, isOpen, toggleOpen }) => {
             </svg>
           </button>
 
-          {/* ??? */}
+          {/* 子菜单 */}
           <div
             className={`submenu dark:border-gray-600 relative left-0 top-full w-[250px] rounded-sm bg-white p-4 transition-all duration-300 dark:bg-dark-2 lg:absolute lg:shadow-lg ${
               open
@@ -82,7 +82,7 @@ export const MenuItem = ({ link, isOpen, toggleOpen }) => {
                 href={sLink.href}
                 target={link?.target}
                 className='block rounded px-4 py-[10px] text-sm text-body-color hover:text-primary dark:text-dark-6 dark:hover:text-primary'>
-                {/* ??? SubMenuItem */}
+                {/* 子菜单 SubMenuItem */}
                 <span className='text-md ml-2 whitespace-nowrap'>
                   {link?.icon && <i className={sLink.icon + ' mr-2 my-auto'} />}{' '}
                   {sLink.title}

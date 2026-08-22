@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { SVGCircleBG } from './svg/SVGCircleBG'
 
 /**
- * ??
+ * 问答
  * @returns
  */
 export const FAQ = () => {
@@ -38,7 +38,7 @@ export const FAQ = () => {
             </div>
           </div>
 
-          {/* FAQ ?? */}
+          {/* FAQ 列表 */}
           <div className='-mx-4 flex flex-wrap space-y-4 wow fadeInUp' data-wow-delay='.2s'>
             {FAQS?.map((faq, index) => (
               <div
@@ -47,7 +47,7 @@ export const FAQ = () => {
                 onClick={() => toggleFAQ(index)}
               >
                 <div className="p-4 border rounded-lg dark:bg-[#0E0E0E] bg-white dark:bg-dark-1 border-gray-200 dark:border-[#333333]">
-                  {/* ???? */}
+                  {/* 问题部分 */}
                   <div className="flex justify-between items-center">
                     <h3 className="text-lg font-semibold text-dark dark:text-white">
                       {faq.q}
@@ -57,7 +57,7 @@ export const FAQ = () => {
                         }`}
                     />
                   </div>
-                  {/* ???? */}
+                  {/* 答案部分 */}
                   <div
                     className={`mt-4 text-base text-body-color dark:text-dark-6 transition-all duration-300 overflow-hidden ${openIndex === index ? 'max-h-screen' : 'max-h-0'
                       }`}
@@ -69,7 +69,7 @@ export const FAQ = () => {
           </div>
         </div>
 
-        {/* ???? */}
+        {/* 背景图案 */}
         <div>
           <span className="absolute left-4 top-4 -z-[1]">
             <SVGCircleBG />

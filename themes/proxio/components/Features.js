@@ -6,7 +6,7 @@ import { SVGTemplate } from './svg/SVGTemplate'
 import SmartLink from '@/components/SmartLink'
 import LazyImage from '@/components/LazyImage'
 /**
- * ??????,???????
+ * 产品特性相关，将显示在首页中
  * @returns
  */
 export const Features = () => {
@@ -31,7 +31,7 @@ export const Features = () => {
               </div>
             </div>
           </div>
-          {/* ?????? */}
+          {/* 支持三个特性 */}
           <div className='-mx-4 flex flex-col md:flex-row gap-4 px-4'>
 
             <div className='w-full p-6 rounded-xl border border-gray-200 dark:border-[#333333]'>

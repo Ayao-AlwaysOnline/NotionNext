@@ -6,16 +6,16 @@ import { useEffect, useState, useRef } from 'react'
 import { MenuItem } from './MenuItem'
 
 /**
- * ??? ????
+ * 响应式 折叠菜单
  */
 export const MenuList = props => {
   const { customNav, customMenu } = props
   const { locale } = useGlobal()
 
-  const [showMenu, setShowMenu] = useState(false) // ??????/????
-  const [openSubMenuIdx, setOpenSubMenuIdx] = useState(null) // ?????????????
+  const [showMenu, setShowMenu] = useState(false) // 控制菜单展开/收起状态
+  const [openSubMenuIdx, setOpenSubMenuIdx] = useState(null) // 控制哪个子菜单处于展开状态
   const router = useRouter()
-  const menuRef = useRef(null) // ????????
+  const menuRef = useRef(null) // 监听点击外部区域
 
 
   const defaultLinks = [
@@ -50,13 +50,13 @@ export const MenuList = props => {
 
   let links = navLinks.length > 0 ? navLinks.concat(defaultLinks) : defaultLinks
 
-  // ?? ???????,???Page?????
+  // 如果 开启自定义菜单，则覆盖Page生成的菜单
   if (siteConfig('CUSTOM_MENU', BLOG.CUSTOM_MENU) && menuLinks.length > 0) {
     links = menuLinks
   }
 
   const toggleMenu = () => {
-    setShowMenu(!showMenu) // ??????
+    setShowMenu(!showMenu) // 切换菜单状态
   }
 
   useEffect(() => {
@@ -64,7 +64,7 @@ export const MenuList = props => {
     setOpenSubMenuIdx(null)
   }, [router])
 
-  // ????????,?????
+  // 监听点击外部区域，收起子菜单
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -83,7 +83,7 @@ export const MenuList = props => {
 
   return (
     <div ref={menuRef}>
-      {/* ????????? */}
+      {/* 移动端菜单切换按钮 */}
       <button
         id='navbarToggler'
         onClick={toggleMenu}

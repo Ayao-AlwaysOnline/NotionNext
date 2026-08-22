@@ -4,7 +4,7 @@ import { siteConfig } from '@/lib/config'
 import { useEffect, useRef } from 'react'
 
 /**
- * ????????
+ * 合作伙伴滚动组件
  * @returns
  */
 export const Brand = () => {
@@ -16,14 +16,14 @@ export const Brand = () => {
     const scrollContainer = scrollContainerRef.current
 
     let scrollAmount = 0
-    const scrollSpeed = 1 // ????
+    const scrollSpeed = 1 // 滚动速度
 
     const scroll = () => {
       if (scrollContainer) {
         scrollAmount += scrollSpeed
         scrollContainer.scrollLeft = scrollAmount
 
-        // ??????????,????????
+        // 如果滚动到内容的一半，立即重置滚动位置
         if (scrollAmount >= scrollContainer.scrollWidth / 2) {
           scrollAmount = 0
         }
@@ -53,7 +53,7 @@ export const Brand = () => {
                 {item}
               </span>
             ))}
-            {/* ??????,?????? */}
+            {/* 克隆一份内容，用于无缝滚动 */}
             {brands.map((item, index) => (
               <span
                 key={`clone-${index}`}
