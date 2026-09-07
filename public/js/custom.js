@@ -613,15 +613,13 @@ if (el2) el2.style.display = 'none';
 })();
 // ==================== 替换团队卡片内容 ====================
 (function() {
-  const items = document.querySelectorAll('.group.mb-8.rounded-xl.bg-white.px-5.pb-10.pt-12.shadow-testimonial.dark\\:bg-dark.dark\\:shadow-none');
-  
   // 检测当前页面语言（主站）
   const url = window.location.href;
   const isJapanese = url.includes('/ja') || url.endsWith('/ja');
   const isEnglish = url.includes('/en') || url.endsWith('/en');
-  
+
   let groups;
-  
+
   if (isJapanese) {
     groups = [
       { h4: '業務／マーケティング部門', p: 'お客様と共に前進します。' },
@@ -644,44 +642,81 @@ if (el2) el2.style.display = 'none';
       { h4: '生产/制造部门', p: '精益求精，始终如一' }
     ];
   }
-  
-  items.forEach((item, i) => {
-    if (i >= groups.length) return;
-    const center = item.querySelector('.text-center');
-    if (center) {
-      const h4 = center.querySelector('.mb-1.text-lg.font-semibold.text-dark.dark\\:text-white');
-      if (h4) h4.textContent = groups[i].h4;
-      const p = center.querySelector('.mb-5.text-sm.text-body-color.dark\\:text-dark-6');
-      if (p) p.textContent = groups[i].p;
+
+  const replaceItems = () => {
+    const items = document.querySelectorAll('.group.mb-8.rounded-xl.bg-white.px-5.pb-10.pt-12.shadow-testimonial.dark\\:bg-dark.dark\\:shadow-none');
+    if (items.length === 0) return false;
+    items.forEach((item, i) => {
+      if (i >= groups.length) return;
+      const center = item.querySelector('.text-center');
+      if (center) {
+        const h4 = center.querySelector('.mb-1.text-lg.font-semibold.text-dark.dark\\:text-white');
+        if (h4) h4.textContent = groups[i].h4;
+        const p = center.querySelector('.mb-5.text-sm.text-body-color.dark\\:text-dark-6');
+        if (p) p.textContent = groups[i].p;
+      }
+    });
+    return true;
+  };
+
+  const tryInit = () => {
+    if (replaceItems()) {
+      console.log('团队卡片内容已替换');
+      return;
     }
-  });
+    const observer = new MutationObserver(() => {
+      if (replaceItems()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    setTimeout(() => observer.disconnect(), 10000);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryInit);
+  } else {
+    tryInit();
+  }
 })();
 
 // ==================== 调整图片尺寸和圆角 ====================
 (function() {
-const updateImages = () => {
-const elements = document.querySelectorAll('[class*="relative"][class*="z-10"][class*="mx-auto"][class*="mb-5"]');
-elements.forEach(el => {
-if (el.classList.contains('h-[120px]') && el.classList.contains('w-[120px]')) {
-const img = el.querySelector('img');
-if (img) {
-img.style.borderRadius = '0';
-img.style.width = '143px';
-img.style.height = '206px';
-}
-el.style.width = '143px';
-el.style.height = '206px';
-}
-});
-};
+  const updateImages = () => {
+    const elements = document.querySelectorAll('[class*="relative"][class*="z-10"][class*="mx-auto"][class*="mb-5"]');
+    let found = false;
+    elements.forEach(el => {
+      if (el.classList.contains('h-[120px]') && el.classList.contains('w-[120px]')) {
+        found = true;
+        const img = el.querySelector('img');
+        if (img) {
+          img.style.borderRadius = '0';
+          img.style.width = '143px';
+          img.style.height = '206px';
+        }
+        el.style.width = '143px';
+        el.style.height = '206px';
+      }
+    });
+    return found;
+  };
 
-if (document.readyState === 'loading') {
-document.addEventListener('DOMContentLoaded', updateImages);
-} else {
-updateImages();
-}
+  const tryInit = () => {
+    if (updateImages()) {
+      console.log('团队图片尺寸已调整');
+      return;
+    }
+    const observer = new MutationObserver(() => {
+      if (updateImages()) observer.disconnect();
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    setTimeout(() => observer.disconnect(), 10000);
+  };
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', tryInit);
+  } else {
+    tryInit();
+  }
 })();
-
 
 // ==================== 调整底部表单 ====================
 
