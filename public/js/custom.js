@@ -214,65 +214,56 @@
   })();
   
   
-   // ==================== hero圆形颜色 ====================
+   // ==================== hero圆形颜色（重试版） ====================
   (function() {
-    const svg = document.querySelector('svg');
-    if (!svg) return;
-    
-    let defs = svg.querySelector('defs');
-    if (!defs) {
-      defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-      svg.insertBefore(defs, svg.firstChild);
+    function applyColors(){
+      var groups = document.querySelectorAll('svg g[fill*="illustration"]');
+      if (!groups || groups.length === 0) return false;
+      var done = 0;
+      groups.forEach(function(group, groupIndex){
+        var svg = group.ownerSVGElement || group.closest('svg');
+        if (!svg) return;
+        var circles = group.querySelectorAll('circle');
+        if (circles.length < 2) return;
+        var left = circles[0]; var right = circles[1];
+        var defs = svg.querySelector('defs');
+        if (!defs) {
+          defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+          svg.insertBefore(defs, svg.firstChild);
+        }
+        var mkGrad = function(id, x1, x2){
+          var g = document.getElementById(id);
+          if (!g) {
+            g = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+            g.setAttribute('id', id);
+            g.setAttribute('x1', x1); g.setAttribute('y1', '0%');
+            g.setAttribute('x2', x2); g.setAttribute('y2', '0%');
+            var s1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            s1.setAttribute('offset', '0%'); s1.setAttribute('stop-color', '#ecbc56');
+            g.appendChild(s1);
+            var s2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+            s2.setAttribute('offset', '100%'); s2.setAttribute('stop-color', '#e74483');
+            g.appendChild(s2);
+            defs.appendChild(g);
+          }
+          return g;
+        };
+        var lid = 'left-gradient-' + groupIndex;
+        mkGrad(lid, '0%', '100%'); left.setAttribute('fill', 'url(#' + lid + ')');
+        var rid = 'right-gradient-' + groupIndex;
+        mkGrad(rid, '100%', '0%'); right.setAttribute('fill', 'url(#' + rid + ')');
+        done++;
+      });
+      return done > 0;
     }
-    
-    // 获取所有圆形组
-    const groups = document.querySelectorAll('svg g[fill*="illustration"]');
-    
-    groups.forEach((group, groupIndex) => {
-      const circles = group.querySelectorAll('circle');
-      if (circles.length < 2) return;
-      
-      const leftCircle = circles[0];
-      const rightCircle = circles[1];
-      
-      // 左侧圆形渐变：从左到右（朝向中间）
-      const leftGradientId = `left-gradient-${groupIndex}`;
-      let leftGradient = document.getElementById(leftGradientId);
-      if (!leftGradient) {
-        leftGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-        leftGradient.setAttribute('id', leftGradientId);
-        leftGradient.setAttribute('x1', '0%');
-        leftGradient.setAttribute('y1', '0%');
-        leftGradient.setAttribute('x2', '100%');
-        leftGradient.setAttribute('y2', '0%');
-        leftGradient.innerHTML = `
-          <stop offset="0%" stop-color="#ecbc56" />
-          <stop offset="100%" stop-color="#e74483" />
-        `;
-        defs.appendChild(leftGradient);
-      }
-      leftCircle.setAttribute('fill', `url(#${leftGradientId})`);
-      
-      // 右侧圆形渐变：从右到左（朝向中间）
-      const rightGradientId = `right-gradient-${groupIndex}`;
-      let rightGradient = document.getElementById(rightGradientId);
-      if (!rightGradient) {
-        rightGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-        rightGradient.setAttribute('id', rightGradientId);
-        rightGradient.setAttribute('x1', '100%');
-        rightGradient.setAttribute('y1', '0%');
-        rightGradient.setAttribute('x2', '0%');
-        rightGradient.setAttribute('y2', '0%');
-        rightGradient.innerHTML = `
-          <stop offset="0%" stop-color="#ecbc56" />
-          <stop offset="100%" stop-color="#e74483" />
-        `;
-        defs.appendChild(rightGradient);
-      }
-      rightCircle.setAttribute('fill', `url(#${rightGradientId})`);
+
+    if (applyColors()) { console.log('hero圆形颜色：已上色', 'needed no retry'); return; }
+    var mo = new MutationObserver(function(){
+      if (applyColors()) { mo.disconnect(); console.log('hero圆形颜色：异步到达后已上色'); }
     });
+    mo.observe(document.body, { childList: true, subtree: true });
+    setTimeout(function(){ mo.disconnect(); }, 10000);
   })();
-  
   
   
   
