@@ -501,17 +501,18 @@ export default function FlooringPage({ siteInfo }) {
         <div className='rv'><span className='eyebrow'>Fire Safety</span>
           <h2 className='big'>{L.safety.title.a}<span className='grad'>{L.safety.title.hl}</span></h2>
           <p className='lead'>{L.safety.lead}</p></div>
-        <div className='g3 rv' style={{ marginTop: 46 }}>
+        <div className='ev rv' style={{ marginTop: 60 }}>
           {L.safety.nums.map((n, i) => (
-            <div className='glass card' key={i}><div className='bd'>
-              <div className='evn'>{n.v}</div><div className='evk'>{n.k}</div>
-              <div className='evs'>{n.n1}<b className='hl'>{n.n2}</b></div>
-            </div></div>
+            <div className='glass' key={i}
+              style={{ padding: '36px 30px', borderRadius: 'var(--r-xl)', position: 'relative' }}>
+              <div className='evn'>{n.v}</div>
+              <div className='evl'>{n.k}<br /><b className='hl'>{n.n1}{n.n2}</b></div>
+            </div>
           ))}
         </div>
-        <div className='glass rv' style={{ marginTop: 26, borderRadius: 'var(--r-xl)', padding: '26px 30px' }}>
-          <div style={{ color: 'var(--gold)', fontWeight: 700, marginBottom: 10 }}>{L.safety.badge}</div>
-          <div style={{ fontSize: 13, color: 'var(--tx3)' }}>{L.safety.note}</div>
+        <div className='rv' style={{ marginTop: 42 }}>
+          <span className='badge'>{L.safety.badge}</span>
+          <p style={{ color: 'var(--tx4)', fontSize: '12.5px', marginTop: 18 }}>{L.safety.note}</p>
         </div>
       </div></section>
 
@@ -520,12 +521,15 @@ export default function FlooringPage({ siteInfo }) {
         <div className='rv'><span className='eyebrow'>Installation</span>
           <h2 className='big'>{L.install.title.a}<span className='grad'>{L.install.title.hl}</span></h2>
           <p className='lead'>{L.install.lead}</p></div>
-        <div className='g4 rv' style={{ marginTop: 46 }}>
+        <div className='g4 rv' style={{ marginTop: 56 }}>
           {L.install.steps.map((s, i) => (
-            <div className='glass card' key={i}><div className='bd'>
-              <span className='step'><span className='no'>{s.n}</span><h3>{s.h}</h3></span>
-              <div className='sp'>{s.sp}</div>
-            </div></div>
+            <div className='glass card' key={i}>
+              <div className='step'>
+                <div className='no'>{s.n}</div>
+                <h3>{s.h}</h3>
+                <p>{s.sp}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div></section>
