@@ -382,7 +382,7 @@ export default function FlooringPage({ siteInfo }) {
             ② 图片是 <img>，绝对定位 + width/height 100% + object-fit:cover
             ③ 底部 1/3 渐变遮罩淡出到页面底色
             ④ 文字层单独绝对定位铺满，与图片层互不影响 */}
-        <img className='herobg' src={img('04-mingkou-green-diamond-front')} alt='' />
+        <img className='herobg' src={img('05-mingkou-green-diamond-back')} alt='' />
         <div className='herofade' />
         <div className='in'><div className='wrap'>
           <span className='eyebrow rv'>{L.hero.eyebrow}</span>
