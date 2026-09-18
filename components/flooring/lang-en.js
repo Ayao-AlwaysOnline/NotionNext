@@ -229,6 +229,8 @@ const L = {
     ]},
 
   ui: {
+    pageTitle: 'Industrial Flooring Solutions',
+    pageDesc: 'Exposed-lock, hidden-lock and open-grid drainage systems — adhesive-free industrial flooring',
     back: 'Back',
     gallery: 'More photos',
     consult: 'Ask about this'

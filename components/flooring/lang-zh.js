@@ -229,6 +229,8 @@ const L = {
     ]},
 
   ui: {
+    pageTitle: '工业地面解决方案',
+    pageDesc: '明扣 / 暗扣 / 镂空下水板 三大系列 —— 免胶锁扣工业地面解决方案',
     back: '返回',
     gallery: '更多同类图片',
     consult: '咨询这款'

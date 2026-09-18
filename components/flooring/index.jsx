@@ -21,7 +21,7 @@ function scrollToId(id) {
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-export default function FlooringPage() {
+export default function FlooringPage({ siteInfo }) {
   const [lang, setLang] = useState('zh');
   const [tab, setTab] = useState('p1');
   const [detail, setDetail] = useState(null);
@@ -53,6 +53,13 @@ export default function FlooringPage() {
     }
     setLang(code);
   }, []);
+
+  /* 标题随语言变化：SSR 给的是中文，切语言后在客户端改写。
+     格式沿用站点惯例「页面名 | 站点名」。 */
+  useEffect(() => {
+    const suffix = (siteInfo && siteInfo.title) || 'Seaportcy';
+    document.title = L.ui.pageTitle + ' | ' + suffix;
+  }, [L, siteInfo]);
 
   const chooseLang = (code) => {
     setLang(code);

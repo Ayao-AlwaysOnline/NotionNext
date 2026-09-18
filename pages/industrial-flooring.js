@@ -19,10 +19,22 @@ import FlooringPage from '@/components/flooring';
  * ⚠️ 本页所有样式都在 components/flooring/flooringCss.js，
  *    每条规则以 #flooring 作用域隔离，不会污染站点其它页面。
  */
-const IndustrialFlooring = () => <FlooringPage />;
+const IndustrialFlooring = props => <FlooringPage siteInfo={props.siteInfo} />;
 
 export async function getStaticProps({ locale }) {
   const props = await fetchGlobalAllData({ from: 'industrial-flooring', locale });
+
+  // ⚠️ 必须提供 post —— SEO 组件的 getSEOMeta 对未知路由走 default 分支：
+  //    有 post 时 title = "页面名 | 站点名"，没有时回落成 "站点名 | loading"。
+  //    本页不来自 Notion，所以要在这里手工给出。
+  //    首屏（SSR）用中文标题；切语言时由组件在客户端改写 document.title。
+  props.post = {
+    title: '工业地面解决方案',
+    summary:
+      '明扣 / 暗扣 / 镂空下水板 三大系列 —— 免胶锁扣工业地面解决方案',
+    type: 'website'
+  };
+
   return {
     props,
     revalidate: process.env.EXPORT
