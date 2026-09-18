@@ -324,19 +324,26 @@ export default function FlooringPage() {
     <div id='flooring' ref={rootRef}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
-      {/* ===== 导航：左跨站 / 中锚点常驻 / 右语言 ===== */}
-      <nav id='nav' className={scrolled ? 'scrolled' : ''}>
-        <div className='navside left'>
-          <div className='navdrop'>
-            <span className='navdropbtn'><span className='txt'>{L.crossSite.label}</span><i>▾</i></span>
-            <div className='navdropmenu'>
-              {L.crossSite.items.map((it) => (
-                <a key={it.href} href={it.href}>{it.label}</a>
-              ))}
-            </div>
+      {/* ===== 导航：三块独立玻璃胶囊（左 · 中 · 右）=====
+           左右块放在 <nav> 外面，样式与中间完全一致但互不相连。
+           这样它们不参与 nav 的 flex 计算，窄屏也不会被压缩换行。 */}
+      <div className={'navside left' + (scrolled ? ' scrolled' : '')}>
+        <div className='navdrop'>
+          <span className='navdropbtn'><span className='txt'>{L.crossSite.label}</span><i>▾</i></span>
+          <div className='navdropmenu'>
+            {L.crossSite.items.map((it) => (
+              <a key={it.href} href={it.href}>{it.label}</a>
+            ))}
           </div>
         </div>
+      </div>
 
+      <nav id='nav' className={scrolled ? 'scrolled' : ''}>
+        <span className='lg'>
+          <img className='mark' src='/images/flooring/seaportcy.png'
+            alt='Seaportcy' width='50' height='50' />
+          <i className='lgtext'>SEAPORTCY</i>
+        </span>
         <div className='lks' ref={lksRef}>
           <span className='pill' ref={pillRef} />
           {L.nav.map((n, i) => (
@@ -347,19 +354,19 @@ export default function FlooringPage() {
             </a>
           ))}
         </div>
+      </nav>
 
-        <div className='navside right'>
-          <div className='navdrop'>
-            <span className='navdropbtn'><span className='txt'>{L.langLabel}</span><i>▾</i></span>
-            <div className='navdropmenu'>
-              {LANGS_UI.map((x) => (
-                <button key={x.code} className={lang === x.code ? 'on' : ''}
-                  onClick={() => chooseLang(x.code)}>{x.label}</button>
-              ))}
-            </div>
+      <div className={'navside right' + (scrolled ? ' scrolled' : '')}>
+        <div className='navdrop'>
+          <span className='navdropbtn'><span className='txt'>{L.langLabel}</span><i>▾</i></span>
+          <div className='navdropmenu'>
+            {LANGS_UI.map((x) => (
+              <button key={x.code} className={lang === x.code ? 'on' : ''}
+                onClick={() => chooseLang(x.code)}>{x.label}</button>
+            ))}
           </div>
         </div>
-      </nav>
+      </div>
 
       {/* ===== Hero ===== */}
       <header className='hero' id='hero'>
