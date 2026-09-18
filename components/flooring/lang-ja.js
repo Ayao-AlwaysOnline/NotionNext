@@ -228,6 +228,12 @@ const L = {
       { k: '所在地',         v: '中国 広東省 東莞市' }
     ]},
 
+  ui: {
+    back: '戻る',
+    gallery: '同種の写真',
+    consult: 'この製品について問い合わせる'
+  },
+
   footer: {
     brand: 'Seaportcy',
     brandEm: 'ともに発展し続けます',

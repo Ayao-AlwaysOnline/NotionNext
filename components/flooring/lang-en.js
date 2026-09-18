@@ -228,6 +228,12 @@ const L = {
       { k: 'Location',          v: 'Dongguan, Guangdong, China' }
     ]},
 
+  ui: {
+    back: 'Back',
+    gallery: 'More photos',
+    consult: 'Ask about this'
+  },
+
   footer: {
     brand: 'Seaportcy',
     brandEm: 'always growing with you',

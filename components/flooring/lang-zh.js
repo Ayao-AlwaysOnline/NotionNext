@@ -228,6 +228,12 @@ const L = {
       { k: '地址 · Location',     v: '广东 · 东莞' }
     ]},
 
+  ui: {
+    back: '返回',
+    gallery: '更多同类图片',
+    consult: '咨询这款'
+  },
+
   footer: {
     brand: 'Seaportcy',
     brandEm: '始终愿与您共同发展',

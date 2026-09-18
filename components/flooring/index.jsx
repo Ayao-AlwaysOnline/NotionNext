@@ -321,7 +321,7 @@ export default function FlooringPage() {
   /* ---------- 渲染 ---------- */
   const lb = lightbox;
   return (
-    <div id='flooring' ref={rootRef}>
+    <div id='flooring' ref={rootRef} data-lang={lang}>
       <style dangerouslySetInnerHTML={{ __html: CSS }} />
 
       {/* ===== 导航：三块独立玻璃胶囊（左 · 中 · 右）=====
@@ -370,7 +370,9 @@ export default function FlooringPage() {
 
       {/* ===== Hero ===== */}
       <header className='hero' id='hero'>
-        <div className='bgim'><img src={img('04-mingkou-green-diamond-front')} alt='' fetchPriority='high' /></div>
+        {/* 用 CSS 背景图而不是 <img>：背景图在物理上不可能撑开父容器，
+            彻底避免「图片按原始尺寸把 hero 顶开」这类问题 */}
+        <div className='bgim' style={{ backgroundImage: 'url(' + img('04-mingkou-green-diamond-front') + ')' }} />
         <div className='scrim' />
         <div className='in'><div className='wrap'>
           <span className='eyebrow rv'>{L.hero.eyebrow}</span>
@@ -540,7 +542,7 @@ export default function FlooringPage() {
       {detail && (
         <div className='detail on'>
           <div className='dbar'>
-            <button className='dback' onClick={() => setDetail(null)}><span>←</span> 返回</button>
+            <button className='dback' onClick={() => setDetail(null)}><span>←</span> {L.ui.back}</button>
             <span className='dbart'>{detail.t}</span>
           </div>
           <div className='dbody'>
@@ -554,7 +556,7 @@ export default function FlooringPage() {
                   <tr key={i}><td>{row[0]}</td><td dangerouslySetInnerHTML={{ __html: row[1] }} /></tr>
                 ))}
               </tbody></table></div>
-              <h3 className='dsub'>更多同类图片</h3>
+              <h3 className='dsub'>{L.ui.gallery}</h3>
               <div className='gal'>
                 {gallery(detail.img).map((g) => (
                   <div className='gitem' key={g} onClick={() => setLightbox({ list: gallery(detail.img), i: gallery(detail.img).indexOf(g) })}>
@@ -564,7 +566,7 @@ export default function FlooringPage() {
               </div>
               <div className='dcta'>
                 <a className='btn' href='#' onClick={(e) => { e.preventDefault(); setDetail(null); openContact(); }}>
-                  咨询这款<span className='ic'>↗</span></a>
+                  {L.ui.consult}<span className='ic'>↗</span></a>
               </div>
             </div>
           </div>

@@ -610,19 +610,6 @@
 #flooring .navside.right{right:20px !important;left:auto !important;
   top:20px !important;transform:none}
 
-/* ③ Hero：背景图严格受限于容器，绝不撑开区块 */
-#flooring .hero{display:flex !important;align-items:center !important;
-  overflow:hidden !important;position:relative !important}
-#flooring .hero > .bgim{position:absolute !important;top:0 !important;left:0 !important;
-  width:100% !important;height:100% !important;inset:auto !important;
-  overflow:hidden !important;opacity:.5 !important}
-#flooring .hero > .bgim > img{position:absolute !important;top:0 !important;left:0 !important;
-  width:100% !important;height:100% !important;max-width:none !important;
-  object-fit:cover !important;object-position:center !important;display:block !important}
-#flooring .hero > .scrim{position:absolute !important;top:0 !important;left:0 !important;
-  width:100% !important;height:100% !important;inset:auto !important;z-index:1 !important}
-#flooring .hero > .in{position:relative !important;z-index:2 !important;width:100% !important}
-
 /* ④ 标题：渐变字与高亮字基线统一（修「字有些往上片」） */
 #flooring h1,#flooring h2.big,#flooring h3,#flooring h4{
   font-synthesis:none;-webkit-font-smoothing:antialiased}
@@ -632,3 +619,48 @@
 /* 渐变底 + 高亮：用描边式的柔和光晕代替 text-shadow，避免视觉上浮 */
 #flooring h2.big .grad,#flooring .hero h1 .grad{
   -webkit-text-stroke:0;filter:drop-shadow(0 0 12px rgba(236,188,86,.35))}
+
+/* ============================================================
+   v3.2 修正
+   ============================================================ */
+
+/* ① 上一版的 inset:auto 把 top/left 又重置了，且 height:100% 在 auto 高度父元素上失效
+      —— 这里改成显式四边定位，并改成 CSS 背景图（背景图不可能撑开父容器） */
+#flooring .hero{position:relative !important;display:flex !important;align-items:center !important;overflow:hidden !important}
+#flooring .hero > .bgim{
+  position:absolute !important;
+  top:0 !important;right:0 !important;bottom:0 !important;left:0 !important;
+  width:auto !important;height:auto !important;
+  background-size:cover !important;background-position:center !important;
+  background-repeat:no-repeat !important;
+  overflow:hidden !important;opacity:.5 !important}
+#flooring .hero > .bgim > img{display:none !important}   /* 旧结构兜底 */
+#flooring .hero > .scrim{
+  position:absolute !important;
+  top:0 !important;right:0 !important;bottom:0 !important;left:0 !important;
+  width:auto !important;height:auto !important;z-index:1 !important;pointer-events:none !important}
+
+/* ② 标题基线：让渐变底与高亮字严格对齐（修「字往上飘」） */
+#flooring h1,#flooring h2,#flooring h3,#flooring h4{vertical-align:baseline}
+#flooring .big,#flooring .hero h1{line-height:1.18 !important}
+#flooring .big .grad,#flooring .hero h1 .grad{
+  display:inline !important;vertical-align:baseline !important;
+  line-height:inherit !important;position:static !important;
+  padding:0 !important;margin:0 !important;text-shadow:none !important;
+  -webkit-text-fill-color:var(--gold) !important;color:var(--gold) !important;
+  background:none !important;-webkit-background-clip:border-box !important;background-clip:border-box !important}
+/* 用字重和字距区分高亮，而不是靠位移/发光 —— 不会产生基线错位 */
+#flooring .big .grad,#flooring .hero h1 .grad{font-weight:700 !important;letter-spacing:0 !important}
+
+/* ③ 左右块宽度按语言自适应（英文最长，日文最短） */
+#flooring[data-lang="zh"]{--sidew:150px}
+#flooring[data-lang="en"]{--sidew:178px}
+#flooring[data-lang="ja"]{--sidew:142px}
+@media(max-width:1400px){
+  #flooring[data-lang="zh"]{--sidew:126px}
+  #flooring[data-lang="en"]{--sidew:150px}
+  #flooring[data-lang="ja"]{--sidew:120px}
+}
+/* 下拉菜单宽度也随语言放开，避免英文换行 */
+#flooring .navdropmenu{min-width:max-content;max-width:min(320px,80vw)}
+#flooring .navdropmenu a,#flooring .navdropmenu button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
