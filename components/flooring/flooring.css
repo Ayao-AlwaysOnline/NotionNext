@@ -467,48 +467,93 @@
 #flooring > *{position:relative;z-index:1}
 /* #flooring nav 的 position:fixed 优先级更高，不受上面影响 */
 
-/* ============================================================
-   并站新增：左右两侧块（跨站 / 语言）+ 上滑脱离
-   ============================================================ */
-#flooring nav .navside{position:absolute;top:50%;transform:translateY(-50%);z-index:5;
-  transition:transform .55s var(--ease),opacity .42s var(--ease)}
-#flooring nav .navside.left{left:14px}
-#flooring nav .navside.right{right:14px}
-/* 滚过 Hero 后上滑脱离（中间锚点导航纹丝不动） */
-#flooring nav.scrolled .navside{transform:translateY(-190%);opacity:0;pointer-events:none}
 
-#flooring .navdrop{position:relative}
-#flooring .navdropbtn{display:inline-flex;align-items:center;gap:7px;cursor:pointer;
-  font:700 12px/1 Poppins,"Noto Sans SC",sans-serif;color:var(--tx3);
-  padding:9px 13px;border-radius:var(--pill);white-space:nowrap;
+/* ============================================================
+   并站修正 v2：左右两块 = 与中间导航同款同高、等宽、在 nav 内部
+   ============================================================ */
+
+/* ① nav 不再横向滚动 —— 否则下拉菜单会被裁掉 */
+#flooring nav{overflow:visible}
+
+/* ② 中间锚点导航自己滚（窄屏），左右两块固定不滚 */
+#flooring nav .lks{flex:1 1 auto;min-width:0;overflow-x:auto;overflow-y:visible;
+  scrollbar-width:none;padding:3px 0}
+#flooring nav .lks::-webkit-scrollbar{display:none}
+
+/* ③ 左右两块：nav 的直接 flex 子项，等宽、撑满 nav 内容高度 */
+#flooring nav .navside{position:static;left:auto;right:auto;top:auto;
+  transform:none;flex:0 0 116px;width:116px;align-self:stretch;
+  display:flex;align-items:stretch;z-index:6;
+  transition:transform .5s var(--ease),opacity .4s var(--ease),visibility .4s}
+#flooring .navdrop{position:relative;display:flex;flex:1 1 auto;min-width:0}
+#flooring .navdropbtn{flex:1 1 auto;display:inline-flex;align-items:center;justify-content:center;
+  gap:6px;height:100%;cursor:pointer;white-space:nowrap;
+  font:700 12.5px/1 Poppins,"Noto Sans SC",sans-serif;
+  color:var(--tx3);padding:10px 12px;border-radius:var(--pill);
   border:1px solid transparent;
   transition:color var(--t),background var(--t),border-color var(--t)}
-#flooring .navdrop:hover .navdropbtn{color:var(--gold);background:var(--glass);border-color:var(--edge)}
-#flooring .navdropbtn i{font-style:normal;font-size:9px;opacity:.7;
+#flooring .navdrop:hover .navdropbtn{color:var(--gold);background:var(--glass);
+  border-color:var(--edge)}
+#flooring .navdropbtn i{font-style:normal;font-size:9px;opacity:.65;
   transition:transform var(--t)}
 #flooring .navdrop:hover .navdropbtn i{transform:rotate(180deg)}
-#flooring .navdropmenu{position:absolute;top:calc(100% + 10px);min-width:190px;
-  background:rgba(16,14,12,.94);backdrop-filter:blur(26px) saturate(180%);
-  -webkit-backdrop-filter:blur(26px) saturate(180%);
-  border:1px solid var(--edge);border-radius:16px;padding:8px;
-  box-shadow:0 30px 60px -28px rgba(0,0,0,.95);
-  opacity:0;visibility:hidden;transform:translateY(-8px);
-  transition:opacity var(--t),transform var(--t),visibility var(--t)}
-#flooring .navdrop:hover .navdropmenu{opacity:1;visibility:visible;transform:none}
-#flooring .navside.left .navdropmenu{left:0}
-#flooring .navside.right .navdropmenu{right:0}
-#flooring .navdropmenu a,#flooring .navdropmenu button{display:block;width:100%;text-align:left;
+
+/* ④ 下拉菜单：玻璃样式 */
+#flooring .navdropmenu{position:absolute;top:calc(100% + 12px);z-index:200;
+  min-width:200px;padding:9px;
+  background:rgba(18,15,12,.82);
+  backdrop-filter:blur(34px) saturate(190%);
+  -webkit-backdrop-filter:blur(34px) saturate(190%);
+  border:1px solid rgba(255,255,255,.13);border-radius:20px;
+  box-shadow:0 34px 70px -30px rgba(0,0,0,.96),
+             inset 0 1px 1px rgba(255,255,255,.14);
+  opacity:0;visibility:hidden;transform:translateY(-10px) scale(.97);
+  transform-origin:top center;
+  transition:opacity .38s var(--ease),transform .38s var(--ease),visibility .38s}
+#flooring .navdropmenu::before{content:"";position:absolute;inset:0;border-radius:inherit;
+  pointer-events:none;
+  background:linear-gradient(150deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 46%)}
+#flooring .navdrop:hover .navdropmenu{opacity:1;visibility:visible;
+  transform:translateY(0) scale(1)}
+#flooring nav .navside.left .navdropmenu{left:0;transform-origin:top left}
+#flooring nav .navside.right .navdropmenu{right:0;transform-origin:top right}
+#flooring .navdropmenu a,#flooring .navdropmenu button{position:relative;z-index:1;
+  display:block;width:100%;text-align:left;white-space:nowrap;
   font:500 12.5px/1 Poppins,"Noto Sans SC",sans-serif;color:var(--tx2);
   text-decoration:none;background:none;border:0;cursor:pointer;
-  padding:11px 14px;border-radius:10px;white-space:nowrap;
+  padding:11px 14px;border-radius:11px;
   transition:background var(--t),color var(--t)}
-#flooring .navdropmenu a:hover,#flooring .navdropmenu button:hover{background:var(--glass2);color:var(--tx)}
+#flooring .navdropmenu a:hover,#flooring .navdropmenu button:hover{
+  background:rgba(255,255,255,.08);color:var(--tx)}
 #flooring .navdropmenu button.on{color:var(--gold);font-weight:700}
 #flooring .navdropmenu button.on::after{content:" \2713";font-size:11px}
 
+/* ⑤ 上滑脱离：nav 现在是 overflow:visible，纯位移会露出来，所以靠淡出+微缩 */
+#flooring nav.scrolled .navside{opacity:0;visibility:hidden;pointer-events:none;
+  transform:translateY(-14px) scale(.92)}
+
+/* ⑥ 窄屏：左右只留图标，等宽收窄 */
 @media(max-width:860px){
-  #flooring nav .navside.left{left:6px}
-  #flooring nav .navside.right{right:6px}
-  #flooring .navdropbtn{padding:8px 10px;font-size:11px}
-  #flooring .navdropbtn span.txt{display:none}
+  #flooring nav .navside{flex:0 0 46px;width:46px}
+  #flooring .navdropbtn{padding:9px 8px}
+  #flooring .navdropbtn .txt{display:none}
+  #flooring .navdropmenu{min-width:170px}
 }
+
+/* ============================================================
+   Hero 修正：补回遮罩层 + 强制背景图尺寸（防止撑开区块）
+   ============================================================ */
+#flooring .hero .bgim{position:absolute;inset:0;opacity:.5;overflow:hidden}
+#flooring .hero .bgim img{position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center}
+#flooring .hero .scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:
+    radial-gradient(120% 88% at 80% 26%,rgba(231,68,131,.20) 0%,transparent 56%),
+    radial-gradient(112% 78% at 10% 84%,rgba(236,188,86,.15) 0%,transparent 58%),
+    linear-gradient(104deg,rgba(13,11,9,.96) 0%,rgba(13,11,9,.82) 46%,rgba(13,11,9,.44) 100%)}
+
+/* ============================================================
+   联系面板修正：CSS 自带 transform:translate(-50%,-50%)，
+   而 JS 用 left/top 像素定位 —— 必须清掉 transform，否则偏左上出屏
+   ============================================================ */
+#flooring .cpglass{transform:none}

@@ -27,7 +27,7 @@ export default function FlooringPage() {
   const [detail, setDetail] = useState(null);
   const [lightbox, setLightbox] = useState(null);
   const [contact, setContact] = useState(false);
-  const [cpFrom, setCpFrom] = useState(null);
+  const [cpMounted, setCpMounted] = useState(false);
   const [active, setActive] = useState(0);
   const [scrolled, setScrolled] = useState(false);
   const [wxCopied, setWxCopied] = useState(false);
@@ -254,7 +254,7 @@ export default function FlooringPage() {
       if (e.key !== 'Escape') return;
       if (lightbox) { setLightbox(null); return; }
       if (detail) { setDetail(null); return; }
-      if (contact) { setContact(false); }
+      if (contact) { closeContact(); }
     };
     if (lightbox || detail || contact) {
       window.addEventListener('keydown', onKey);
@@ -272,6 +272,7 @@ export default function FlooringPage() {
       const W = window.innerWidth, H = window.innerHeight;
       const tw = Math.min(W * 0.8, 1360), th = H * 0.8;
       g.style.transition = 'none';
+      g.style.transform = 'none';   // CSS 里有 translate(-50%,-50%)，用 left/top 定位时必须清掉
       g.style.left = (r ? r.left : W * 0.1) + 'px';
       g.style.top = (r ? r.top : H * 0.1) + 'px';
       g.style.width = (r ? r.width : tw) + 'px';
@@ -293,6 +294,7 @@ export default function FlooringPage() {
       g.style.borderRadius = '34px';
       const t = setTimeout(() => {
         g.style.transition = 'none';
+        g.style.transform = 'none';
         g.style.left = '50%'; g.style.top = '50%';
         g.style.width = '0px'; g.style.height = '0px';
         void g.offsetWidth;
@@ -301,6 +303,12 @@ export default function FlooringPage() {
       return () => clearTimeout(t);
     }
   }, [contact]);
+
+  const openContact = () => { setCpMounted(true); setContact(true); };
+  const closeContact = () => {
+    setContact(false);
+    setTimeout(() => setCpMounted(false), 430);
+  };
 
   const copyWx = () => {
     const txt = '15377718690';
@@ -355,13 +363,14 @@ export default function FlooringPage() {
 
       {/* ===== Hero ===== */}
       <header className='hero' id='hero'>
-        <div className='bgim'><img src={img('09-ankou-grey-leather-front', true)} alt='' /></div>
+        <div className='bgim'><img src={img('04-mingkou-green-diamond-front')} alt='' fetchPriority='high' /></div>
+        <div className='scrim' />
         <div className='in'><div className='wrap'>
           <span className='eyebrow rv'>{L.hero.eyebrow}</span>
           <h1 className='rv'>{L.hero.t1}<br /><span className='grad'>{L.hero.t2}</span></h1>
           <p className='sub rv'><Rich text={L.hero.sub1 + '|' + L.hero.subHL + '|' + L.hero.sub2} /></p>
           <div className='btns rv'>
-            <a className='btn' href='#' onClick={(e) => { e.preventDefault(); setContact(true); }}>
+            <a className='btn' href='#' onClick={(e) => { e.preventDefault(); openContact(); }}>
               {L.hero.cta1}<span className='ic'>↗</span></a>
             <a className='btn ghost' href='#cat'
               onClick={(e) => { e.preventDefault(); scrollToId('cat'); }}>
@@ -511,7 +520,7 @@ export default function FlooringPage() {
         <h2>{L.cta.h}</h2>
         <p>{L.cta.p}</p>
         <a className='btn' href='#' ref={ctaRef}
-          onClick={(e) => { e.preventDefault(); setContact(true); }}>
+          onClick={(e) => { e.preventDefault(); openContact(); }}>
           {L.cta.btn}<span className='ic'>↗</span></a>
       </div></section>
 
@@ -547,7 +556,7 @@ export default function FlooringPage() {
                 ))}
               </div>
               <div className='dcta'>
-                <a className='btn' href='#' onClick={(e) => { e.preventDefault(); setDetail(null); setContact(true); }}>
+                <a className='btn' href='#' onClick={(e) => { e.preventDefault(); setDetail(null); openContact(); }}>
                   咨询这款<span className='ic'>↗</span></a>
               </div>
             </div>
@@ -568,10 +577,11 @@ export default function FlooringPage() {
       )}
 
       {/* ===== 联系面板 ===== */}
-      <div className='cpanel on' style={{ display: contact ? 'block' : 'none' }}>
-        <div className='veil' onClick={() => setContact(false)} />
+      <div className={'cpanel' + (contact ? ' on' : '')}
+        style={{ display: cpMounted ? 'block' : 'none' }}>
+        <div className='veil' onClick={closeContact} />
         <div className='cpglass' ref={cpRef}>
-          <button className='cpclose' onClick={() => setContact(false)}><span>✕</span></button>
+          <button className='cpclose' onClick={closeContact}><span>✕</span></button>
           <div className='cpin'>
             <span className='cp-eyebrow'>{L.contact.eyebrow}</span>
             <h2 className='cp-title'>{L.contact.title}</h2>
