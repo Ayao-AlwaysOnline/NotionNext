@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect, useLayoutEffect, useRef, useMemo } from 'react';
-import { pickLang, img, gallery } from './data';
+import { pickLang, img, gallery, HERO_IMAGES } from './data';
 import CSS from './flooringCss';
 
 const LANGS_UI = [
@@ -25,6 +25,7 @@ export default function FlooringPage({ siteInfo }) {
   const [lang, setLang] = useState('zh');
   const [tab, setTab] = useState('p1');
   const [detail, setDetail] = useState(null);
+  const [heroImg, setHeroImg] = useState(HERO_IMAGES[0]);
   const [lightbox, setLightbox] = useState(null);
   const [contact, setContact] = useState(false);
   const [cpMounted, setCpMounted] = useState(false);
@@ -52,6 +53,20 @@ export default function FlooringPage({ siteInfo }) {
       code = n.indexOf('zh') === 0 ? 'zh' : (n.indexOf('ja') === 0 ? 'ja' : 'en');
     }
     setLang(code);
+  }, []);
+
+  /* Hero 底图随机：SSR 固定渲染第一张（保证首屏与 SEO 稳定），
+     挂载后在客户端随机换一张。等新图 onload 之后再替换，
+     避免出现空白或闪一下。只跑一次，之后不再变。 */
+  useEffect(() => {
+    const pick = HERO_IMAGES[Math.floor(Math.random() * HERO_IMAGES.length)];
+    if (pick === heroImg) return;
+    let alive = true;
+    const pre = new window.Image();
+    pre.onload = () => { if (alive) setHeroImg(pick); };
+    pre.src = pick;
+    return () => { alive = false; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /* 标题随语言变化：SSR 给的是中文，切语言后在客户端改写。
@@ -382,7 +397,7 @@ export default function FlooringPage({ siteInfo }) {
             ② 图片是 <img>，绝对定位 + width/height 100% + object-fit:cover
             ③ 底部 1/3 渐变遮罩淡出到页面底色
             ④ 文字层单独绝对定位铺满，与图片层互不影响 */}
-        <img className='herobg' src={img('05-mingkou-green-diamond-back')} alt='' />
+        <img className='herobg' src={heroImg} alt='' />
         <div className='herofade' />
         <div className='in'><div className='wrap'>
           <span className='eyebrow rv'>{L.hero.eyebrow}</span>

@@ -22,6 +22,17 @@ export function img(slug, card) {
   return '/images/flooring/' + slug + (card ? '-card' : '') + '.webp';
 }
 
+/**
+ * Hero 底图（每次打开随机取一张，打开后不再变）
+ * 取图说明：hero1/hero2 原图左侧烧有英文标题与图标组，已裁掉左侧 820px；
+ * hero2 原图是亮色，已压暗到与页面深色基调一致。
+ */
+export const HERO_IMAGES = [
+  '/images/flooring/hero-a-stack-dark.webp',
+  '/images/flooring/hero-b-stack-light.webp',
+  '/images/flooring/hero-c-abstract.webp'
+];
+
 /** 同类图片分组：点开灯箱后可左右翻看 */
 export const GAL = {
   '01-mingkou-green-grid-set':        ['01-mingkou-green-grid-set','02-mingkou-corner-detail','03-mingkou-set-back','06-mingkou-grey-leather-front','20-edge-mingkou-yellow-front','22-corner-mingkou-yellow-front'],
