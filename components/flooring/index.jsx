@@ -26,6 +26,11 @@ export default function FlooringPage({ siteInfo }) {
   const [tab, setTab] = useState('p1');
   const [detail, setDetail] = useState(null);
   const [heroImg, setHeroImg] = useState(HERO_IMAGES[0]);
+  /* 移动端 header 状态 */
+  const [mLeft, setMLeft] = useState(false);    // 左上徽标圆：展开竖向锚点导航
+  const [mRight, setMRight] = useState(false);  // 右上汉堡圆：展开二级菜单
+  const [mG1, setMG1] = useState(false);        // 二级：旗下开放业务
+  const [mG2, setMG2] = useState(false);        // 二级：多语言
   const [lightbox, setLightbox] = useState(null);
   const [contact, setContact] = useState(false);
   const [cpMounted, setCpMounted] = useState(false);
@@ -277,15 +282,16 @@ export default function FlooringPage({ siteInfo }) {
   useEffect(() => {
     const onKey = (e) => {
       if (e.key !== 'Escape') return;
+      if (mLeft || mRight) { setMLeft(false); setMRight(false); return; }
       if (lightbox) { setLightbox(null); return; }
       if (detail) { setDetail(null); return; }
       if (contact) { closeContact(); }
     };
-    if (lightbox || detail || contact) {
+    if (lightbox || detail || contact || mLeft || mRight) {
       window.addEventListener('keydown', onKey);
       return () => window.removeEventListener('keydown', onKey);
     }
-  }, [lightbox, detail, contact]);
+  }, [lightbox, detail, contact, mLeft, mRight]);
 
   /* 联系面板：从按钮位置展开成 80% 屏幕 */
   useEffect(() => {
@@ -380,6 +386,58 @@ export default function FlooringPage({ siteInfo }) {
           ))}
         </div>
       </nav>
+
+      {/* ===== 移动端 header（≤900px 显示，PC 端完全隐藏）=====
+           左上：徽标圆 → 向下展开竖向锚点导航（宽度 ≤ 圆的 150%）
+           右上：汉堡圆 → 向下展开二级菜单（宽度不限）→ 三级选项列表
+           样式与 PC 端同一套玻璃参数；右上圆滚动后上滑消失（同 PC） */}
+      <div className={'mnav' + (scrolled ? ' scrolled' : '')}>
+        <div className={'mwrap' + (mLeft ? ' open' : '')}>
+          <button className='mcirc' aria-label='导航'
+            onClick={() => { setMLeft(!mLeft); setMRight(false); }}>
+            <img src='/images/flooring/seaportcy.png' alt='' width='30' height='30' />
+          </button>
+          <div className='mpanel mpanel-left'>
+            <span className='mword'>SEAPORTCY</span>
+            {L.nav.map((n, i) => (
+              <a key={n.id} href={'#' + n.id} className={i === active ? 'on' : ''}
+                onClick={(e) => { e.preventDefault(); setActive(i); scrollToId(n.id); setMLeft(false); }}>
+                {n.label}
+              </a>
+            ))}
+          </div>
+        </div>
+
+        <div className={'mwrap mwrap-right' + (mRight ? ' open' : '')}>
+          <button className='mcirc' aria-label='更多'
+            onClick={() => { setMRight(!mRight); setMLeft(false); }}>
+            <span className='mburger'><i /><i /><i /></span>
+          </button>
+          <div className='mpanel mpanel-right'>
+            <div className={'mgroup' + (mG1 ? ' open' : '')}>
+              <button className='mgt' onClick={() => setMG1(!mG1)}>
+                {L.crossSite.label}<i>▾</i>
+              </button>
+              <div className='msub'>
+                {L.crossSite.items.map((it) => (
+                  <a key={it.href} href={it.href}>{it.label}</a>
+                ))}
+              </div>
+            </div>
+            <div className={'mgroup' + (mG2 ? ' open' : '')}>
+              <button className='mgt' onClick={() => setMG2(!mG2)}>
+                {L.langLabel}<i>▾</i>
+              </button>
+              <div className='msub'>
+                {LANGS_UI.map((x) => (
+                  <button key={x.code} className={lang === x.code ? 'on' : ''}
+                    onClick={() => { chooseLang(x.code); setMRight(false); }}>{x.label}</button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className={'navside right' + (scrolled ? ' scrolled' : '')}>
         <div className='navdrop'>
@@ -605,9 +663,11 @@ export default function FlooringPage({ siteInfo }) {
         </div>
       )}
 
-      {/* ===== 灯箱 ===== */}
+      {/* ===== 灯箱 =====
+          关闭判定用 closest 而不是 hasAttribute(target)：按钮里的 <span>✕</span> 才是实际
+          点击目标，旧写法下点 X 时 e.target 是那个 span，它没有 data-lclose，所以按钮没反应。 */}
       {lb && (
-        <div className='lbox on' onClick={(e) => { if (e.target.hasAttribute('data-lclose')) setLightbox(null); }}>
+        <div className='lbox on' onClick={(e) => { if (e.target.closest('[data-lclose]')) setLightbox(null); }}>
           <div className='lveil' data-lclose />
           <button className='lx' data-lclose><span>✕</span></button>
           <button className='larrow lprev' onClick={() => setLightbox({ list: lb.list, i: (lb.i - 1 + lb.list.length) % lb.list.length })}><span>‹</span></button>

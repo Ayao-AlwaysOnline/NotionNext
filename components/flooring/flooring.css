@@ -793,3 +793,206 @@
 }
 /* 图片再压一点亮度，避免和文字抢 */
 #flooring .hero > .herobg{filter:brightness(.72) saturate(.92)}
+
+/* ============================================================
+   v3.9 · PC 左右块：文字顶死，不再被压窄或裁剪
+   ------------------------------------------------------------
+   旧做法是给 --sidew 一个固定值并在 ≤1400px 时调小，
+   英文/中文标签较长时会被压窄甚至裁掉。
+   改为：宽度取 max-content 与 --sidew 的较大者 ——
+     · 两个块共用同一个 min-width，字号相同 ⇒ 仍然等宽
+     · 任一标签更长时该块自动变宽，绝不被裁剪
+   ============================================================ */
+#flooring .navside{
+  width:max-content;
+  min-width:var(--sidew);
+  max-width:none;
+  padding:0 18px;
+}
+#flooring .navside .navdrop{flex:1 1 auto;justify-content:center}
+#flooring .navside .navdropbtn{
+  flex:0 1 auto;
+  width:auto;
+  white-space:nowrap;
+  padding:0 4px;
+  overflow:visible;
+}
+#flooring .navside .navdropbtn .txt{white-space:nowrap}
+
+/* 取消 ≤1400px 的宽度缩减（正是它导致裁剪） */
+@media(max-width:1400px){
+  #flooring{--sidew:150px}
+  #flooring[data-lang="zh"]{--sidew:150px}
+  #flooring[data-lang="en"]{--sidew:176px}
+  #flooring[data-lang="ja"]{--sidew:140px}
+}
+/* 到 1180px 才收成图标（这时文字确实放不下，是有意为之） */
+@media(max-width:1180px){
+  #flooring .navside{min-width:0;width:var(--sidew);padding:0}
+}
+
+/* ============================================================
+   v4.0 · 移动端 header
+   ------------------------------------------------------------
+   与 PC 同一套玻璃参数（bg / blur / border / 圆角 / 阴影 / 辉光）。
+   ≤900px 显示，PC 端完全隐藏。
+   左上：徽标圆 → 向下展开竖向锚点导航，展开宽度 ≤ 圆的 150%
+   右上：汉堡圆 → 二级菜单（宽度不限）→ 三级选项列表
+   右上圆滚动后上滑消失（与 PC 的 .navside 行为一致）
+   ============================================================ */
+#flooring .mnav{display:none}
+
+@media(max-width:900px){
+  /* PC 导航整体让位 */
+  #flooring nav,
+  #flooring > .navside{display:none !important}
+
+  #flooring .mnav{
+    display:block;
+    position:fixed;top:0;left:0;right:0;
+    z-index:96;height:0;pointer-events:none;
+  }
+  #flooring .mwrap{
+    position:absolute;top:14px;
+    pointer-events:auto;
+    transition:transform .5s var(--ease),opacity .4s var(--ease),visibility .4s;
+  }
+  #flooring .mwrap:first-child{left:14px}
+  #flooring .mwrap-right{right:14px}
+  /* 右上圆滚动后上滑消失，与 PC 一致 */
+  #flooring .mnav.scrolled .mwrap-right{
+    opacity:0;visibility:hidden;pointer-events:none;
+    transform:translateY(-14px) scale(.9);
+  }
+
+  /* ---- 圆形按钮：完全复用 PC 导航的玻璃语言 ---- */
+  #flooring .mcirc{
+    width:54px;height:54px;padding:0;
+    display:flex;align-items:center;justify-content:center;
+    border-radius:var(--pill);
+    background:rgba(16,14,12,.60);
+    backdrop-filter:blur(26px) saturate(180%);
+    -webkit-backdrop-filter:blur(26px) saturate(180%);
+    border:1px solid var(--edge);
+    box-shadow:0 20px 54px -24px rgba(0,0,0,.95);
+    cursor:pointer;
+    transition:border-color var(--t),box-shadow var(--t),transform var(--t);
+  }
+  #flooring .mcirc img{width:30px;height:30px;object-fit:contain;display:block}
+  /* PC 的触摸辉光 */
+  #flooring .mcirc:hover,#flooring .mcirc:active{
+    border-color:rgba(236,188,86,.55);
+    box-shadow:0 20px 54px -24px rgba(0,0,0,.95),0 0 22px rgba(236,188,86,.45);
+  }
+  #flooring .mwrap.open .mcirc{
+    border-color:rgba(236,188,86,.55);
+    box-shadow:0 20px 54px -24px rgba(0,0,0,.95),0 0 22px rgba(236,188,86,.45);
+  }
+  /* 汉堡三横线 */
+  #flooring .mburger{display:flex;flex-direction:column;gap:4px;width:20px}
+  #flooring .mburger i{
+    display:block;height:2px;border-radius:2px;background:var(--tx2);
+    transition:transform var(--t),opacity var(--t),background var(--t);
+  }
+  #flooring .mwrap.open .mburger i{background:var(--gold)}
+  #flooring .mwrap.open .mburger i:nth-child(1){transform:translateY(6px) rotate(45deg)}
+  #flooring .mwrap.open .mburger i:nth-child(2){opacity:0}
+  #flooring .mwrap.open .mburger i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+
+  /* ---- 展开面板：与 .navdropmenu 同一套玻璃 ---- */
+  #flooring .mpanel{
+    position:absolute;top:calc(100% + 12px);
+    background:rgba(16,14,12,.72);
+    backdrop-filter:blur(28px) saturate(185%);
+    -webkit-backdrop-filter:blur(28px) saturate(185%);
+    border:1px solid var(--edge);border-radius:22px;
+    box-shadow:0 30px 70px -30px rgba(0,0,0,.96),
+               inset 0 1px 0 0 rgba(255,255,255,.08);
+    opacity:0;visibility:hidden;transform:translateY(-10px) scale(.97);
+    transition:opacity .38s var(--ease),transform .38s var(--ease),visibility .38s;
+    max-height:calc(100vh - 100px);overflow-y:auto;overscroll-behavior:contain;
+  }
+  #flooring .mwrap.open .mpanel{opacity:1;visibility:visible;transform:none}
+
+  /* ---- 左：竖向锚点导航，宽度上限 = 圆的 150%（54 * 1.5 = 81） ---- */
+  #flooring .mpanel-left{
+    left:0;
+    width:max-content;
+    max-width:81px;
+    padding:13px 7px;
+    text-align:center;
+    transform-origin:top left;
+  }
+  #flooring .mword{
+    display:block;margin-bottom:11px;
+    font:700 8px/1 Poppins,sans-serif;letter-spacing:.14em;
+    color:var(--gold);
+    white-space:nowrap;overflow:hidden;text-overflow:clip;
+    transition:text-shadow var(--t);
+  }
+  #flooring .mpanel-left a{
+    display:block;padding:10px 2px;border-radius:10px;
+    font:700 11.5px/1.25 Poppins,"Noto Sans SC",sans-serif;
+    color:var(--tx3);text-decoration:none;
+    white-space:nowrap;
+    transition:color var(--t),background var(--t);
+  }
+  #flooring .mpanel-left a:hover,#flooring .mpanel-left a:active{
+    color:var(--gold);background:var(--glass);
+  }
+  #flooring .mpanel-left a.on{color:var(--gold);background:var(--glass)}
+  /* PC 的字标辉光 */
+  #flooring .mword:hover,#flooring .mpanel-left:hover .mword{
+    text-shadow:0 0 14px rgba(236,188,86,.85);
+  }
+
+  /* ---- 右：二级菜单，宽度不限，文字撑开 ---- */
+  #flooring .mpanel-right{
+    right:0;
+    width:max-content;
+    min-width:200px;
+    max-width:min(80vw,360px);
+    padding:10px;
+    transform-origin:top right;
+  }
+  #flooring .mgt{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    width:100%;padding:13px 14px;border-radius:13px;
+    font:700 13.5px/1 Poppins,"Noto Sans SC",sans-serif;
+    color:var(--tx2);background:none;border:1px solid transparent;
+    cursor:pointer;white-space:nowrap;
+    transition:color var(--t),background var(--t),border-color var(--t);
+  }
+  #flooring .mgt:hover,#flooring .mgt:active{color:var(--gold);background:var(--glass)}
+  #flooring .mgt i{font-style:normal;font-size:9px;opacity:.6;transition:transform var(--t)}
+  #flooring .mgroup.open .mgt{color:var(--gold);background:var(--glass);
+    border-color:rgba(236,188,86,.22)}
+  #flooring .mgroup.open .mgt i{transform:rotate(180deg)}
+
+  /* 三级选项列表 */
+  #flooring .msub{
+    display:none;
+    margin:6px 0 4px 10px;padding:2px 0 4px 10px;
+    border-left:1px solid rgba(236,188,86,.24);
+  }
+  #flooring .mgroup.open .msub{display:block}
+  #flooring .msub a,#flooring .msub button{
+    display:block;width:100%;text-align:left;
+    padding:11px 12px;border-radius:11px;
+    font:500 12.5px/1 Poppins,"Noto Sans SC",sans-serif;
+    color:var(--tx2);text-decoration:none;background:none;border:0;
+    cursor:pointer;white-space:nowrap;
+    transition:color var(--t),background var(--t);
+  }
+  #flooring .msub a:hover,#flooring .msub button:hover,
+  #flooring .msub a:active,#flooring .msub button:active{
+    background:var(--glass2);color:var(--tx);
+  }
+  #flooring .msub button.on{color:var(--gold);font-weight:700}
+  #flooring .msub button.on::after{content:" ✓";font-size:11px}
+}
+
+/* 介于 900 与 1180 之间：PC 图标态仍然生效，这里只保证不重叠 */
+@media(min-width:901px) and (max-width:1180px){
+  #flooring .mnav{display:none !important}
+}
