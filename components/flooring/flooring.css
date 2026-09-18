@@ -584,3 +584,51 @@
    联系面板修正（保留）：清掉 CSS 自带的 translate(-50%,-50%)
    ============================================================ */
 #flooring .cpglass{transform:none}
+
+/* ============================================================
+   生产环境兜底（v3.1）
+   ------------------------------------------------------------
+   背景：本地预览（含 Tailwind Preflight 模拟）完全正常，
+        线上却出现 nav 内 .lg / .lks 竖排、hero 图撑开。
+        已确认仓库内无同名类冲突、CSS 文件本身正确，
+        故对关键布局属性加 !important 锁死，防止被任何外部样式覆盖。
+   ============================================================ */
+
+/* ① 中间导航：强制单行 flex，禁止换行/竖排 */
+#flooring nav{display:flex !important;flex-direction:row !important;
+  flex-wrap:nowrap !important;align-items:center !important;justify-content:flex-start !important}
+#flooring nav > .lg{display:inline-flex !important;flex:0 0 auto !important;
+  align-items:center !important;min-width:0;white-space:nowrap}
+#flooring nav > .lks{display:flex !important;flex:0 1 auto !important;
+  flex-direction:row !important;flex-wrap:nowrap !important;min-width:0;
+  align-items:center !important}
+
+/* ② 左右独立胶囊：锁死定位与尺寸 */
+#flooring > .navside{position:fixed !important}
+#flooring .navside.left{left:20px !important;right:auto !important;
+  top:20px !important;transform:none}
+#flooring .navside.right{right:20px !important;left:auto !important;
+  top:20px !important;transform:none}
+
+/* ③ Hero：背景图严格受限于容器，绝不撑开区块 */
+#flooring .hero{display:flex !important;align-items:center !important;
+  overflow:hidden !important;position:relative !important}
+#flooring .hero > .bgim{position:absolute !important;top:0 !important;left:0 !important;
+  width:100% !important;height:100% !important;inset:auto !important;
+  overflow:hidden !important;opacity:.5 !important}
+#flooring .hero > .bgim > img{position:absolute !important;top:0 !important;left:0 !important;
+  width:100% !important;height:100% !important;max-width:none !important;
+  object-fit:cover !important;object-position:center !important;display:block !important}
+#flooring .hero > .scrim{position:absolute !important;top:0 !important;left:0 !important;
+  width:100% !important;height:100% !important;inset:auto !important;z-index:1 !important}
+#flooring .hero > .in{position:relative !important;z-index:2 !important;width:100% !important}
+
+/* ④ 标题：渐变字与高亮字基线统一（修「字有些往上片」） */
+#flooring h1,#flooring h2.big,#flooring h3,#flooring h4{
+  font-synthesis:none;-webkit-font-smoothing:antialiased}
+#flooring h2.big .grad,#flooring .hero h1 .grad,#flooring h2.big .hl{
+  display:inline;vertical-align:baseline;line-height:inherit;
+  text-shadow:none}
+/* 渐变底 + 高亮：用描边式的柔和光晕代替 text-shadow，避免视觉上浮 */
+#flooring h2.big .grad,#flooring .hero h1 .grad{
+  -webkit-text-stroke:0;filter:drop-shadow(0 0 12px rgba(236,188,86,.35))}
