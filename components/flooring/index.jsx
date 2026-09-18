@@ -377,10 +377,13 @@ export default function FlooringPage({ siteInfo }) {
 
       {/* ===== Hero ===== */}
       <header className='hero' id='hero'>
-        {/* 用 CSS 背景图而不是 <img>：背景图在物理上不可能撑开父容器，
-            彻底避免「图片按原始尺寸把 hero 顶开」这类问题 */}
-        <div className='bgim' style={{ backgroundImage: 'url(' + img('04-mingkou-green-diamond-front') + ')' }} />
-        <div className='scrim' />
+        {/* Hero 架构完全照搬 packaging 站（proxio 主题）的做法：
+            ① 容器高度写死 + overflow:hidden
+            ② 图片是 <img>，绝对定位 + width/height 100% + object-fit:cover
+            ③ 底部 1/3 渐变遮罩淡出到页面底色
+            ④ 文字层单独绝对定位铺满，与图片层互不影响 */}
+        <img className='herobg' src={img('04-mingkou-green-diamond-front')} alt='' />
+        <div className='herofade' />
         <div className='in'><div className='wrap'>
           <span className='eyebrow rv'>{L.hero.eyebrow}</span>
           <h1 className='rv'>{L.hero.t1}<br /><span className='grad'>{L.hero.t2}</span></h1>
