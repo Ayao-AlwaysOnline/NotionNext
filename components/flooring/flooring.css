@@ -996,3 +996,104 @@
 @media(min-width:901px) and (max-width:1180px){
   #flooring .mnav{display:none !important}
 }
+
+/* ============================================================
+   v4.1 · 修正 v3.9 造成的 PC 左右块重叠
+   ------------------------------------------------------------
+   v3.9 把 .navside 改成 width:max-content，但中间导航的
+   max-width 预留量仍按 --sidew 计算 —— 实际宽度一旦超过 --sidew
+   预留就不够，两块与中间导航重叠；而且 max-content 与
+   flex:1 1 auto 是自相矛盾的尺寸循环，渲染结果不稳定。
+   改回固定宽：--sidew 按语言给足（实测最长标签 + 余量），
+   文字 nowrap 不换行，预留量与实际宽度严格一致。
+   ============================================================ */
+#flooring{--sidew:138px}
+#flooring[data-lang="zh"]{--sidew:138px}
+#flooring[data-lang="en"]{--sidew:170px}
+#flooring[data-lang="ja"]{--sidew:116px}
+
+#flooring .navside{
+  width:var(--sidew);
+  min-width:var(--sidew);
+  max-width:var(--sidew);
+  box-sizing:border-box;
+  padding:9px;
+}
+#flooring .navside .navdrop{
+  flex:1 1 auto;
+  min-width:0;
+  justify-content:center;
+}
+#flooring .navside .navdropbtn{
+  flex:0 1 auto;
+  min-width:0;
+  width:auto;
+  max-width:100%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  padding:0 6px;
+}
+#flooring .navside .navdropbtn .txt{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* 中间导航预留量与实际宽度严格一致 */
+#flooring nav{max-width:calc(100vw - var(--sidew) * 2 - 64px)}
+
+/* 1400px 以下不再改宽度（改宽度会导致预留失配） */
+@media(max-width:1400px){
+  #flooring[data-lang="zh"]{--sidew:138px}
+  #flooring[data-lang="en"]{--sidew:170px}
+  #flooring[data-lang="ja"]{--sidew:116px}
+}
+/* 1180px 以下收成图标：预留量同步缩小 */
+@media(max-width:1180px){
+  #flooring{--sidew:60px}
+  #flooring .navside{padding:0}
+}
+/* 900px 以下走移动端 header */
+@media(max-width:900px){
+  #flooring{--sidew:0px}
+}
+
+/* ============================================================
+   v4.2 · 修特异性：@media 里的 #flooring 压不过 #flooring[data-lang]
+   ------------------------------------------------------------
+   #flooring[data-lang="zh"] 权重 (1,1,0) > #flooring (1,0,0)，
+   导致 ≤1180px 的 --sidew:60px 不生效，图标态仍是 138px 宽。
+   这里把三个语言选择器一起列进媒体查询，权重对齐。
+   ============================================================ */
+@media(max-width:1180px){
+  #flooring,
+  #flooring[data-lang="zh"],
+  #flooring[data-lang="en"],
+  #flooring[data-lang="ja"]{--sidew:60px}
+}
+
+/* ============================================================
+   v4.3 · 移动端面板宽度约束修正
+   ------------------------------------------------------------
+   左面板宽度上限必须是「圆的 150%」= 54 × 1.5 = 81px，
+   但 max-width 在 max-content 下会被 padding 挤爆，
+   这里改用 box-sizing + 明确的内边距，保证 81px 是最终外宽。
+   ============================================================ */
+@media(max-width:900px){
+  #flooring .mpanel-left{
+    box-sizing:border-box;
+    width:81px;
+    min-width:0;
+    max-width:81px;
+    padding:13px 6px;
+  }
+  #flooring .mword{
+    font-size:7.5px;
+    letter-spacing:.1em;
+    overflow:visible;
+    text-overflow:clip;
+  }
+  #flooring .mpanel-left a{
+    font-size:11px;
+    padding:10px 1px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+}
