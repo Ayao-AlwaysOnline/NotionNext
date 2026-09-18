@@ -28,11 +28,17 @@ export async function getStaticProps({ locale }) {
   //    有 post 时 title = "页面名 | 站点名"，没有时回落成 "站点名 | loading"。
   //    本页不来自 Notion，所以要在这里手工给出。
   //    首屏（SSR）用中文标题；切语言时由组件在客户端改写 document.title。
+  // SEO 组件的模板是 `${post.title} | ${siteInfo.title}`，
+  // 所以要得到「Seaportcy | 工业地面解决方案」就得把两段分别放进去。
   props.post = {
-    title: '工业地面解决方案',
+    title: 'Seaportcy',
     summary:
       '明扣 / 暗扣 / 镂空下水板 三大系列 —— 免胶锁扣工业地面解决方案',
     type: 'website'
+  };
+  props.siteInfo = {
+    ...(props.siteInfo || {}),
+    title: '工业地面解决方案'
   };
 
   return {

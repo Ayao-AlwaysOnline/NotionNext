@@ -664,3 +664,42 @@
 /* 下拉菜单宽度也随语言放开，避免英文换行 */
 #flooring .navdropmenu{min-width:max-content;max-width:min(320px,80vw)}
 #flooring .navdropmenu a,#flooring .navdropmenu button{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* ============================================================
+   v3.3 关键修正：标题回归块级
+   ------------------------------------------------------------
+   之前为了解决 background-clip:text 的渐变按整块宽度铺的问题，
+   我给 h1/h2 加了 display:inline-block —— 但这让标题变成了行内元素：
+     · 不再独占一行，与 .eyebrow 等行内元素挤在同一行
+     · 垂直位置由行内基线决定，视觉上「往上飘」
+     · 眉标被挤到标题最后一行
+   正解：display:block + width:fit-content —— 既独占一行，
+   又让盒宽等于文字宽，渐变仍然只铺在文字上。
+   ============================================================ */
+#flooring h2.big,
+#flooring .hero h1,
+#flooring .cta h2{
+  display:block !important;
+  width:fit-content !important;
+  max-width:100% !important;
+}
+
+/* 眉标/小标签保持块级或行内块，避免与标题争夺行盒 */
+#flooring .eyebrow{display:inline-flex !important;align-items:center;gap:8px}
+#flooring .hero .in > .wrap > .eyebrow,
+#flooring .rv > .eyebrow{display:inline-flex !important}
+
+/* 高亮字与底色同字重，彻底消除字重切换带来的度量差异 */
+#flooring h2.big .grad,
+#flooring .hero h1 .grad{
+  font-weight:inherit !important;
+  letter-spacing:inherit !important;
+  display:inline !important;
+  vertical-align:baseline !important;
+}
+
+/* 正文里的高亮保持加粗（那个在段落里，不影响标题基线） */
+#flooring .lead .hl,
+#flooring .sp .hl,
+#flooring .evs .hl,
+#flooring .cp-item .hl{font-weight:700}

@@ -57,9 +57,9 @@ export default function FlooringPage({ siteInfo }) {
   /* 标题随语言变化：SSR 给的是中文，切语言后在客户端改写。
      格式沿用站点惯例「页面名 | 站点名」。 */
   useEffect(() => {
-    const suffix = (siteInfo && siteInfo.title) || 'Seaportcy';
-    document.title = L.ui.pageTitle + ' | ' + suffix;
-  }, [L, siteInfo]);
+    // 与哥其它站点的标题格式一致：站点名在前，用全角竖线分隔
+    document.title = 'Seaportcy丨' + L.ui.pageTitle;
+  }, [L]);
 
   const chooseLang = (code) => {
     setLang(code);
