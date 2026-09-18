@@ -146,7 +146,10 @@ export default function FlooringPage({ siteInfo }) {
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
-          if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+          // ⚠️ 状态类名必须是 rv-on，不能用 in ——
+        // in 与本页 hero/cta 的内容包裹层 .in 冲突，
+        // 曾导致 .eyebrow.rv.in 命中 "#flooring .hero .in" 被撑成整块宽的胶囊。
+        if (e.isIntersecting) { e.target.classList.add('rv-on'); io.unobserve(e.target); }
         });
       },
       { threshold: 0.1, rootMargin: '0px 0px -6% 0px' }
