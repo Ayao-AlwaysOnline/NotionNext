@@ -1022,6 +1022,79 @@ const Style = () => {
   @media (min-width: 960px) {
     #theme-landing footer [data-bc-align='right'] { text-align: right; }
   }
+  
+  /* ---------- 联系面板（三站共用，由 BrandContact 渲染）---------- */
+/* 触发按钮：用字面量渐变，**不依赖任何 CSS 变量**（按钮在 #bc-root 之外）。 */
+.bc-fab{display:inline-flex;align-items:center;gap:12px;
+  padding:12px 12px 12px 26px;border:0;border-radius:999px;cursor:pointer;
+  font-family:inherit;font-size:14.5px;font-weight:600;letter-spacing:.01em;
+  background:linear-gradient(135deg,#ecbc56 0%,#e74483 100%) !important;
+  color:#17130c !important;text-decoration:none;
+  box-shadow:0 20px 46px -20px rgba(236,188,86,.55),0 8px 24px -12px rgba(0,0,0,.8);
+  transition:transform .5s cubic-bezier(.32,.72,0,1),box-shadow .5s cubic-bezier(.32,.72,0,1)}
+.bc-fab:hover{transform:translateY(-3px);
+  box-shadow:0 26px 58px -22px rgba(236,188,86,.72),0 0 28px rgba(236,188,86,.45),0 10px 28px -12px rgba(0,0,0,.85)}
+.bc-fab:active{transform:scale(.97)}
+.bc-fab .bc-ic{width:32px;height:32px;border-radius:999px;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:rgba(23,19,12,.16);font-size:15px;font-style:normal;
+  transition:transform .5s cubic-bezier(.32,.72,0,1)}
+.bc-fab:hover .bc-ic{transform:translate(3px,-2px) scale(1.06)}
+@media(max-width:520px){.bc-fab{font-size:13.5px;padding:10px 10px 10px 18px}
+  .bc-fab .bc-ic{width:28px;height:28px}}
+
+#bc-root .bc-veil{position:fixed;inset:0;z-index:130;background:rgba(8,7,6,.55);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .55s cubic-bezier(.32,.72,0,1),visibility .55s}
+#bc-root.bc-on .bc-veil{opacity:1;visibility:visible;pointer-events:auto}
+
+#bc-root .bc-panel{position:fixed;z-index:140;overflow:hidden;opacity:0;pointer-events:none;
+  background:linear-gradient(135deg,rgba(236,188,86,.94) 0%,rgba(231,68,131,.94) 100%) !important;
+  -webkit-backdrop-filter:blur(40px) saturate(190%);backdrop-filter:blur(40px) saturate(190%);
+  border:1px solid rgba(255,255,255,.30);
+  box-shadow:0 60px 140px -50px rgba(0,0,0,.9),inset 0 1px 1px rgba(255,255,255,.42);
+  transition:left .78s cubic-bezier(.32,.72,0,1),top .78s cubic-bezier(.32,.72,0,1),
+             width .78s cubic-bezier(.32,.72,0,1),height .78s cubic-bezier(.32,.72,0,1),
+             border-radius .78s cubic-bezier(.32,.72,0,1),opacity .5s cubic-bezier(.32,.72,0,1)}
+#bc-root.bc-on .bc-panel{pointer-events:auto}
+#bc-root .bc-panel::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(150deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 42%)}
+#bc-root .bc-in{position:relative;z-index:2;height:100%;overflow-y:auto;
+  padding:clamp(26px,4.4vw,64px) clamp(24px,4vw,68px);scrollbar-width:none}
+#bc-root .bc-in::-webkit-scrollbar{display:none}
+#bc-root .bc-eyebrow{display:inline-flex;align-items:center;gap:9px;
+  font:500 10px/1 Poppins,"Noto Sans SC",sans-serif;text-transform:uppercase;letter-spacing:.24em;
+  color:rgba(23,19,12,.62);background:rgba(23,19,12,.12);
+  border:1px solid rgba(23,19,12,.18);padding:8px 15px;border-radius:999px;margin-bottom:20px}
+#bc-root .bc-eyebrow::before{content:"";width:5px;height:5px;border-radius:50%;background:rgba(23,19,12,.7)}
+#bc-root .bc-title{margin:0 0 12px;font:700 clamp(26px,4vw,46px)/1.1 Poppins,"Noto Sans SC",sans-serif;
+  color:#17130c;letter-spacing:-.02em}
+#bc-root .bc-sub{margin:0 0 34px;font-size:15px;line-height:1.7;color:rgba(23,19,12,.66)}
+#bc-root .bc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+@media(max-width:720px){#bc-root .bc-grid{grid-template-columns:1fr}}
+#bc-root .bc-item{background:rgba(255,255,255,.30);border:1px solid rgba(255,255,255,.45);
+  border-radius:18px;padding:16px 20px;
+  transition:background .45s cubic-bezier(.32,.72,0,1),transform .45s cubic-bezier(.32,.72,0,1),
+             box-shadow .45s cubic-bezier(.32,.72,0,1)}
+#bc-root .bc-item:hover{background:rgba(255,255,255,.44);transform:translateY(-2px);
+  box-shadow:0 18px 40px -22px rgba(0,0,0,.55)}
+#bc-root .bc-k{display:block;font:500 10.5px/1 Poppins,"Noto Sans SC",sans-serif;
+  text-transform:uppercase;letter-spacing:.18em;color:rgba(23,19,12,.52);margin-bottom:9px}
+#bc-root .bc-v{display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font:600 16px/1.4 Poppins,"Noto Sans SC",sans-serif;color:#17130c;text-decoration:none}
+#bc-root a.bc-v:hover{text-decoration:underline}
+#bc-root .bc-copy{font:500 11px/1 Poppins,"Noto Sans SC",sans-serif;
+  color:rgba(23,19,12,.62);background:rgba(23,19,12,.10);
+  border:1px solid rgba(23,19,12,.16);padding:5px 10px;border-radius:999px;cursor:pointer;
+  font-style:normal;transition:background .4s cubic-bezier(.32,.72,0,1)}
+#bc-root .bc-copy:hover{background:rgba(23,19,12,.18)}
+#bc-root .bc-close{position:absolute;top:18px;right:18px;z-index:5;width:46px;height:46px;
+  border-radius:999px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  background:rgba(23,19,12,.12);border:1px solid rgba(23,19,12,.20);color:#17130c;font-size:19px;
+  transition:transform .5s cubic-bezier(.32,.72,0,1),background .4s cubic-bezier(.32,.72,0,1)}
+#bc-root .bc-close:hover{transform:rotate(90deg);background:rgba(23,19,12,.22)}
+
   `}</style>
 }
 
