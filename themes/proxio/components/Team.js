@@ -48,6 +48,7 @@ export const Team = () => {
                             <div className='mt-8 w-full flex justify-end py-2'>
                                 <SmartLink
                                     href={siteConfig('PROXIO_ABOUT_BUTTON_URL', '')}
+                                    data-bc-trigger
                                     className='px-4 py-2 rounded-3xl border dark:border-gray-200 border-[#333333] text-base font-medium text-dark hover:bg-gray-100 dark:text-white dark:hover:bg-white dark:hover:text-black duration-200'>
                                     {siteConfig('PROXIO_ABOUT_BUTTON_TEXT')}
                                     <i className="pl-4 fa-solid fa-arrow-right"></i>

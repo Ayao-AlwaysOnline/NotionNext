@@ -77,8 +77,8 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* 4th block */}
-                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-4 lg:text-right">
+                    {/* 4th block（data-bc-align 只做视觉对齐，不影响 custom.js 的类名选择器） */}
+                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-2" data-bc-align="right">
                         <h6 className="text-gray-800 font-medium mb-2">旗下其他业务</h6>
                         <ul className="text-sm">
                             <li className="mb-2">

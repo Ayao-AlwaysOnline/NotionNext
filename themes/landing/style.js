@@ -1015,6 +1015,13 @@ const Style = () => {
     text-shadow: 0 0 12px rgba(236, 188, 86, .8);
     background: rgba(236, 188, 86, .10) !important;
   }
+  
+  /* 页脚「旗下其他业务」靠右 —— 用 data 属性而非改类名，
+     因为 public/js/custom.js 用 .sm\:col-span-6.md\:col-span-3.lg\:col-span-2:last-child
+     选它做多语言替换，改类名会让翻译失效。 */
+  @media (min-width: 960px) {
+    #theme-landing footer [data-bc-align='right'] { text-align: right; }
+  }
   `}</style>
 }
 
