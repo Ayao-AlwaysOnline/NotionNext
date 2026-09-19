@@ -597,6 +597,144 @@ const Style = () => {
     }
   }
 
+  
+  /* ============================================================
+     Packaging · 玻璃与辉光系统
+     ------------------------------------------------------------
+     依据：high-end-visual-design 技能 + 哥确立的玻璃/辉光语言
+     proxio 的卡片原本是 dark:bg-[#0E0E0E] + dark:border-[#333333] 的实心暗卡，
+     这里统一改为液态玻璃（背景光可穿透，玻璃才有"面"可读）。
+     全程只写 CSS，**不改任何 className** —— public/js/custom.js 依赖类名。
+     ============================================================ */
+
+  /* ---------- ① 区块背景透明，透出全站品牌光 ---------- */
+  #theme-proxio section,
+  #theme-proxio section[class*="bg-white"],
+  #theme-proxio section[class*="bg-gray-1"],
+  #theme-proxio section[class*="dark:bg-dark"],
+  #theme-proxio #main-wrapper > div { background-color: transparent !important; }
+  /* 根节点保留品牌底与光 */
+  #theme-proxio {
+    background-color: #100e0c !important;
+    background-image:
+      radial-gradient(120% 90% at 78% 4%, rgba(236, 188, 86, .14) 0%, transparent 58%),
+      radial-gradient(110% 80% at 8% 96%, rgba(231, 68, 131, .12) 0%, transparent 60%) !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  }
+
+  /* ---------- ② 卡片：液态玻璃 ---------- */
+  #theme-proxio .mb-6.rounded-xl.bg-white,
+  #theme-proxio [class*="shadow-testimonial"],
+  #theme-proxio [class*="dark:bg-[#0E0E0E]"],
+  #theme-proxio .p-4.border.rounded-lg,
+  #theme-proxio [class*="rounded-lg"][class*="border"][class*="bg-white"] {
+    background-color: rgba(255, 255, 255, .055) !important;
+    background-image: linear-gradient(150deg,
+      rgba(255, 255, 255, .14) 0%,
+      rgba(255, 255, 255, .05) 34%,
+      rgba(255, 255, 255, .015) 62%,
+      rgba(255, 255, 255, 0) 100%) !important;
+    -webkit-backdrop-filter: blur(26px) saturate(190%) !important;
+    backdrop-filter: blur(26px) saturate(190%) !important;
+    border: 1px solid rgba(255, 255, 255, .16) !important;
+    border-radius: 1.35rem !important;
+    box-shadow: 0 30px 66px -34px rgba(0, 0, 0, .96),
+                inset 0 1px 0 0 rgba(255, 255, 255, .22),
+                inset 0 -1px 0 0 rgba(0, 0, 0, .20) !important;
+    transition: border-color .55s var(--b-ease), background-color .55s var(--b-ease),
+                transform .55s var(--b-ease), box-shadow .55s var(--b-ease) !important;
+  }
+  #theme-proxio .mb-6.rounded-xl.bg-white:hover,
+  #theme-proxio [class*="shadow-testimonial"]:hover,
+  #theme-proxio [class*="dark:bg-[#0E0E0E]"]:hover,
+  #theme-proxio .p-4.border.rounded-lg:hover {
+    background-color: rgba(255, 255, 255, .085) !important;
+    border-color: rgba(236, 188, 86, .46) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 36px 74px -34px rgba(0, 0, 0, .97),
+                0 0 30px rgba(236, 188, 86, .24),
+                inset 0 1px 0 0 rgba(255, 255, 255, .28) !important;
+  }
+
+  /* ---------- ③ 眉标小胶囊：品牌金 ---------- */
+  #theme-proxio span[class*="px-3"][class*="py-0.5"][class*="rounded-2xl"] {
+    background-color: rgba(236, 188, 86, .10) !important;
+    border: 1px solid rgba(236, 188, 86, .28) !important;
+    color: #e6cf9b !important;
+    border-radius: 999px !important;
+    letter-spacing: .16em;
+    text-transform: uppercase;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    padding: 7px 14px !important;
+    transition: border-color .4s var(--b-ease), box-shadow .4s var(--b-ease) !important;
+  }
+  #theme-proxio span[class*="px-3"][class*="py-0.5"][class*="rounded-2xl"]:hover {
+    border-color: rgba(236, 188, 86, .55) !important;
+    box-shadow: 0 0 20px rgba(236, 188, 86, .40) !important;
+  }
+
+  /* ---------- ④ 胶囊按钮：金色描边 + 悬停辉光 ---------- */
+  #theme-proxio a[class*="rounded-3xl"],
+  #theme-proxio button[class*="rounded-3xl"],
+  #theme-proxio a[class*="rounded-full"][class*="border"] {
+    border: 1px solid rgba(255, 255, 255, .18) !important;
+    background-color: rgba(255, 255, 255, .05) !important;
+    color: #f2ede4 !important;
+    border-radius: 999px !important;
+    transition: border-color .5s var(--b-ease), color .5s var(--b-ease),
+                box-shadow .5s var(--b-ease), transform .5s var(--b-ease) !important;
+  }
+  #theme-proxio a[class*="rounded-3xl"]:hover,
+  #theme-proxio button[class*="rounded-3xl"]:hover,
+  #theme-proxio a[class*="rounded-full"][class*="border"]:hover {
+    border-color: rgba(236, 188, 86, .60) !important;
+    color: #ecbc56 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 0 26px rgba(236, 188, 86, .42) !important;
+  }
+
+  /* ---------- ⑤ 标题与正文：暖白系 ---------- */
+  #theme-proxio h1, #theme-proxio h2, #theme-proxio h3,
+  #theme-proxio h4, #theme-proxio [class*="dark:text-white"] { color: #f2ede4 !important; }
+  #theme-proxio p, #theme-proxio [class*="dark:text-dark-6"],
+  #theme-proxio [class*="text-body-color"] { color: rgba(242, 237, 228, .66) !important; }
+
+  /* ---------- ⑥ FAQ 展开内容的过渡保持顺滑 ---------- */
+  #theme-proxio [class*="max-h-screen"],
+  #theme-proxio [class*="max-h-0"] { transition: max-height .6s var(--b-ease), opacity .6s var(--b-ease) !important; }
+
+  /* ---------- ⑦ 区块之间柔和过渡，避免硬边 ---------- */
+  #theme-proxio section { position: relative; }
+  #theme-proxio section + section::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 120px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(16,14,12,.45) 0%, rgba(16,14,12,0) 100%);
+  }
+
+  /* ---------- ⑧ 二级菜单（与主站同一套语言）---------- */
+  #theme-proxio .submenu, #theme-proxio #navbarCollapse .submenu {
+    margin-top: 12px; padding: 10px; border-radius: 20px;
+    background: rgba(16, 14, 12, .72) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(185%) !important;
+    backdrop-filter: blur(28px) saturate(185%) !important;
+    border: 1px solid rgba(255, 255, 255, .10) !important;
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .96),
+                inset 0 1px 0 0 rgba(255, 255, 255, .08) !important;
+  }
+  #theme-proxio .submenu a {
+    display: block; border-radius: 12px;
+    padding: 11px 14px !important;
+    color: rgba(242, 237, 228, .62) !important;
+    transition: background .4s var(--b-ease), color .4s var(--b-ease) !important;
+  }
+  #theme-proxio .submenu a:hover {
+    background: rgba(255, 255, 255, .085) !important;
+    color: #ecbc56 !important;
+  }
+
   `}</style>
 }
 

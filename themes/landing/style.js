@@ -908,6 +908,58 @@ const Style = () => {
     transform: none !important;
   }
 
+  
+  /* ============================================================
+     v9 · 修正 v7 引入的两个错误
+     ============================================================ */
+
+  /* ---------- ① 撤销对装饰元素的 grayscale 误伤 ----------
+     v7 我写了：
+       section > div[aria-hidden] svg, section > div.pointer-events-none svg {
+         opacity:.14; filter:grayscale(1) }
+     这条把**金粉渐变的装饰圆**也一起灰掉了（哥截图里那个灰圆）。
+     装饰圆是品牌资产，必须保留原色。改为只压暗、绝不改色。 */
+  #theme-landing section > div[aria-hidden="true"] svg,
+  #theme-landing section > div.pointer-events-none svg {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+  /* 只对「白/浅灰的插画线稿」压暗 —— 用 data 属性或特定 gradient id 精确命中，
+     这里改用更保守的做法：把带 illustration- 渐变的那类 svg 保持原样。 */
+  #theme-landing svg [fill^="url(#illustration"] { opacity: .10; }
+
+  /* ---------- ② 正文高亮统一品牌金（覆盖所有内联标记）----------
+     正文由 dangerouslySetInnerHTML 注入，高亮可能是 span/strong/em/b，
+     并带 text-primary / text-blue-* 之类的类名。
+     这里对 landing 正文区内的一切内联标记统一上金色。 */
+  #theme-landing p span,
+  #theme-landing p strong,
+  #theme-landing p em,
+  #theme-landing p b,
+  #theme-landing p i,
+  #theme-landing [class*="leading-relaxed"] span,
+  #theme-landing [class*="leading-relaxed"] strong,
+  #theme-landing [class*="leading-relaxed"] em,
+  #theme-landing [class*="leading-relaxed"] b,
+  #theme-landing [class*="leading-relaxed"] i,
+  #theme-landing .h2 + p span,
+  #theme-landing .h2 + p strong {
+    color: #ecbc56 !important;
+    font-weight: 600;
+  }
+  /* 蓝色的内联高亮也一并压成金色 */
+  #theme-landing p span[class*="text-blue"],
+  #theme-landing p span[class*="text-primary"],
+  #theme-landing p strong[class*="text-blue"],
+  #theme-landing p strong[class*="text-primary"],
+  #theme-landing [class*="leading-relaxed"] span[class*="text-blue"],
+  #theme-landing [class*="leading-relaxed"] span[class*="text-primary"] {
+    color: #ecbc56 !important;
+  }
+  /* 但页脚/导航里的链接不动 */
+  #theme-landing footer p span,
+  #theme-landing header p span { color: inherit !important; }
+
   `}</style>
 }
 
