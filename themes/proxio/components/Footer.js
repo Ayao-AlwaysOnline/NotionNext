@@ -40,9 +40,8 @@ export const Footer = ({ title }) => {
               </span>
             </div>
             
-            {contactEmailDisplay && (
-              <div className='px-1'>{contactEmailDisplay}</div>
-            )}
+                        {/* 联系我们：点击展开联系面板（与工业地面页一致） */}
+            <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
           </div>
 
           {/* 右侧链接区块 */}

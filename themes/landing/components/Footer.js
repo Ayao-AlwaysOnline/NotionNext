@@ -49,7 +49,11 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* 联系方式列已移除：改由页面底部的「联系我们」按钮展开面板承载 */}
+                    {/* 联系我们：点击展开联系面板（与工业地面页一致） */}
+                    <div className='sm:col-span-6 md:col-span-3 lg:col-span-2'>
+                        <h6 className='text-gray-800 dark:text-gray-200 font-medium mb-3'>{/* 联系方式 */}</h6>
+                        <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
+                    </div>
 
                     {/* 3rd block */}
                     <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">

@@ -59,9 +59,7 @@ export const Contact = () => {
                           CONFIG
                         )}
                       </h5>
-                      <p className='text-base text-body-color dark:text-dark-6'>
-                        {siteConfig('STARTER_CONTACT_EMAIL_TEXT')}
-                      </p>
+                      <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
                     </div>
                   </div>
                 </div>
