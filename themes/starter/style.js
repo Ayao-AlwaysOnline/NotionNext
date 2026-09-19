@@ -230,14 +230,13 @@ const Style = () => {
 
   
 
+  
   /* ============================================================
-     Seaportcy 品牌视觉层
+     Seaportcy 品牌视觉层 v2
      ------------------------------------------------------------
      依据：哥在地板站确立的玻璃/辉光语言 + high-end-visual-design 技能
-       · 质感原型：Ethereal Glass（OLED 黑 + 径向网格光 + 玻璃 + 发丝描边）
-       · 布局原型：Editorial Split（主视觉）+ Asymmetrical Bento（卡片）
-       · 双层包边 Double-Bezel、Island 按钮、Macro Whitespace
-     全部限定在 #theme-starter 内，不碰全局、不碰逻辑。
+     全部限定在 #theme-starter 内，不碰全局、不碰逻辑、不碰 public/js/custom.js
+     依赖的任何类名。
      ============================================================ */
   #theme-starter {
     --b-gold: #ecbc56;
@@ -254,14 +253,30 @@ const Style = () => {
     --b-ease: cubic-bezier(.32, .72, 0, 1);
   }
 
-  /* ---------- ① 悬浮玻璃导航（技能禁止贴顶通栏） ---------- */
+  /* ---------- ① 全站背景：品牌墨底 + 径向网格光 ----------
+     用 background-attachment:fixed 让光固定在视口，滚动时稳定，
+     同时天然覆盖所有页面（含案例归档等二级页面）。 */
+  #theme-starter {
+    background-color: #100e0c !important;
+    background-image:
+      radial-gradient(120% 90% at 78% 4%, rgba(236, 188, 86, .15) 0%, transparent 58%),
+      radial-gradient(110% 80% at 8% 96%, rgba(231, 68, 131, .13) 0%, transparent 60%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+  /* 让区块底透明，光才能透出来 */
+  #theme-starter #main-wrapper,
+  #theme-starter #content-wrapper,
+  #theme-starter section,
+  #theme-starter main,
+  #theme-starter article { background-color: transparent !important; }
+
+  /* ---------- ② 悬浮玻璃导航（脱离顶部） ---------- */
   #theme-starter .ud-header {
-    top: 20px !important;
-    left: 50% !important;
-    right: auto !important;
+    top: 20px !important; left: 50% !important; right: auto !important;
     transform: translateX(-50%);
-    width: auto !important;
-    max-width: calc(100vw - 32px);
+    width: auto !important; max-width: calc(100vw - 32px);
     border-radius: 999px;
     background: var(--b-glass);
     -webkit-backdrop-filter: blur(26px) saturate(180%);
@@ -269,26 +284,44 @@ const Style = () => {
     border: 1px solid var(--b-edge);
     box-shadow: 0 20px 54px -24px rgba(0, 0, 0, .95);
     transition: background .5s var(--b-ease), box-shadow .5s var(--b-ease),
-                border-color .5s var(--b-ease);
+                border-color .5s var(--b-ease), top .5s var(--b-ease);
   }
+  /* 滚动后：玻璃加深但要透 —— 用 .72 而不是接近不透明 */
   #theme-starter .ud-header.sticky {
     top: 14px !important;
-    background: rgba(16, 14, 12, .82) !important;
-    -webkit-backdrop-filter: blur(28px) saturate(185%) !important;
-    backdrop-filter: blur(28px) saturate(185%) !important;
-    border-color: rgba(255, 255, 255, .14) !important;
-    box-shadow: 0 26px 64px -28px rgba(0, 0, 0, .96),
-                inset 0 1px 0 0 rgba(255, 255, 255, .08) !important;
+    background-color: rgba(16, 14, 12, .68) !important;
+    --tw-bg-opacity: 0 !important;
+    -webkit-backdrop-filter: blur(30px) saturate(190%) !important;
+    backdrop-filter: blur(30px) saturate(190%) !important;
+    border-color: rgba(255, 255, 255, .12) !important;
+    box-shadow: 0 26px 64px -28px rgba(0, 0, 0, .95),
+                inset 0 1px 0 0 rgba(255, 255, 255, .07) !important;
   }
   #theme-starter .ud-header .container { width: auto !important; max-width: none !important; }
-  #theme-starter .ud-header.sticky { --tw-bg-opacity: 0 !important; background-color: rgba(16,14,12,.82) !important; }
 
-  /* 导航项：暖白 + 金色辉光 */
+  /* ---------- ③ 徽标与字标：触摸辉光 ---------- */
+  #theme-starter .navbar-logo .header-logo {
+    transition: filter .45s var(--b-ease), transform .45s var(--b-ease);
+  }
+  #theme-starter .navbar-logo:hover .header-logo,
+  #theme-starter .navbar-logo:active .header-logo {
+    filter: drop-shadow(0 0 10px rgba(236, 188, 86, .85));
+    transform: scale(1.04);
+  }
+  #theme-starter .navbar-logo .header-logo-text {
+    transition: color .45s var(--b-ease), text-shadow .45s var(--b-ease);
+  }
+  #theme-starter .navbar-logo:hover .header-logo-text,
+  #theme-starter .navbar-logo:active .header-logo-text {
+    color: var(--b-gold) !important;
+    text-shadow: 0 0 14px rgba(236, 188, 86, .85);
+  }
+
+  /* ---------- ④ 导航项 ---------- */
   #theme-starter .ud-header #navbarCollapse li > a,
   #theme-starter .ud-header #navbarCollapse li > button {
     color: var(--b-tx2) !important;
-    border-radius: 999px;
-    padding: 9px 14px;
+    border-radius: 999px; padding: 9px 14px;
     transition: color .4s var(--b-ease), background .4s var(--b-ease);
   }
   #theme-starter .ud-header #navbarCollapse li > a:hover,
@@ -297,62 +330,39 @@ const Style = () => {
     background: rgba(255, 255, 255, .055);
   }
 
-  /* ---------- ② 区块节奏：大留白 ---------- */
-  #theme-starter section { padding-top: 6rem; padding-bottom: 6rem; }
-  @media (min-width: 768px) { #theme-starter section { padding-top: 8rem; padding-bottom: 8rem; } }
-
-  /* ---------- ③ 双层包边（Double-Bezel） ---------- */
-  #theme-starter .bz {
-    padding: 6px;
-    border-radius: 2rem;
-    background: rgba(255, 255, 255, .045);
+  /* ---------- ⑤ 二级菜单（下拉）：与导航同一套玻璃语言 ----------
+     ⚠️ 只加样式，绝不改 .submenu / .cursor-pointer 这些类名 ——
+        public/js/custom.js 依赖它们做二级菜单的展开逻辑。 */
+  #theme-starter #navbarCollapse .submenu {
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 20px;
+    background: rgba(16, 14, 12, .72) !important;
+    -webkit-backdrop-filter: blur(28px) saturate(185%);
+    backdrop-filter: blur(28px) saturate(185%);
     border: 1px solid var(--b-edge);
-    box-shadow: 0 30px 70px -40px rgba(0, 0, 0, .9);
-    transition: border-color .6s var(--b-ease), background .6s var(--b-ease),
-                transform .6s var(--b-ease);
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .96),
+                inset 0 1px 0 0 rgba(255, 255, 255, .08);
+    overflow: hidden;
   }
-  #theme-starter .bz:hover { border-color: rgba(236, 188, 86, .28); transform: translateY(-4px); }
-  #theme-starter .bz > * {
-    border-radius: calc(2rem - 6px);
-    background: var(--b-ink2);
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, .10);
-    height: 100%;
+  #theme-starter #navbarCollapse .submenu a {
+    display: block;
+    border-radius: 12px;
+    padding: 11px 14px !important;
+    color: var(--b-tx2) !important;
+    white-space: nowrap;
+    transition: background .4s var(--b-ease), color .4s var(--b-ease);
   }
-
-  /* ---------- ④ Island 按钮（胶囊 + 内嵌圆形图标） ---------- */
-  #theme-starter .isle {
-    display: inline-flex; align-items: center; gap: 14px;
-    border-radius: 999px; padding: 12px 12px 12px 26px;
-    background: var(--b-grad); color: #17130c !important;
-    font-weight: 600;
-    border: 0;
-    box-shadow: 0 18px 40px -18px rgba(236, 188, 86, .55);
-    transition: transform .5s var(--b-ease), box-shadow .5s var(--b-ease);
+  #theme-starter #navbarCollapse .submenu a:hover,
+  #theme-starter #navbarCollapse .submenu a:active {
+    background: rgba(255, 255, 255, .085) !important;
+    color: var(--b-gold) !important;
   }
-  #theme-starter .isle:hover { transform: translateY(-2px); box-shadow: 0 24px 52px -20px rgba(236, 188, 86, .7); }
-  #theme-starter .isle:active { transform: scale(.98); }
-  #theme-starter .isle .ic {
-    width: 34px; height: 34px; border-radius: 999px; flex: none;
-    display: inline-flex; align-items: center; justify-content: center;
-    background: rgba(23, 19, 12, .16);
-    transition: transform .5s var(--b-ease);
-  }
-  #theme-starter .isle:hover .ic { transform: translate(3px, -2px) scale(1.06); }
-
-  #theme-starter .isle.ghost {
-    background: rgba(255, 255, 255, .055);
-    color: var(--b-tx) !important;
-    border: 1px solid var(--b-edge);
-    -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px);
-    box-shadow: none; padding: 12px 24px;
-  }
-  #theme-starter .isle.ghost:hover {
-    border-color: rgba(236, 188, 86, .5);
-    box-shadow: 0 0 22px rgba(236, 188, 86, .45);
+  #theme-starter #navbarCollapse .submenu-item > button.cursor-pointer:hover {
     color: var(--b-gold) !important;
   }
 
-  /* ---------- ⑤ 眉标微胶囊 ---------- */
+  /* ---------- ⑥ 眉标微胶囊 ---------- */
   #theme-starter .eb {
     display: inline-flex; align-items: center; gap: 9px;
     font: 500 10px/1 Poppins, "Noto Sans SC", sans-serif;
@@ -369,14 +379,6 @@ const Style = () => {
   }
   #theme-starter .eb:hover::before { transform: scale(1.35); box-shadow: 0 0 16px rgba(236, 188, 86, 1); }
 
-  /* ---------- ⑥ 滚动进入动画 ---------- */
-  #theme-starter .rv2 {
-    opacity: 0; transform: translateY(48px);
-    transition: opacity .9s var(--b-ease), transform .9s var(--b-ease);
-    will-change: transform;
-  }
-  #theme-starter .rv2.rv2-on { opacity: 1; transform: none; }
-
   /* ---------- ⑦ 通用玻璃面 ---------- */
   #theme-starter .gl {
     background: var(--b-glass);
@@ -388,12 +390,41 @@ const Style = () => {
                 inset 0 1px 0 0 rgba(255, 255, 255, .08);
   }
 
-  /* ---------- ⑧ 标题排版 ---------- */
+  /* ---------- ⑧ 双层包边 ---------- */
+  #theme-starter .bz {
+    padding: 6px; border-radius: 2rem;
+    background: rgba(255, 255, 255, .045);
+    border: 1px solid var(--b-edge);
+    box-shadow: 0 30px 70px -40px rgba(0, 0, 0, .9);
+    transition: border-color .6s var(--b-ease), transform .6s var(--b-ease);
+  }
+  #theme-starter .bz:hover { border-color: rgba(236, 188, 86, .28); transform: translateY(-4px); }
+  #theme-starter .bz > * {
+    border-radius: calc(2rem - 6px);
+    background: var(--b-ink2);
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, .10);
+    height: 100%;
+  }
+
+  /* ---------- ⑨ 滚动进入动画 ---------- */
+  #theme-starter .rv2 {
+    opacity: 0; transform: translateY(48px);
+    transition: opacity .9s var(--b-ease), transform .9s var(--b-ease);
+    will-change: transform;
+  }
+  #theme-starter .rv2.rv2-on { opacity: 1; transform: none; }
+
+  /* ---------- ⑩ 标题排版 ---------- */
   #theme-starter h1, #theme-starter h2 { letter-spacing: -.028em; }
   #theme-starter h1 { line-height: 1.06; }
   #theme-starter h2 { line-height: 1.12; }
 
-`}</style>
+  
+  /* Hero 容器透明 —— 与全站共用同一层背景光，避免实心底把光挡住 */
+  #theme-starter #home,
+  #theme-starter #hero,
+  #theme-starter header[class*="relative"] { background-color: transparent !important; }
+  `}</style>
 }
 
 export { Style }

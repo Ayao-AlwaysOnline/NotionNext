@@ -14,13 +14,8 @@ export const Hero = props => {
       <div
         id='home'
         className='relative overflow-hidden bg-brand-ink pt-[150px] pb-24 md:pt-[170px] md:pb-32 lg:pt-[190px]'>
-        {/* 径向网格光：Ethereal Glass 质感底（纯装饰，pointer-events-none） */}
-        <div aria-hidden='true' className='pointer-events-none absolute inset-0'
-          style={{
-            background:
-              'radial-gradient(120% 90% at 78% 8%, rgba(236,188,86,.16) 0%, transparent 58%),' +
-              'radial-gradient(110% 80% at 12% 92%, rgba(231,68,131,.14) 0%, transparent 60%)'
-          }} />
+        {/* 背景光由品牌视觉层统一提供（#theme-starter 的 fixed 径向网格光），
+            Hero 不再自带一层，避免叠加导致亮度不一致。 */}
         <div className='container'>
           <div className='-mx-4 flex flex-wrap items-center'>
             <div className='w-full px-4'>
@@ -43,7 +38,7 @@ export const Hero = props => {
                     <li>
                       <SmartLink
                         href={siteConfig('STARTER_HERO_BUTTON_1_URL', '')}
-                        className='isle group'>
+                        className='inline-flex items-center justify-center rounded-md bg-white px-7 py-[14px] text-center text-base font-medium text-dark shadow-1 transition duration-300 ease-in-out hover:bg-gray-2 hover:text-body-color'>
                         {siteConfig('STARTER_HERO_BUTTON_1_TEXT', null, config)}
                       </SmartLink>
                     </li>
@@ -57,7 +52,7 @@ export const Hero = props => {
                           config
                         )}
                         target='_blank'
-                        className='isle ghost group'
+                        className='flex items-center rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark'
                         rel='noreferrer'>
                         {siteConfig(
                           'STARTER_HERO_BUTTON_2_ICON',
