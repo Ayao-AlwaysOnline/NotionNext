@@ -64,6 +64,31 @@ const I18N = {
   }
 }
 
+/**
+ * 语言检测（本站实际只用了中/英/日三种）。
+ * 注意：/studios-en、/studios-ja、/packaging-en 这类是 pages/[prefix] 自定义路由，
+ * **不是** Next i18n 的标准 locale 路由，所以 router.locale 取不到，
+ * 必须回退到从 URL 路径解析 -en / -ja 后缀。
+ */
+function detectLocale(pathOrRouter) {
+  let p = ''
+  if (typeof pathOrRouter === 'string') {
+    p = pathOrRouter
+  } else {
+    const r = pathOrRouter || {}
+    p = r.asPath || r.pathname || r.route || ''
+  }
+  p = String(p).toLowerCase().split('?')[0].split('#')[0]
+  // 本站在用的三条语言路径（其余一律中文）：
+  //   主站      /en           /ja
+  //   Studios   /studios-en   /studios-ja
+  //   Packaging /packaging-en /packaging-ja
+  // 语言作为独立路径段（/ja、/ja/page/2）或作为后缀（/studios-ja、/packaging-ja）
+  if (/(^|\/)ja(\/|$)/.test(p) || /-ja\/?$/.test(p)) return 'ja'
+  if (/(^|\/)en(\/|$)/.test(p) || /-en\/?$/.test(p)) return 'en'
+  return 'zh'
+}
+
 const CSS = `
 /* 触发按钮：用字面量渐变，**不依赖任何 CSS 变量**（按钮在 #bc-root 之外）。 */
 .bc-fab{display:inline-flex;align-items:center;gap:12px;
@@ -144,11 +169,14 @@ export default function BrandContact({ enabled = true }) {
   const panelRef = useRef(null)
   const router = useRouter()
 
-  const loc = (() => {
-    const l = (router && router.locale) || (typeof document !== 'undefined' && /\/ja(\/|$)/.test(location.pathname) ? 'ja' : (/\/en(\/|$)/.test(location.pathname) ? 'en' : 'zh'))
-    return I18N[l] ? l : 'zh'
-  })()
-  const T = I18N[loc]
+  // 语言在客户端 effect 里检测：SSR 一律输出中文，挂载后按路径切换。
+  // 这样服务端与客户端首帧一致，不会出现 hydration mismatch。
+  const [loc, setLoc] = useState('zh')
+  useEffect(() => {
+    const path = (typeof window !== 'undefined' ? window.location.pathname : '') || (router && router.asPath)
+    setLoc(detectLocale(path))
+  }, [router && router.asPath])
+  const T = I18N[loc] || I18N.zh
 
   useEffect(() => {
     const g = panelRef.current
@@ -296,8 +324,13 @@ export default function BrandContact({ enabled = true }) {
 /** 多语言的「联系方式」按钮 —— 各站页脚就地引用，文字随 locale 变化 */
 export function BrandContactFab() {
   const router = useRouter()
-  const l = (router && router.locale) || 'zh'
-  const T = I18N[l] || I18N.zh
+  // 同主组件：客户端检测，SSR 先输出中文，挂载后切换 —— 避免 hydration mismatch。
+  const [loc, setLoc] = useState('zh')
+  useEffect(() => {
+    const path = (typeof window !== 'undefined' ? window.location.pathname : '') || (router && router.asPath)
+    setLoc(detectLocale(path))
+  }, [router && router.asPath])
+  const T = I18N[loc] || I18N.zh
   return (
     <button className='bc-fab' type='button'>
       {T.fab}
