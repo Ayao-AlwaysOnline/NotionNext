@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { useEffect } from 'react'
 import { Career } from './components/Career'
 import { BackToTopButton } from './components/BackToTopButton'
+import BrandContact from '@/components/BrandContact'
 import { Blog } from './components/Blog'
 import { Brand } from './components/Brand'
 import { FAQ } from './components/FAQ'
@@ -110,6 +111,9 @@ const LayoutBase = props => {
 
             {/* 悬浮按钮 */}
             <BackToTopButton />
+
+            {/* 底部中间：联系我们（玻璃面板展开，与工业地面页一致） */}
+            <BrandContact />
 
             {/* 鼠标阻尼动画 */}
             <Lenis />

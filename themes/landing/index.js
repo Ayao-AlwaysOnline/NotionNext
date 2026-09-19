@@ -15,6 +15,7 @@ import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 import CONFIG from './config'
 import { Style } from './style'
+import BrandContact from '@/components/BrandContact'
 
 const Header = dynamic(() => import('./components/Header'), { ssr: true })
 const Hero = dynamic(() => import('./components/Hero'), { ssr: true })
@@ -87,6 +88,9 @@ const LayoutBase = props => {
 
       {/* 底部页脚 */}
       <Footer />
+
+      {/* 底部中间：联系我们（玻璃面板展开，与工业地面页一致） */}
+      <BrandContact />
     </div>
   )
 }

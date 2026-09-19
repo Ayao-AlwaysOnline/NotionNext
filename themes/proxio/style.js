@@ -752,6 +752,46 @@ const Style = () => {
     border-color: rgba(236, 188, 86, .55) !important;
     box-shadow: 0 0 20px rgba(236, 188, 86, .40) !important;
   }
+  
+  /* ============================================================
+     v12 · Packaging 导航字标默认金色 + 隐藏 More 入口
+     ============================================================ */
+
+  /* ---------- ① 导航字标默认就是品牌金 ----------
+     proxio 的 Logo.js 用 useState 驱动字色：
+       const [logoTextColor, setLogoTextColor] = useState('text-white')
+       <span className={logoTextColor + ' logo dark:text-white header-logo-text'}>
+     暗色模式/首页顶部 → text-white，否则 text-black。
+     哥的要求：默认就是主题色，触摸只出辉光。
+     所以我此前只写 hover 变金是错的，这里把默认色锁成品牌金。 */
+  #theme-proxio .navbar-logo .header-logo-text,
+  #theme-proxio .navbar-logo .header-logo-text.text-white,
+  #theme-proxio .navbar-logo .header-logo-text.text-black,
+  #theme-proxio .navbar-logo .logo {
+    color: #ecbc56 !important;
+    transition: text-shadow .45s var(--b-ease) !important;
+  }
+  #theme-proxio .navbar-logo:hover .header-logo-text,
+  #theme-proxio .navbar-logo:active .header-logo-text {
+    color: #ecbc56 !important;
+    text-shadow: 0 0 14px rgba(236, 188, 86, .85);
+  }
+  #theme-proxio .navbar-logo:hover img,
+  #theme-proxio .navbar-logo:hover .header-logo {
+    filter: drop-shadow(0 0 10px rgba(236, 188, 86, .85));
+  }
+
+  /* ---------- ② 隐藏「更多文章 →」入口 ----------
+     它是 proxio/index.js 里的：
+       <div class='container mx-auto flex justify-end mb-4'>
+         <SmartLink href='/archive'>更多 <i class='fas fa-arrow-right' /></SmartLink>
+       </div>
+     注意：custom.js 也用这个选择器做隐藏（el1.style.display='none'），
+     但没生效。这里用 CSS 兜底，并**不影响**该容器被 custom.js 选中
+     （display:none 的元素仍在 DOM 中，querySelector 照样能找到）。 */
+  #theme-proxio .container.mx-auto.flex.justify-end.mb-4 {
+    display: none !important;
+  }
   `}</style>
 }
 
