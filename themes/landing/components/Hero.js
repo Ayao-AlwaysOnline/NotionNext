@@ -31,13 +31,13 @@ export default function Hero() {
                     {/* Section header */}
                     <div className="text-center pb-12 md:pb-16">
                         <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">
-                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-500 to-teal-400">{siteConfig('LANDING_HERO_TITLE_1', null, CONFIG)}</span>
+                            <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ecbc56] to-[#e74483]">{siteConfig('LANDING_HERO_TITLE_1', null, CONFIG)}</span>
                         </h1>
                         <div className="max-w-3xl mx-auto">
                             <p className="text-xl text-gray-600 dark:text-gray-400 mb-8" data-aos="zoom-y-out" data-aos-delay="150">{siteConfig('LANDING_HERO_P_1', null, CONFIG)}</p>
                             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
                                 <div>
-                                    <a target='_blank' className="btn text-white bg-blue-600 hover:bg-blue-700 w-full mb-4 sm:w-auto sm:mb-0"
+                                    <a target='_blank' className="btn text-white bg-primary hover:bg-[#d9a83f] w-full mb-4 sm:w-auto sm:mb-0"
                                         href={siteConfig('LANDING_HERO_BUTTON_1_LINK', null, CONFIG)} rel="noreferrer">
                                         {siteConfig('LANDING_HERO_BUTTON_1_TEXT', null, CONFIG)}
                                     </a>

@@ -51,9 +51,20 @@ module.exports = {
           7: '#D1D5DB',
           8: '#E5E7EB'
         },
-        primary: '#3758F9',
-        'blue-dark': '#1B44C8',
-        secondary: '#13C296',
+        // ⚠️ 仅改色值，键名一律不动 —— 项目里有 127 处 primary 类名，
+        //    改键名会牵动 JSX，风险远大于改色值。
+        //    primary 用作 bg 时配深色字，见各主题 style.js 的对比度兜底规则。
+        primary: '#ecbc56',        // 原模板蓝 #3758F9 → 品牌金
+        'blue-dark': '#c99a2e',    // 原 #1B44C8 → 品牌深金（键名保留）
+        secondary: '#e74483',      // 原模板绿 #13C296 → 品牌粉
+        // 品牌色板（新增）
+        brand: {
+          gold: '#ecbc56',
+          pink: '#e74483',
+          ink: '#100e0c',
+          ink2: '#1a1a1a',
+          golddark: '#c99a2e'
+        },
         'body-color': '#637381',
         'body-secondary': '#8899A8',
         warning: '#FBBF24',
