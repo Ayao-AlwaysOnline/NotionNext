@@ -899,22 +899,32 @@ const Style = () => {
   
   /* ---------- 联系面板左上角：辉光品牌徽标 ----------
      动效只用 transform / opacity（符合审美插件的动效规范）。 ---------- */
-  #bc-root .bc-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  #bc-root .bc-head { display: flex; align-items: center; gap: 24px; margin-bottom: 24px; }
+  /* 外玻璃框 100x100，内徽标 90x90 */
   #bc-root .bc-badge {
-    position: relative; width: 48px; height: 48px; border-radius: 999px; flex: none;
+    position: relative; width: 100px; height: 100px; border-radius: 999px; flex: none;
     display: inline-flex; align-items: center; justify-content: center;
-    background: rgba(23, 19, 12, .16);
-    border: 1px solid rgba(23, 19, 12, .22);
-    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .30);
+    background: radial-gradient(circle at 50% 34%, rgba(28, 23, 17, .52) 0%, rgba(20, 16, 12, .72) 100%);
+    border: 1px solid rgba(255, 255, 255, .34);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .28),
+                inset 0 -1px 0 0 rgba(0, 0, 0, .35),
+                0 12px 30px -14px rgba(0, 0, 0, .70);
+    -webkit-backdrop-filter: blur(12px) saturate(160%);
+    backdrop-filter: blur(12px) saturate(160%);
   }
   #bc-root .bc-badge img {
-    width: 28px; height: 28px; object-fit: contain; display: block;
-    filter: drop-shadow(0 0 7px rgba(236, 188, 86, .95));
+    width: 90px; height: 90px; object-fit: contain; display: block;
+    filter: drop-shadow(0 0 12px rgba(236, 188, 86, .95));
   }
   #bc-root .bc-badge::after {
-    content: ''; position: absolute; inset: -9px; border-radius: 999px; pointer-events: none;
+    content: ''; position: absolute; inset: -14px; border-radius: 999px; pointer-events: none;
     background: radial-gradient(circle, rgba(236, 188, 86, .62) 0%, rgba(236, 188, 86, 0) 70%);
     animation: bc-pulse 2.8s cubic-bezier(.32, .72, 0, 1) infinite;
+  }
+  @media (max-width: 720px) {
+    #bc-root .bc-head { gap: 16px; margin-bottom: 18px; }
+    #bc-root .bc-badge { width: 72px; height: 72px; }
+    #bc-root .bc-badge img { width: 64px; height: 64px; }
   }
   @keyframes bc-pulse {
     0%, 100% { transform: scale(.90); opacity: .50; }
