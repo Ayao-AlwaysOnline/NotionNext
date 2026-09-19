@@ -49,27 +49,7 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* 2nd block */}
-                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
-                        <h6 className="text-gray-800 font-medium mb-2">联系方式</h6>
-                        <ul className="text-sm">
-                            <li className="mb-2">
-                                <p>Email: SeaportcyStudios@qq.com</p>
-                            </li>
-                            <li className="mb-2">
-                                <p>Tel＆Wechat: +86-15377718690</p>
-                            </li>
-                            <li className="mb-2">
-                                {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Github</a> */}
-                            </li>
-                            <li className="mb-2">
-                                {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Notion</a> */}
-                            </li>
-                            <li className="mb-2">
-                                {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">NextJs</a> */}
-                            </li>
-                        </ul>
-                    </div>
+                    {/* 联系方式列已移除：改由页面底部的「联系我们」按钮展开面板承载 */}
 
                     {/* 3rd block */}
                     <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
