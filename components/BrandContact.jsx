@@ -184,9 +184,15 @@ export default function BrandContact({ enabled = true }) {
       const t = e.target
       if (!t || !t.closest) return
       const fab = t.closest('.bc-fab')
-      if (fab) { e.preventDefault(); fire(fab); return }
+      if (fab) { e.preventDefault(); e.stopPropagation(); fire(fab); return }
       const hit = matchByText(t)
-      if (hit) fire(hit)
+      if (hit) {
+        // 关键：阻止默认行为。这些按钮本身是 <a href=''> 或未指定 type 的 <button>（默认 submit），
+        // 不阻止就会刷新/提交整页，导致面板永远弹不出来。
+        // 处于 capture 阶段，不影响 custom.js 自己的滚动监听继续执行。
+        e.preventDefault()
+        fire(hit)
+      }
     }
     document.addEventListener('click', onClick, true)
 

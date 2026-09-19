@@ -50,13 +50,12 @@ export default function Footer() {
                     </div>
 
                     {/* 联系我们：点击展开联系面板（与工业地面页一致） */}
-                    <div className='sm:col-span-6 md:col-span-3 lg:col-span-2'>
-                        <h6 className='text-gray-800 dark:text-gray-200 font-medium mb-3'>{/* 联系方式 */}</h6>
+                    <div className='sm:col-span-6 md:col-span-6 lg:col-span-5 flex justify-center'>
                         <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
                     </div>
 
                     {/* 3rd block */}
-                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
+                    <div className="hidden">
                         <h6 className="text-gray-800 font-medium mb-2"></h6>
                         <ul className="text-sm">
                             <li className="mb-2">
@@ -78,7 +77,7 @@ export default function Footer() {
                     </div>
 
                     {/* 4th block */}
-                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
+                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-4 lg:text-right">
                         <h6 className="text-gray-800 font-medium mb-2">旗下其他业务</h6>
                         <ul className="text-sm">
                             <li className="mb-2">

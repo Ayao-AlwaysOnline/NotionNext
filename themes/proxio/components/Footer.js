@@ -26,7 +26,12 @@ export const Footer = ({ title }) => {
         {/* 信息与链接区块 */}
         <div className='w-full flex lg:flex-row flex-col justify-between py-16'>
           <div className='gap-y-2 flex flex-col items-start dark:text-gray-200'>
-            <div className='flex gap-x-1'>
+                      {/* 联系我们：整行居中（与工业地面页一致） */}
+          <div className='w-full flex justify-center py-6'>
+            <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
+          </div>
+
+<div className='flex gap-x-1'>
               <img
                 src="/images/starter/team/packaging.png"
                 className='rounded-full'
@@ -40,8 +45,7 @@ export const Footer = ({ title }) => {
               </span>
             </div>
             
-                        {/* 联系我们：点击展开联系面板（与工业地面页一致） */}
-            <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
+            
           </div>
 
           {/* 右侧链接区块 */}
