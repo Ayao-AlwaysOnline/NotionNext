@@ -468,45 +468,133 @@ const Style = () => {
 
   
   
+  
   /* ============================================================
-     v3.2 · 液态玻璃（精确选择器版）
-     ------------------------------------------------------------
-     v3.1 用了 [class*="bg-gray-2"] 这种子串匹配，把按钮上的
-     hover:bg-gray-2 / hover:bg-white 也匹配进去了，导致 Hero 按钮变透明。
-     改为「精确复合类选择器」—— 元素必须同时拥有这些确切的类名才命中。
+     v4 · 修正
      ============================================================ */
-  #theme-proxio .rounded-xl.bg-white.shadow-pricing,
-  #theme-proxio .rounded-xl.bg-white.shadow-testimonial,
-  #theme-proxio .rounded-xl.bg-white.overflow-hidden,
-  #theme-proxio .mb-8.overflow-hidden.rounded-\[5px\],
-  #theme-proxio .rounded-xl.dark\:bg-dark,
-  #theme-proxio .rounded-xl.dark\:bg-dark-2 {
-    background-color: rgba(30, 27, 23, .72) !important;
-    background-image: linear-gradient(140deg, rgba(255, 255, 255, .10) 0%, rgba(255, 255, 255, .01) 46%, rgba(255, 255, 255, 0) 100%) !important;
-    -webkit-backdrop-filter: blur(24px) saturate(185%);
-    backdrop-filter: blur(24px) saturate(185%);
-    border: 1px solid rgba(255, 255, 255, .14) !important;
-    box-shadow: 0 30px 66px -34px rgba(0, 0, 0, .96),
-                inset 0 1px 0 0 rgba(255, 255, 255, .14) !important;
-    border-radius: 1.35rem !important;
-    transition: border-color .55s var(--b-ease), transform .55s var(--b-ease),
-                box-shadow .55s var(--b-ease);
-  }
-  #theme-proxio .rounded-xl.bg-white.shadow-pricing:hover,
-  #theme-proxio .rounded-xl.bg-white.shadow-testimonial:hover,
-  #theme-proxio .mb-8.overflow-hidden.rounded-\[5px\]:hover {
-    border-color: rgba(236, 188, 86, .42) !important;
-    transform: translateY(-4px);
-    box-shadow: 0 38px 78px -34px rgba(0, 0, 0, .97),
-                0 0 26px rgba(236, 188, 86, .22),
-                inset 0 1px 0 0 rgba(255, 255, 255, .18) !important;
-  }
-  /* 区块级白底容器透明 —— 用精确的复合类，不用子串 */
-  #theme-proxio .bg-white.pb-12.pt-20,
-  #theme-proxio .bg-white.pb-10.pt-20,
-  #theme-proxio .bg-gray-1.py-20,
-  #theme-proxio .bg-gray-1.pb-12.pt-20 {
+
+  /* ① 去掉导航里多余的框
+     原因：v3 里那条用子串匹配的玻璃规则（[class*="rounded-xl"][class*="bg-white"]
+     等）会命中导航内部的元素（语言按钮/搜索框之类），在其上画出了第二个圆角框。
+     这里明确排除导航内部，只保留 v3.2 的精确复合类规则。 */
+  #theme-proxio .ud-header [class*="rounded-xl"],
+  #theme-proxio .ud-header [class*="rounded-lg"],
+  #theme-proxio .ud-header [class*="shadow-testimonial"],
+  #theme-proxio .ud-header [class*="shadow-pricing"],
+  #theme-proxio .ud-header [class*="rounded-\\[5px\\]"],
+  #theme-proxio .ud-header [class*="rounded-\\[14px\\]"] {
     background-color: transparent !important;
+    background-image: none !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  /* 导航内部只有胶囊项需要底色，其余一律透明 */
+  #theme-proxio .ud-header .container,
+  #theme-proxio .ud-header .container > div,
+  #theme-proxio .ud-header .container > div > div { background-color: transparent !important; }
+
+  /* ② 评论卡上浮导致被父容器裁剪 —— 去掉位移，只用描边与辉光表达 */
+  #theme-proxio .rounded-xl.bg-white.shadow-testimonial:hover,
+  #theme-proxio [class*="shadow-testimonial"]:hover {
+    transform: none !important;
+    border-color: rgba(236, 188, 86, .45) !important;
+    box-shadow: 0 30px 66px -34px rgba(0, 0, 0, .96),
+                0 0 28px rgba(236, 188, 86, .26),
+                inset 0 1px 0 0 rgba(255, 255, 255, .20) !important;
+  }
+
+  /* ③ 移动端二级菜单：与桌面同一套玻璃语言 */
+  #theme-proxio [class*="fixed"][class*="top-0"] [class*="rounded"],
+  #theme-proxio [class*="md:hidden"] [class*="absolute"],
+  #theme-proxio .submenu,
+  
+  #theme-proxio [class*="fixed top-0"] ul,
+  #theme-proxio [class*="fixed top-0"] .submenu,
+  #theme-proxio body > div[class*="fixed"] > div[class*="bg-white"],
+  #theme-proxio [class*="top-full"][class*="w-full"] {
+    background-color: rgba(16, 14, 12, .92) !important;
+    -webkit-backdrop-filter: blur(30px) saturate(185%) !important;
+    backdrop-filter: blur(30px) saturate(185%) !important;
+    border: 1px solid rgba(255, 255, 255, .10) !important;
+    box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .96),
+                inset 0 1px 0 0 rgba(255, 255, 255, .08) !important;
+  }
+  #theme-proxio [class*="top-full"] a,
+  #theme-proxio [class*="top-full"] button {
+    border-radius: 12px !important;
+    color: rgba(242, 237, 228, .72) !important;
+    transition: background .4s var(--b-ease), color .4s var(--b-ease);
+  }
+  #theme-proxio [class*="top-full"] a:hover,
+  #theme-proxio [class*="top-full"] button:hover {
+    background: rgba(255, 255, 255, .085) !important;
+    color: var(--b-gold) !important;
+  }
+
+  /* ============================================================
+     Packaging v4：hero 与下一区块的交界
+     ============================================================ */
+  #theme-proxio #home { min-height: 100dvh; }
+  #theme-proxio [class*="h-1\/3"][class*="bottom-0"] {
+    height: 55% !important;
+    background-image: linear-gradient(to bottom,
+      rgba(16, 14, 12, 0) 0%,
+      rgba(16, 14, 12, .35) 30%,
+      rgba(16, 14, 12, .80) 60%,
+      rgba(16, 14, 12, .97) 84%,
+      #100e0c 100%) !important;
+  }
+  /* hero 图片底部也加一层压暗，避免亮图直接顶到区块边界 */
+  #theme-proxio #home::after {
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 34%;
+    z-index: 5; pointer-events: none;
+    background: linear-gradient(to bottom, rgba(16, 14, 12, 0) 0%, #100e0c 100%);
+  }
+
+  
+  /* ============================================================
+     v4.1 · 关键修正：导航里多余的框
+     ------------------------------------------------------------
+     v4 里我写了 #theme-proxio #navbarCollapse { 玻璃底 }，但桌面端的
+     #navbarCollapse 正是包裹菜单项的那个容器 —— 于是它被画成了
+     第二个胶囊，就是哥看到的"多余的框"。
+     它本来就只该在移动端作为下拉面板时才有底色。
+     改为仅在移动端断点内生效。
+     ============================================================ */
+  #theme-proxio .ud-header #navbarCollapse,
+  #theme-proxio .ud-header #navbarCollapse > ul,
+  #theme-proxio .ud-header #navbarCollapse > div {
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  /* 桌面端：菜单项自身保持胶囊高亮即可 */
+  #theme-proxio .ud-header #navbarCollapse li > a,
+  #theme-proxio .ud-header #navbarCollapse li > button {
+    background-color: transparent;
+  }
+
+  /* 移动端才把它做成玻璃面板（960px 是本站 lg 断点） */
+  @media (max-width: 959px) {
+    #theme-proxio .ud-header #navbarCollapse {
+      background-color: rgba(16, 14, 12, .92) !important;
+      -webkit-backdrop-filter: blur(30px) saturate(185%) !important;
+      backdrop-filter: blur(30px) saturate(185%) !important;
+      border: 1px solid rgba(255, 255, 255, .10) !important;
+      border-radius: 20px !important;
+      box-shadow: 0 30px 70px -30px rgba(0, 0, 0, .96),
+                  inset 0 1px 0 0 rgba(255, 255, 255, .08) !important;
+    }
+    #theme-proxio .ud-header #navbarCollapse li > a,
+    #theme-proxio .ud-header #navbarCollapse li > button,
+    #theme-proxio .ud-header #navbarCollapse .submenu a {
+      border-radius: 12px !important;
+    }
   }
 
   `}</style>
