@@ -26,7 +26,12 @@ const ITEMS = [
 ]
 
 /** 触发文案：可见文字里包含这些词的元素都会被接上 */
-const TRIGGER_TEXT = ['联系我们', '與我們聯繫', 'Contact Us', 'Contact us']
+const TRIGGER_TEXT = [
+  '联系我们', '与我们联系', '跟我们联系', '聯絡我們', '聯系我們',
+  '與我們聯繫', '聯繫我們', '跟我們聯繫',
+  'Contact Us', 'Contact us', 'Contact', 'contact',
+  '联系', '聯繫', '联络', '咨询', '咨詢', '詢價', '询价'
+]
 
 const CSS = `
 /* ---------- 触发按钮 ----------
@@ -168,7 +173,7 @@ export default function BrandContact({ enabled = true }) {
     const fire = (el) => {
       anchorRef.current = el || null
       if (pending) clearTimeout(pending)
-      pending = setTimeout(() => { setMounted(true); setOpen(true) }, 340)
+      pending = setTimeout(() => { setMounted(true); setOpen(true) }, 30)
     }
     const matchByText = (t) => {
       if (!t || !t.closest) return null
@@ -176,7 +181,7 @@ export default function BrandContact({ enabled = true }) {
       if (!el) return null
       if (el.closest('#bc-root')) return null
       const txt = (el.textContent || '').trim()
-      if (!txt || txt.length > 40) return null
+      if (!txt || txt.length > 60) return null
       for (const k of TRIGGER_TEXT) if (txt.indexOf(k) >= 0) return el
       return null
     }
