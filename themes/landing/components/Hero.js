@@ -5,6 +5,13 @@ import { siteConfig } from '@/lib/config'
 export default function Hero() {
   return (
         <section className="relative">
+            {/* 径向网格光：与主站同一套 Ethereal Glass 质感底 */}
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  'radial-gradient(110% 80% at 82% 6%, rgba(236,188,86,.14) 0%, transparent 56%),' +
+                  'radial-gradient(100% 76% at 8% 96%, rgba(231,68,131,.13) 0%, transparent 58%)'
+              }} />
 
             {/* Illustration behind hero content */}
             <div className="absolute left-1/2 transform -translate-x-1/2 bottom-0 pointer-events-none -z-1" aria-hidden="true">
@@ -30,20 +37,21 @@ export default function Hero() {
 
                     {/* Section header */}
                     <div className="text-center pb-12 md:pb-16">
-                        <h1 className="text-5xl md:text-6xl font-extrabold leading-tighter tracking-tighter mb-4" data-aos="zoom-y-out">
+                        <span className="eb rv2">Creative Studio</span>
+                        <h1 className="text-4xl md:text-5xl font-extrabold leading-tighter tracking-tighter mb-5" data-aos="zoom-y-out">
                             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#ecbc56] to-[#e74483]">{siteConfig('LANDING_HERO_TITLE_1', null, CONFIG)}</span>
                         </h1>
                         <div className="max-w-3xl mx-auto">
-                            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8" data-aos="zoom-y-out" data-aos-delay="150">{siteConfig('LANDING_HERO_P_1', null, CONFIG)}</p>
+                            <p className="rv2 text-lg text-gray-600 dark:text-gray-400 mb-9" data-aos="zoom-y-out" data-aos-delay="150">{siteConfig('LANDING_HERO_P_1', null, CONFIG)}</p>
                             <div className="max-w-xs mx-auto sm:max-w-none sm:flex sm:justify-center" data-aos="zoom-y-out" data-aos-delay="300">
                                 <div>
-                                    <a target='_blank' className="btn text-white bg-primary hover:bg-[#d9a83f] w-full mb-4 sm:w-auto sm:mb-0"
+                                    <a target='_blank' className="isle group mb-4 sm:mb-0"
                                         href={siteConfig('LANDING_HERO_BUTTON_1_LINK', null, CONFIG)} rel="noreferrer">
                                         {siteConfig('LANDING_HERO_BUTTON_1_TEXT', null, CONFIG)}
                                     </a>
                                 </div>
                                 <div>
-                                    <a target='_blank' className="btn text-white bg-gray-900 hover:bg-gray-800 w-full sm:w-auto sm:ml-4"
+                                    <a target='_blank' className="isle ghost group sm:ml-4"
                                         href={siteConfig('LANDING_HERO_BUTTON_2_LINK', null, CONFIG)} rel="noreferrer">
                                         {siteConfig('LANDING_HERO_BUTTON_2_TEXT', null, CONFIG)}
                                     </a>

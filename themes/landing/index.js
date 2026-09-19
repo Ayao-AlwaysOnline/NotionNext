@@ -14,6 +14,7 @@ import { useRouter } from 'next/router'
 import dynamic from 'next/dynamic'
 import { useEffect } from 'react'
 import CONFIG from './config'
+import { Style } from './style'
 
 const Header = dynamic(() => import('./components/Header'), { ssr: true })
 const Hero = dynamic(() => import('./components/Hero'), { ssr: true })
@@ -40,10 +41,44 @@ const Footer = dynamic(() => import('./components/Footer'), { ssr: true })
 const LayoutBase = props => {
   const { children } = props
 
+  /**
+   * 滚动进入动画（品牌视觉层 .rv2）
+   * IntersectionObserver 而非 scroll 监听 —— 后者持续触发重排、移动端掉帧。
+   * 类名用 rv2-on，刻意避开 .in（站点内容包裹层占用了该名字）。
+   */
+  useEffect(() => {
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return
+    const io = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('rv2-on')
+            io.unobserve(e.target)
+          }
+        })
+      },
+      { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }
+    )
+    const scan = () => {
+      document.querySelectorAll('#theme-landing .rv2:not(.rv2-on)').forEach(el => io.observe(el))
+    }
+    scan()
+    const t = setTimeout(scan, 600)
+    const t2 = setTimeout(scan, 1800)
+    return () => {
+      clearTimeout(t)
+      clearTimeout(t2)
+      io.disconnect()
+    }
+  }, [])
+
   return (
     <div
       id='theme-landing'
       className={`${siteConfig('FONT_STYLE')} scroll-smooth overflow-hidden flex flex-col justify-between bg-white dark:bg-black`}>
+      {/* 主题样式：landing 此前从未渲染 Style，导致 style.js 一直是死代码 */}
+      <Style />
+
       {/* 顶部导航栏 */}
       <Header />
 

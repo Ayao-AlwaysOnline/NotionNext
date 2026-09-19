@@ -60,6 +60,39 @@ const LayoutBase = props => {
         loadWowJS()
     }, [])
 
+    /**
+     * 滚动进入动画（品牌视觉层 .rv2）
+     * IntersectionObserver 而非 scroll 监听 —— 后者持续触发重排、移动端掉帧。
+     * 类名用 rv2-on，刻意避开 .in（站点内容包裹层占用了该名字）。
+     */
+    useEffect(() => {
+        if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return
+        const io = new IntersectionObserver(
+            entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('rv2-on')
+                        io.unobserve(e.target)
+                    }
+                })
+            },
+            { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }
+        )
+        const scan = () => {
+            document
+                .querySelectorAll('#theme-proxio .rv2:not(.rv2-on)')
+                .forEach(el => io.observe(el))
+        }
+        scan()
+        const t = setTimeout(scan, 600)
+        const t2 = setTimeout(scan, 1800)
+        return () => {
+            clearTimeout(t)
+            clearTimeout(t2)
+            io.disconnect()
+        }
+    }, [])
+
     return (
         <div
             id='theme-proxio'

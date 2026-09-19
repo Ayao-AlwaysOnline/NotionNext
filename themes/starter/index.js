@@ -70,6 +70,41 @@ const LayoutBase = props => {
         }
     }, [])
 
+    /**
+     * 滚动进入动画（品牌视觉层 .rv2）
+     * 用 IntersectionObserver 而不是 scroll 监听 —— 后者会持续触发重排，
+     * 移动端掉帧严重。这里只做加类，不做任何布局计算。
+     * 类名用 rv2-on，刻意避开 .in（站点内容包裹层占用了那个名字）。
+     */
+    useEffect(() => {
+        if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return
+        const io = new IntersectionObserver(
+            entries => {
+                entries.forEach(e => {
+                    if (e.isIntersecting) {
+                        e.target.classList.add('rv2-on')
+                        io.unobserve(e.target)
+                    }
+                })
+            },
+            { rootMargin: '0px 0px -12% 0px', threshold: 0.08 }
+        )
+        const scan = () => {
+            document
+                .querySelectorAll('#theme-starter .rv2:not(.rv2-on)')
+                .forEach(el => io.observe(el))
+        }
+        scan()
+        // 路由切换后重新扫描（Next.js 是客户端路由，DOM 会替换）
+        const t = setTimeout(scan, 600)
+        const t2 = setTimeout(scan, 1800)
+        return () => {
+            clearTimeout(t)
+            clearTimeout(t2)
+            io.disconnect()
+        }
+    }, [router?.asPath])
+
     return (
         <div
             id='theme-starter'
