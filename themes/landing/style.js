@@ -631,6 +631,121 @@ const Style = () => {
   /* 文章内链接金色 */
   #theme-starter .notion-page-content a { color: var(--b-gold) !important; }
 
+  
+  /* ============================================================
+     v6 · 修正选中逻辑 + 重做评论卡
+     ============================================================ */
+
+  /* ---------- ① 「数字资产与品牌策略解决方案」三块：选中/未选中逻辑对调 ----------
+     组件里的判断是：
+       tab !== N ? 'bg-white shadow-md border-gray-200 hover:shadow-lg'   ← 未选中
+                 : 'bg-gray-200 border-transparent'                       ← 选中
+     我上一版写反了（给未选中加了常亮金边）。这里按真实逻辑重写。 */
+
+  /* 未选中：玻璃底 + 中性描边；悬停才出金边 */
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.bg-white {
+    background-color: rgba(30, 27, 23, .60) !important;
+    background-image: linear-gradient(140deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,0) 46%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(180%) !important;
+    backdrop-filter: blur(22px) saturate(180%) !important;
+    border: 1px solid rgba(255,255,255,.10) !important;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 22px 50px -30px rgba(0,0,0,.9),
+                inset 0 1px 0 0 rgba(255,255,255,.08) !important;
+    transition: border-color .5s var(--b-ease), background-color .5s var(--b-ease),
+                box-shadow .5s var(--b-ease), transform .5s var(--b-ease) !important;
+  }
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.bg-white:hover {
+    border-color: rgba(236,188,86,.45) !important;
+    background-color: rgba(38, 33, 27, .74) !important;
+    box-shadow: 0 26px 58px -30px rgba(0,0,0,.94),
+                0 0 24px rgba(236,188,86,.22),
+                inset 0 1px 0 0 rgba(255,255,255,.12) !important;
+  }
+
+  /* ★ 选中：金色描边 + 常亮辉光 + 更亮的底（这才是哥要的"选中才有辉光"） */
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.bg-gray-200,
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.border-transparent {
+    background-color: rgba(48, 40, 29, .88) !important;
+    background-image: linear-gradient(140deg, rgba(236,188,86,.14) 0%, rgba(236,188,86,.02) 52%, rgba(255,255,255,0) 100%) !important;
+    -webkit-backdrop-filter: blur(22px) saturate(185%) !important;
+    backdrop-filter: blur(22px) saturate(185%) !important;
+    border: 1px solid rgba(236,188,86,.62) !important;
+    border-radius: 1.25rem !important;
+    box-shadow: 0 26px 58px -30px rgba(0,0,0,.94),
+                0 0 30px rgba(236,188,86,.30),
+                inset 0 1px 0 0 rgba(236,188,86,.22) !important;
+  }
+  /* 选中态里的图标圆：金渐变实心；未选中：低调玻璃 */
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.bg-white .w-8.h-8.bg-white.rounded-full {
+    background: rgba(255,255,255,.08) !important;
+    box-shadow: inset 0 1px 0 0 rgba(255,255,255,.14) !important;
+    color: rgba(242,237,228,.72) !important;
+  }
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.bg-gray-200 .w-8.h-8.bg-white.rounded-full,
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.border-transparent .w-8.h-8.bg-white.rounded-full {
+    background: var(--b-grad) !important;
+    box-shadow: 0 8px 22px -10px rgba(236,188,86,.9) !important;
+    color: #17130c !important;
+  }
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border .w-8.h-8 svg { fill: currentColor !important; }
+
+  /* ---------- ② 评论卡：内层恢复正常，外层做玻璃 ----------
+     组件结构：
+       <div class="relative flex items-start border-2 border-gray-200 rounded bg-white">  ← 外层卡
+         <div class="text-center px-12 py-8 pt-20 mx-4 md:mx-0">                          ← 内层内容
+     上一版我错把「内层」做成了玻璃，于是出现那个难看的深色内嵌胶囊。
+     现在：内层透明，外层玻璃。 */
+
+  /* 撤销我上一版对内层的错误处理 */
+  #theme-landing .text-center.px-12.py-8,
+  #theme-landing [class*="px-12"][class*="py-8"] {
+    background-color: transparent !important;
+    background-image: none !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+
+  /* 外层评论卡：液态玻璃 */
+  #theme-landing .relative.flex.items-start.border-2.border-gray-200,
+  #theme-landing .relative.flex.items-start.rounded.bg-white {
+    background-color: rgba(30, 27, 23, .66) !important;
+    background-image: linear-gradient(140deg, rgba(255,255,255,.09) 0%, rgba(255,255,255,.01) 46%, rgba(255,255,255,0) 100%) !important;
+    -webkit-backdrop-filter: blur(26px) saturate(185%) !important;
+    backdrop-filter: blur(26px) saturate(185%) !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 1.75rem !important;
+    box-shadow: 0 34px 74px -36px rgba(0,0,0,.96),
+                inset 0 1px 0 0 rgba(255,255,255,.14) !important;
+    transition: border-color .55s var(--b-ease), box-shadow .55s var(--b-ease) !important;
+  }
+  #theme-landing .relative.flex.items-start.border-2.border-gray-200:hover {
+    border-color: rgba(236,188,86,.40) !important;
+    box-shadow: 0 38px 82px -36px rgba(0,0,0,.97),
+                0 0 30px rgba(236,188,86,.20),
+                inset 0 1px 0 0 rgba(255,255,255,.18) !important;
+  }
+  /* 引文与署名 */
+  #theme-landing blockquote {
+    background: none !important; border: 0 !important; box-shadow: none !important;
+    -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+    color: #f2ede4 !important; font-weight: 500 !important; line-height: 1.7 !important;
+  }
+  #theme-landing cite { color: #ecbc56 !important; }
+  #theme-landing .text-center.px-12 .text-gray-600 { color: rgba(242,237,228,.55) !important; }
+  /* 署名后的社交链接：金色 */
+  #theme-landing .text-center.px-12 a.text-blue-600,
+  #theme-landing a.text-blue-600.hover\:underline {
+    color: #ecbc56 !important;
+    transition: text-shadow .4s var(--b-ease);
+  }
+  #theme-landing a.text-blue-600.hover\:underline:hover {
+    text-shadow: 0 0 14px rgba(236,188,86,.8);
+  }
+
   `}</style>
 }
 
