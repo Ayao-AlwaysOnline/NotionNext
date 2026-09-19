@@ -1,42 +1,72 @@
 /* eslint-disable @next/next/no-img-element */
 /**
- * 三站共享 · 联系面板（照搬工业地面页效果）
+ * 三站共享 · 联系方式面板
  * ------------------------------------------------------------
- * 用法：各站自行放置触发按钮
- *     <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
+ * 触发方式（**不依赖文字，天然支持任意语言**）：
+ *   1. 各站源码里显式标记的按钮： <a data-bc-trigger ...>
+ *      —— 用 data- 属性而不是加 class，因为 public/js/custom.js 依赖
+ *         **完整 className 字符串**选元素，加 class 会打断它的功能。
+ *   2. 各站页脚里就地放置的 <button className='bc-fab'>
+ *   3. 外部可调用 window.bcOpen() / window.bcClose()
  *
- * 经验教训（踩过的坑，别再犯）：
- *   1. .bc-fab 的样式**不能依赖 #bc-root 上的 CSS 变量** —— 按钮在 #bc-root 外面，
- *      变量取不到会导致背景失效（表现为一个黑胶囊）。所以这里用字面量渐变。
- *   2. 触发绑定**不能只硬编码 custom.js 的选择器** —— 三站的「联系我们」按钮
- *      类名各不相同。改为**按可见文字匹配**，最稳。
- *   3. Packaging 的 PROXIO_FOOTER_LINKS 来自 siteConfig（Notion 数据库覆盖本地
- *      config），改本地文件无效 —— 所以页脚残留的「联系方式」列用运行时隐藏处理。
- *   4. 面板收起时 pointer-events:none，否则 opacity:0 的面板会盖住触发按钮。
+ * 面板是 position:fixed 居中的，**不依赖页面滚动**，点击后直接展开。
+ * 多语言：按 router.locale 取文案（zh / en / ja）。
  */
 import { useEffect, useRef, useState } from 'react'
+import { useRouter } from 'next/router'
 
-const ITEMS = [
-  { k: '邮箱 · Email', v: 'seaportcy.info@gmail.com', href: 'mailto:seaportcy.info@gmail.com' },
-  { k: '网站 · Website', v: 'seaportcy.com', href: 'https://seaportcy.com' },
-  { k: 'WhatsApp', v: '+852 9057 4053', href: 'https://wa.me/85290574053' },
-  { k: '电话 · Tel', v: '+86 153 7771 8690', href: 'tel:+8615377718690' },
-  { k: '微信 · WeChat', v: '15377718690', copy: '点击复制' },
-  { k: '地址 · Location', v: '广东 · 东莞' }
-]
-
-/** 触发文案：可见文字里包含这些词的元素都会被接上 */
-const TRIGGER_TEXT = [
-  '联系我们', '与我们联系', '跟我们联系', '聯絡我們', '聯系我們',
-  '與我們聯繫', '聯繫我們', '跟我們聯繫',
-  'Contact Us', 'Contact us', 'Contact', 'contact',
-  '联系', '聯繫', '联络', '咨询', '咨詢', '詢價', '询价'
-]
+/** 面板文案（按钮文字为「联系方式」） */
+const I18N = {
+  zh: {
+    fab: '联系方式',
+    eyebrow: 'Contact',
+    title: '联系方式',
+    sub: '选一个最方便的方式 —— 我们通常当天回复。',
+    copy: '点击复制',
+    items: [
+      { k: '邮箱 · Email', v: 'seaportcy.info@gmail.com', href: 'mailto:seaportcy.info@gmail.com' },
+      { k: '网站 · Website', v: 'seaportcy.com', href: 'https://seaportcy.com' },
+      { k: 'WhatsApp', v: '+852 9057 4053', href: 'https://wa.me/85290574053' },
+      { k: '电话 · Tel', v: '+86 153 7771 8690', href: 'tel:+8615377718690' },
+      { k: '微信 · WeChat', v: '15377718690', copy: true },
+      { k: '地址 · Location', v: '广东 · 东莞' }
+    ]
+  },
+  en: {
+    fab: 'Contact',
+    eyebrow: 'Contact',
+    title: 'Get in touch',
+    sub: 'Pick whichever is easiest — we usually reply the same day.',
+    copy: 'Copy',
+    items: [
+      { k: 'Email', v: 'seaportcy.info@gmail.com', href: 'mailto:seaportcy.info@gmail.com' },
+      { k: 'Website', v: 'seaportcy.com', href: 'https://seaportcy.com' },
+      { k: 'WhatsApp', v: '+852 9057 4053', href: 'https://wa.me/85290574053' },
+      { k: 'Tel', v: '+86 153 7771 8690', href: 'tel:+8615377718690' },
+      { k: 'WeChat', v: '15377718690', copy: true },
+      { k: 'Location', v: 'Dongguan, Guangdong, China' }
+    ]
+  },
+  ja: {
+    fab: 'お問い合わせ',
+    eyebrow: 'Contact',
+    title: 'お問い合わせ',
+    sub: 'ご都合のよい方法をお選びください。通常、当日中にご返信いたします。',
+    copy: 'コピー',
+    items: [
+      { k: 'メール', v: 'seaportcy.info@gmail.com', href: 'mailto:seaportcy.info@gmail.com' },
+      { k: 'ウェブサイト', v: 'seaportcy.com', href: 'https://seaportcy.com' },
+      { k: 'WhatsApp', v: '+852 9057 4053', href: 'https://wa.me/85290574053' },
+      { k: '電話', v: '+86 153 7771 8690', href: 'tel:+8615377718690' },
+      { k: 'WeChat', v: '15377718690', copy: true },
+      { k: '所在地', v: '中国 広東省 東莞' }
+    ]
+  }
+}
 
 const CSS = `
-/* ---------- 触发按钮 ----------
-   注意：这里**不能**用 var(--bc-grad)，按钮在 #bc-root 之外取不到变量。 */
-.bc-fab{display:inline-flex;align-items:center;gap:12px;margin-top:16px;
+/* 触发按钮：用字面量渐变，**不依赖任何 CSS 变量**（按钮在 #bc-root 之外）。 */
+.bc-fab{display:inline-flex;align-items:center;gap:12px;
   padding:12px 12px 12px 26px;border:0;border-radius:999px;cursor:pointer;
   font-family:inherit;font-size:14.5px;font-weight:600;letter-spacing:.01em;
   background:linear-gradient(135deg,#ecbc56 0%,#e74483 100%) !important;
@@ -112,8 +142,14 @@ export default function BrandContact({ enabled = true }) {
   const [mounted, setMounted] = useState(false)
   const anchorRef = useRef(null)
   const panelRef = useRef(null)
+  const router = useRouter()
 
-  /* 从触发按钮的位置与尺寸展开到屏幕 80% 居中 */
+  const loc = (() => {
+    const l = (router && router.locale) || (typeof document !== 'undefined' && /\/ja(\/|$)/.test(location.pathname) ? 'ja' : (/\/en(\/|$)/.test(location.pathname) ? 'en' : 'zh'))
+    return I18N[l] ? l : 'zh'
+  })()
+  const T = I18N[loc]
+
   useEffect(() => {
     const g = panelRef.current
     if (!g) return
@@ -162,11 +198,13 @@ export default function BrandContact({ enabled = true }) {
     return () => window.removeEventListener('keydown', onKey)
   }, [open])
 
-  /* ---------- 触发绑定 ----------
-     不硬编码类名（三站按钮类名不同），改为：
-       a) 页面里任意 .bc-fab
-       b) 可见文字包含「联系我们」的可点击元素（a / button / [role=button]）
-     事件委托 + capture，不覆盖页面已有监听；custom.js 的滚动照常执行。 */
+  /* 触发绑定：只认显式标记，不看文字 —— 天然支持任意语言。
+       · .bc-fab            各站页脚就地放置的按钮
+       · [data-bc-trigger]  各站源码里显式标记的 CTA
+     用事件委托 + capture；对这些元素 preventDefault，
+     因为其中不少是 <a href=''> 或未指定 type 的 <button>（默认 submit），
+     不阻止会刷新/提交整页，导致面板永远弹不出来。
+     custom.js 自己的滚动监听不受影响（capture 阶段不阻断传播）。 */
   useEffect(() => {
     if (typeof document === 'undefined') return
     let pending = null
@@ -175,41 +213,28 @@ export default function BrandContact({ enabled = true }) {
       if (pending) clearTimeout(pending)
       pending = setTimeout(() => { setMounted(true); setOpen(true) }, 30)
     }
-    const matchByText = (t) => {
-      if (!t || !t.closest) return null
-      const el = t.closest('a,button,[role="button"]')
-      if (!el) return null
-      if (el.closest('#bc-root')) return null
-      const txt = (el.textContent || '').trim()
-      if (!txt || txt.length > 60) return null
-      for (const k of TRIGGER_TEXT) if (txt.indexOf(k) >= 0) return el
-      return null
-    }
     const onClick = (e) => {
       const t = e.target
       if (!t || !t.closest) return
-      const fab = t.closest('.bc-fab')
-      if (fab) { e.preventDefault(); e.stopPropagation(); fire(fab); return }
-      const hit = matchByText(t)
-      if (hit) {
-        // 关键：阻止默认行为。这些按钮本身是 <a href=''> 或未指定 type 的 <button>（默认 submit），
-        // 不阻止就会刷新/提交整页，导致面板永远弹不出来。
-        // 处于 capture 阶段，不影响 custom.js 自己的滚动监听继续执行。
-        e.preventDefault()
-        fire(hit)
-      }
+      const hit = t.closest('.bc-fab') || t.closest('[data-bc-trigger]')
+      if (!hit) return
+      if (hit.closest('#bc-root')) return
+      e.preventDefault()
+      fire(hit)
     }
     document.addEventListener('click', onClick, true)
 
-    /* Packaging 的 PROXIO_FOOTER_LINKS 来自 siteConfig（Notion 会覆盖本地 config），
-       改本地文件无效 —— 这里在运行时把页脚里残留的「联系方式」分组隐藏掉。 */
+    /* Packaging 的 PROXIO_FOOTER_LINKS 来自 siteConfig（Notion 覆盖本地 config），
+       改本地文件无效 —— 运行时把页脚里残留的「联系方式」分组隐藏。 */
     const hideLegacy = () => {
       try {
         document.querySelectorAll('footer div').forEach((d) => {
           const h = d.querySelector(':scope > div, :scope > h6, :scope > h5, :scope > span')
           if (!h) return
           const t = (h.textContent || '').trim()
-          if (t === '联系方式' || t === '聯系方式') d.style.display = 'none'
+          if (t === '联系方式' || t === '聯系方式' || t === 'Contact' || t === 'お問い合わせ') {
+            if (!d.querySelector('[data-bc-trigger], .bc-fab')) d.style.display = 'none'
+          }
         })
       } catch (err) {}
     }
@@ -217,8 +242,7 @@ export default function BrandContact({ enabled = true }) {
     const t1 = setTimeout(hideLegacy, 1200)
     const t2 = setTimeout(hideLegacy, 2800)
 
-    const api = () => fire(document.querySelector('.bc-fab'))
-    window.bcOpen = api
+    window.bcOpen = () => fire(document.querySelector('.bc-fab'))
     window.bcClose = () => setOpen(false)
     return () => {
       document.removeEventListener('click', onClick, true)
@@ -237,13 +261,13 @@ export default function BrandContact({ enabled = true }) {
       <div className='bc-panel' ref={panelRef}
         style={{ display: mounted ? 'block' : 'none' }}
         onClick={(e) => { if (e.target.closest('[data-bcclose]')) setOpen(false) }}>
-        <button className='bc-close' data-bcclose aria-label='关闭'><span>✕</span></button>
+        <button className='bc-close' data-bcclose aria-label='close'><span>✕</span></button>
         <div className='bc-in'>
-          <span className='bc-eyebrow'>Contact</span>
-          <h2 className='bc-title'>联系我们</h2>
-          <p className='bc-sub'>选一个最方便的方式 —— 我们通常当天回复。</p>
+          <span className='bc-eyebrow'>{T.eyebrow}</span>
+          <h2 className='bc-title'>{T.title}</h2>
+          <p className='bc-sub'>{T.sub}</p>
           <div className='bc-grid'>
-            {ITEMS.map((it) => (
+            {T.items.map((it) => (
               <div className='bc-item' key={it.k}>
                 <span className='bc-k'>{it.k}</span>
                 {it.href ? (
@@ -256,7 +280,7 @@ export default function BrandContact({ enabled = true }) {
                     {it.copy && (
                       <em className='bc-copy' onClick={() => {
                         try { navigator.clipboard.writeText(it.v) } catch (err) {}
-                      }}>{it.copy}</em>
+                      }}>{T.copy}</em>
                     )}
                   </span>
                 )}
@@ -266,5 +290,18 @@ export default function BrandContact({ enabled = true }) {
         </div>
       </div>
     </div>
+  )
+}
+
+/** 多语言的「联系方式」按钮 —— 各站页脚就地引用，文字随 locale 变化 */
+export function BrandContactFab() {
+  const router = useRouter()
+  const l = (router && router.locale) || 'zh'
+  const T = I18N[l] || I18N.zh
+  return (
+    <button className='bc-fab' type='button'>
+      {T.fab}
+      <span className='bc-ic'>↗</span>
+    </button>
   )
 }

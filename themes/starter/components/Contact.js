@@ -2,6 +2,7 @@ import { siteConfig } from '@/lib/config'
 import CONFIG from '../config'
 import { SVGEmail } from './svg/SVGEmail'
 import { SVGLocation } from './svg/SVGLocation'
+import { BrandContactFab } from '@/components/BrandContact'
 
 /* eslint-disable react/no-unescaped-entities */
 export const Contact = () => {
@@ -59,7 +60,7 @@ export const Contact = () => {
                           CONFIG
                         )}
                       </h5>
-                      <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
+                      <BrandContactFab />
                     </div>
                   </div>
                 </div>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import CONFIG from '../config'
 import Logo from './Logo'
 import { siteConfig } from '@/lib/config'
+import { BrandContactFab } from '@/components/BrandContact'
 
 /**
  * 页脚
@@ -51,7 +52,7 @@ export default function Footer() {
 
                     {/* 联系我们：点击展开联系面板（与工业地面页一致） */}
                     <div className='sm:col-span-6 md:col-span-6 lg:col-span-5 flex justify-center'>
-                        <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
+                        <BrandContactFab />
                     </div>
 
                     {/* 3rd block */}

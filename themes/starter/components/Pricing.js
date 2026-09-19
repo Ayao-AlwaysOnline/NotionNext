@@ -68,6 +68,7 @@ export const Pricing = () => {
                 </div>
                 <SmartLink
                   href={siteConfig('STARTER_PRICING_1_BUTTON_URL', '')}
+                  data-bc-trigger
                   className='inline-block rounded-md bg-primary px-7 py-3 text-center text-base font-medium text-white transition hover:bg-blue-dark'>
                   {siteConfig('STARTER_PRICING_1_BUTTON_TEXT')}
                 </SmartLink>
@@ -120,6 +121,7 @@ export const Pricing = () => {
                 </div>
                 <SmartLink
                   href={siteConfig('STARTER_PRICING_2_BUTTON_URL', '')}
+                  data-bc-trigger
                   className='inline-block rounded-md bg-primary px-7 py-3 text-center text-base font-medium text-white transition hover:bg-blue-dark'>
                   {siteConfig('STARTER_PRICING_2_BUTTON_TEXT')}
                 </SmartLink>
@@ -164,6 +166,7 @@ export const Pricing = () => {
                 </div>
                 <SmartLink
                   href={siteConfig('STARTER_PRICING_3_BUTTON_URL', '')}
+                  data-bc-trigger
                   className='inline-block rounded-md bg-primary px-7 py-3 text-center text-base font-medium text-white transition hover:bg-blue-dark'>
                   {siteConfig('STARTER_PRICING_3_BUTTON_TEXT')}
                 </SmartLink>

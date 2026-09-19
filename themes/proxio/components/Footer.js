@@ -9,6 +9,7 @@ import { useGlobal } from '@/lib/global'
 import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
 import SocialButton from './SocialButton'
+import { BrandContactFab } from '@/components/BrandContact'
 
 /**
  * 网页底脚
@@ -39,14 +40,7 @@ export const Footer = ({ title }) => {
                 {siteConfig('AUTHOR')}
               </span>
             </div>
-            
-            
-          
-
-        {/* 联系我们：整行居中（与工业地面页一致） */}
-        <div className='w-full flex justify-center pb-8'>
-          <button className='bc-fab' type='button'>联系我们<span className='bc-ic'>↗</span></button>
-        </div></div>
+          </div>
 
           {/* 右侧链接区块 */}
             {PROXIO_FOOTER_LINKS?.map((group, index) => {
@@ -69,6 +63,11 @@ export const Footer = ({ title }) => {
                 </div>
               )
             })}
+        </div>
+
+        {/* 联系方式：整行居中（与工业地面页一致） */}
+        <div className='w-full flex justify-center pb-8'>
+          <BrandContactFab />
         </div>
 
         {/* 页脚 */}
