@@ -94,6 +94,9 @@ function detectLocale(pathOrRouter) {
 export default function BrandContact({ enabled = true }) {
   const [open, setOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  /* 纯客户端渲染：面板是纯交互元素，不需要 SSR。
+     服务端与客户端首帧都返回 null，挂载后才渲染 —— 彻底避免 hydration 不一致。 */
+  const [clientReady, setClientReady] = useState(false)
   const anchorRef = useRef(null)
   const panelRef = useRef(null)
   const router = useRouter()
@@ -146,7 +149,8 @@ export default function BrandContact({ enabled = true }) {
       g.style.width = (hasR ? Math.max(r.width, 140) : 170) + 'px'
       g.style.height = (hasR ? Math.max(r.height, 48) : 54) + 'px'
     }
-  }, [open])
+    // clientReady 必须在内：面板挂载后本 effect 要再跑一次才能完成定位与淡入
+  }, [open, clientReady])
 
   useEffect(() => {
     if (!open) return
@@ -209,10 +213,6 @@ export default function BrandContact({ enabled = true }) {
     }
   }, [])
 
-  /* 纯客户端渲染：面板是纯交互元素，不需要 SSR。
-     服务端与客户端首帧都返回 null，挂载后才渲染 —— 彻底避免 hydration 不一致。
-     （触发按钮 .bc-fab 由各站页脚渲染，不受影响，SSR 正常输出。） */
-  const [clientReady, setClientReady] = useState(false)
   useEffect(() => { setClientReady(true) }, [])
 
   if (!enabled || !clientReady) return null
@@ -225,7 +225,12 @@ export default function BrandContact({ enabled = true }) {
         onClick={(e) => { if (e.target.closest('[data-bcclose]')) setOpen(false) }}>
         <button className='bc-close' data-bcclose aria-label='close'><span>✕</span></button>
         <div className='bc-in'>
-          <span className='bc-eyebrow'>{T.eyebrow}</span>
+          <div className='bc-head'>
+            <span className='bc-badge' aria-hidden='true'>
+              <img src='/images/flooring/seaportcy.png' alt='' />
+            </span>
+            <span className='bc-eyebrow'>{T.eyebrow}</span>
+          </div>
           <h2 className='bc-title'>{T.title}</h2>
           <p className='bc-sub'>{T.sub}</p>
           <div className='bc-grid'>

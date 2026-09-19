@@ -1095,6 +1095,33 @@ const Style = () => {
   transition:transform .5s cubic-bezier(.32,.72,0,1),background .4s cubic-bezier(.32,.72,0,1)}
 #bc-root .bc-close:hover{transform:rotate(90deg);background:rgba(23,19,12,.22)}
 
+  
+  /* ---------- 联系面板左上角：辉光品牌徽标 ----------
+     动效只用 transform / opacity（符合审美插件的动效规范）。 ---------- */
+  #bc-root .bc-head { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+  #bc-root .bc-badge {
+    position: relative; width: 48px; height: 48px; border-radius: 999px; flex: none;
+    display: inline-flex; align-items: center; justify-content: center;
+    background: rgba(23, 19, 12, .16);
+    border: 1px solid rgba(23, 19, 12, .22);
+    box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, .30);
+  }
+  #bc-root .bc-badge img {
+    width: 28px; height: 28px; object-fit: contain; display: block;
+    filter: drop-shadow(0 0 7px rgba(236, 188, 86, .95));
+  }
+  #bc-root .bc-badge::after {
+    content: ''; position: absolute; inset: -9px; border-radius: 999px; pointer-events: none;
+    background: radial-gradient(circle, rgba(236, 188, 86, .62) 0%, rgba(236, 188, 86, 0) 70%);
+    animation: bc-pulse 2.8s cubic-bezier(.32, .72, 0, 1) infinite;
+  }
+  @keyframes bc-pulse {
+    0%, 100% { transform: scale(.90); opacity: .50; }
+    50%      { transform: scale(1.16); opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #bc-root .bc-badge::after { animation: none; opacity: .8; }
+  }
   `}</style>
 }
 
