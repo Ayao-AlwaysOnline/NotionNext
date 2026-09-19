@@ -746,6 +746,168 @@ const Style = () => {
     text-shadow: 0 0 14px rgba(236,188,86,.8);
   }
 
+  
+  
+  /* ============================================================
+     v7 · 背景连续性 + 让玻璃真正"读得出来"
+     ------------------------------------------------------------
+     两个问题同源：
+       ① 背景出现硬接缝 —— 某些区块/其内部绝对定位的背景层还在，
+          与全站的 fixed 背景光对不上；
+       ② 玻璃读不出来 —— backdrop-filter 在纯黑上没有东西可模糊，
+          卡片看起来就是实心暗盒。
+     解决：把光铺满（连续），并提高卡片的明度对比与内高光，
+          让玻璃有"面"可读。
+     ============================================================ */
+
+  /* ---------- ① 背景连续：区块及其所有内部背景层一律透明 ---------- */
+  #theme-landing,
+  #theme-landing > div,
+  #theme-landing > section,
+  #theme-landing section,
+  #theme-landing section > div,
+  #theme-landing #content-wrapper,
+  #theme-landing #content-wrapper > * {
+    background-color: transparent !important;
+  }
+  /* 但保留根节点的品牌底与光 */
+  #theme-landing {
+    background-color: #100e0c !important;
+    background-image:
+      radial-gradient(120% 90% at 78% 4%, rgba(236, 188, 86, .18) 0%, transparent 58%),
+      radial-gradient(110% 80% at 8% 96%, rgba(231, 68, 131, .15) 0%, transparent 60%) !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+  }
+  /* 装饰性 SVG 插画（白/浅灰圆）在深色站上是脏的，压暗掉 */
+  #theme-landing section > div[aria-hidden="true"] svg,
+  #theme-landing section > div.pointer-events-none svg {
+    opacity: .14;
+    filter: grayscale(1);
+  }
+
+  /* ---------- ② 玻璃要读得出来：提高明度与描边对比 ---------- */
+  #theme-landing .relative.flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl,
+  #theme-landing .flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl,
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.bg-white,
+  #theme-landing .relative.flex.items-start.border-2.border-gray-200.rounded,
+  #theme-landing .rounded-xl.bg-white {
+    background-color: rgba(255, 255, 255, .055) !important;
+    background-image: linear-gradient(150deg,
+      rgba(255, 255, 255, .14) 0%,
+      rgba(255, 255, 255, .05) 34%,
+      rgba(255, 255, 255, .015) 62%,
+      rgba(255, 255, 255, 0) 100%) !important;
+    -webkit-backdrop-filter: blur(26px) saturate(190%) !important;
+    backdrop-filter: blur(26px) saturate(190%) !important;
+    border: 1px solid rgba(255, 255, 255, .17) !important;
+    box-shadow: 0 30px 66px -34px rgba(0, 0, 0, .96),
+                inset 0 1px 0 0 rgba(255, 255, 255, .22),
+                inset 0 -1px 0 0 rgba(0, 0, 0, .22) !important;
+  }
+  /* 悬停：金边 + 辉光 */
+  #theme-landing .relative.flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl:hover,
+  #theme-landing .flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl:hover,
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.bg-white:hover {
+    background-color: rgba(255, 255, 255, .085) !important;
+    border-color: rgba(236, 188, 86, .48) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 36px 74px -34px rgba(0, 0, 0, .97),
+                0 0 30px rgba(236, 188, 86, .26),
+                inset 0 1px 0 0 rgba(255, 255, 255, .28) !important;
+  }
+  /* 选中态保持金边常亮，但底色仍用亮玻璃 */
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.bg-gray-200,
+  #theme-landing a.flex.items-center.text-lg.p-5.rounded.border.border-transparent {
+    background-color: rgba(236, 188, 86, .10) !important;
+    background-image: linear-gradient(150deg, rgba(236,188,86,.18) 0%, rgba(255,255,255,.03) 58%, rgba(255,255,255,0) 100%) !important;
+    border: 1px solid rgba(236, 188, 86, .62) !important;
+    box-shadow: 0 26px 58px -30px rgba(0, 0, 0, .94),
+                0 0 32px rgba(236, 188, 86, .30),
+                inset 0 1px 0 0 rgba(236, 188, 86, .26) !important;
+  }
+
+  /* ---------- ③ 卡片内文字对比度 ---------- */
+  #theme-landing .text-gray-600,
+  #theme-landing .text-gray-600.dark\:text-gray-400,
+  #theme-landing .text-gray-600.text-center,
+  #theme-landing .text-gray-600.text-center:not(.eyebrow) {
+    color: rgba(242, 237, 228, .68) !important;
+  }
+  #theme-landing h4.text-xl.font-bold,
+  #theme-landing .font-bold.leading-snug.tracking-tight,
+  #theme-landing .text-xl.font-bold.leading-snug.tracking-tight { color: #f2ede4 !important; }
+  /* 卡片里的点列表：暖白，前面加金色圆点 */
+  #theme-landing .text-gray-600 + ul li,
+  #theme-landing ul li { color: rgba(242, 237, 228, .62) !important; }
+
+  /* ---------- ④ 区块之间不要硬边：给每段加柔和过渡 ---------- */
+  #theme-landing section + section::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 140px;
+    pointer-events: none;
+    background: linear-gradient(to bottom, rgba(16,14,12,.55) 0%, rgba(16,14,12,0) 100%);
+  }
+  #theme-landing section { position: relative; }
+
+  
+  /* ============================================================
+     v8 · Studios 按钮品牌化（严格避开 custom.js 依赖的两个按钮）
+     ------------------------------------------------------------
+     custom.js 依赖：
+       · 第180行 Hero 主按钮  .btn.text-white.bg-blue-600.hover\:bg-blue-700.w-full.mb-4…
+         → 哥要求保持原样，且它是点击滚动触发器，绝不能动
+       · 第205行 Pricing 按钮 .font-bold.bg-blue-600…rounded-md.px-10.py-2…w-full
+         → 是"滚动到底"触发器，同样不能改类名，这里只覆盖外观
+     ============================================================ */
+
+  /* ---------- Pricing 三张卡的按钮：品牌 Island 形态 ---------- */
+  #theme-landing button.font-bold.bg-blue-600.text-white.rounded-md {
+    background: var(--b-grad) !important;
+    color: #17130c !important;
+    font-weight: 700 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    padding: 12px 30px !important;
+    box-shadow: 0 18px 40px -18px rgba(236, 188, 86, .55) !important;
+    transition: transform .5s var(--b-ease), box-shadow .5s var(--b-ease) !important;
+  }
+  #theme-landing button.font-bold.bg-blue-600.text-white.rounded-md:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 52px -20px rgba(236, 188, 86, .72),
+                0 0 28px rgba(236, 188, 86, .45) !important;
+  }
+  #theme-landing button.font-bold.bg-blue-600.text-white.rounded-md:active {
+    transform: scale(.98);
+  }
+
+  /* ---------- Newsletter 提交按钮 ---------- */
+  #theme-landing button.btn.bg-blue-600 {
+    background: var(--b-grad) !important;
+    color: #17130c !important;
+    font-weight: 600 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    box-shadow: 0 18px 40px -18px rgba(236, 188, 86, .55) !important;
+    transition: transform .5s var(--b-ease), box-shadow .5s var(--b-ease) !important;
+  }
+  #theme-landing button.btn.bg-blue-600:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 52px -20px rgba(236, 188, 86, .72),
+                0 0 28px rgba(236, 188, 86, .45) !important;
+  }
+
+  /* ---------- 显式保护 Hero 主按钮：保持原样，不做任何改动 ----------
+     （它由 custom.js 第180行绑定点击滚动，且哥要求还原为动手前状态） */
+  #theme-landing .btn.text-white.bg-blue-600.w-full.mb-4 {
+    background-color: #2563eb !important;
+    background-image: none !important;
+    color: #fff !important;
+    border-radius: .375rem !important;
+    box-shadow: none !important;
+    transform: none !important;
+  }
+
   `}</style>
 }
 
