@@ -540,6 +540,77 @@ const Style = () => {
     }
   }
 
+  
+  /* ============================================================
+     v5 · Studios 按钮品牌化 + 主站二级页面玻璃
+     ============================================================ */
+
+  /* ---------- ① Studios：卡片内的按钮改为品牌 Island 按钮 ----------
+     ⚠️ 只改背景与形态，**类名一律不动** ——
+        public/js/custom.js 用完整类名字符串选 Hero 按钮与 Newsletter 按钮，
+        改类名会打断它们的功能。这里用 CSS 覆盖外观。
+     排除 Hero 按钮（它在 .max-w-3xl 之外、且带 w-full mb-4）。 */
+  #theme-landing .relative.flex.flex-col .btn.bg-blue-600,
+  #theme-landing .flex.flex-col.items-center .btn.bg-blue-600,
+  #theme-landing .relative.flex.flex-col.items-center .btn.bg-blue-600,
+  #theme-landing button.btn.bg-blue-600 {
+    background: var(--b-grad) !important;
+    color: #17130c !important;
+    font-weight: 600 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    box-shadow: 0 18px 40px -18px rgba(236,188,86,.55) !important;
+    transition: transform .5s var(--b-ease), box-shadow .5s var(--b-ease) !important;
+  }
+  #theme-landing .relative.flex.flex-col .btn.bg-blue-600:hover,
+  #theme-landing .flex.flex-col.items-center .btn.bg-blue-600:hover,
+  #theme-landing .relative.flex.flex-col.items-center .btn.bg-blue-600:hover,
+  #theme-landing button.btn.bg-blue-600:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 52px -20px rgba(236,188,86,.72),
+                0 0 26px rgba(236,188,86,.42) !important;
+  }
+  #theme-landing .relative.flex.flex-col .btn.bg-blue-600:active,
+  #theme-landing button.btn.bg-blue-600:active { transform: scale(.98); }
+
+  /* ---------- ② 主站二级页面（案例归档 / 文章）玻璃卡 ----------
+     文章列表与详情页的卡片同样是 bg-white 无 dark 变体，会渲染成白块。 */
+  #theme-starter article,
+  #theme-starter .notion-page-content { background-color: transparent !important; }
+
+  #theme-starter .mb-8.overflow-hidden.rounded-\[5px\],
+  #theme-starter .rounded-xl.bg-white.shadow-testimonial,
+  #theme-starter .rounded-xl.bg-white.shadow-pricing {
+    background-color: rgba(30, 27, 23, .70) !important;
+    background-image: linear-gradient(140deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 46%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(185%) !important;
+    backdrop-filter: blur(24px) saturate(185%) !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 30px 66px -34px rgba(0,0,0,.96),
+                inset 0 1px 0 0 rgba(255,255,255,.14) !important;
+    transition: border-color .55s var(--b-ease), transform .55s var(--b-ease),
+                box-shadow .55s var(--b-ease) !important;
+  }
+  #theme-starter .mb-8.overflow-hidden.rounded-\[5px\]:hover,
+  #theme-starter .rounded-xl.bg-white.shadow-testimonial:hover {
+    border-color: rgba(236,188,86,.45) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 36px 74px -34px rgba(0,0,0,.97),
+                0 0 28px rgba(236,188,86,.26),
+                inset 0 1px 0 0 rgba(255,255,255,.18) !important;
+  }
+  /* 文章正文容器：玻璃面板 */
+  #theme-starter .notion-page,
+  #theme-starter #article-wrapper,
+  #theme-starter .mx-auto.max-w-\[\] { background-color: transparent !important; }
+  #theme-starter .notion-page-content,
+  #theme-starter .notion-text,
+  #theme-starter .notion-h { color: rgba(242, 237, 228, .86) !important; }
+  #theme-starter .notion-h { color: #f2ede4 !important; }
+  /* 文章内链接金色 */
+  #theme-starter .notion-page-content a { color: var(--b-gold) !important; }
+
   `}</style>
 }
 

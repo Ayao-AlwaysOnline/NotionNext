@@ -410,6 +410,227 @@ const Style = () => {
     }
   }
 
+  
+  /* ============================================================
+     Studios · 完整玻璃与辉光系统（正面定位真实类名）
+     ------------------------------------------------------------
+     依据：high-end-visual-design 技能 + 哥确立的玻璃/辉光语言
+       · 质感：Ethereal Glass（玻璃面 + 发丝描边 + 内高光 + 金色辉光）
+       · 手法：Double-Bezel 同心圆角、Island 按钮、Macro Whitespace
+     说明：这些卡片原本是 bg-white 且**没有 dark: 变体**，
+           在深色站上就渲染成白盒子。这里统一改为液态玻璃。
+     ============================================================ */
+
+  /* ---------- ① 区块级的整片背景层改透明，透出全站品牌光 ---------- */
+  #theme-landing section > div.absolute.inset-0,
+  #theme-landing section > div[class*="bg-gray-100"],
+  #theme-landing section > div[class*="bg-gray-900"] {
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+  /* 那两条装饰性细线也去掉，避免在纯光背景上显得脏 */
+  #theme-landing section > div[class*="w-px"] { background-color: rgba(255,255,255,.08) !important; }
+
+  /* ---------- ② 卡片：液态玻璃（Double-Bezel 外层） ---------- */
+  #theme-landing .flex.items-center.text-lg.p-5.rounded.border,
+  #theme-landing .relative.flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl,
+  #theme-landing .flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl,
+  #theme-landing .relative.flex.flex-col.p-6.bg-white.rounded-md.shadow-xl {
+    background-color: rgba(30, 27, 23, .70) !important;
+    background-image: linear-gradient(140deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.01) 46%, rgba(255,255,255,0) 100%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(185%) !important;
+    backdrop-filter: blur(24px) saturate(185%) !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 30px 66px -34px rgba(0,0,0,.96),
+                inset 0 1px 0 0 rgba(255,255,255,.14) !important;
+    transition: border-color .55s var(--b-ease), transform .55s var(--b-ease),
+                box-shadow .55s var(--b-ease), background-color .55s var(--b-ease) !important;
+  }
+  /* 悬停/点击响应：金边 + 辉光 + 轻微上浮（父容器无 overflow-hidden，不会裁） */
+  #theme-landing .flex.items-center.text-lg.p-5.rounded.border:hover,
+  #theme-landing .relative.flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl:hover,
+  #theme-landing .flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl:hover,
+  #theme-landing .flex.items-center.text-lg.p-5.rounded.border:active,
+  #theme-landing .relative.flex.flex-col.items-center.p-6.bg-white.rounded-md.shadow-xl:active {
+    border-color: rgba(236,188,86,.48) !important;
+    background-color: rgba(38, 33, 27, .82) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 36px 74px -34px rgba(0,0,0,.97),
+                0 0 30px rgba(236,188,86,.26),
+                inset 0 1px 0 0 rgba(255,255,255,.18) !important;
+  }
+  /* 选中态（tab 切换）—— 金色描边 + 常亮辉光 */
+  #theme-landing .flex.items-center.text-lg.p-5.rounded.border.bg-white,
+  #theme-landing .flex.items-center.text-lg.p-5.rounded.border.shadow-md {
+    border-color: rgba(236,188,86,.55) !important;
+    background-color: rgba(44, 37, 28, .86) !important;
+    box-shadow: 0 30px 66px -34px rgba(0,0,0,.96),
+                0 0 26px rgba(236,188,86,.28),
+                inset 0 1px 0 0 rgba(255,255,255,.18) !important;
+  }
+
+  /* ---------- ③ 卡内小图标圆：改为品牌金渐变 ---------- */
+  #theme-landing .w-8.h-8.bg-white.rounded-full.shadow {
+    background: var(--b-grad) !important;
+    border: 0 !important;
+    box-shadow: 0 6px 18px -8px rgba(236,188,86,.8) !important;
+    color: #17130c;
+  }
+  #theme-landing .w-8.h-8.bg-white.rounded-full.shadow svg { fill: #17130c !important; }
+
+  /* ---------- ④ 卡片文字：暖白系，替代灰 ---------- */
+  #theme-landing .text-gray-600,
+  #theme-landing .text-gray-600.dark\:text-gray-400,
+  #theme-landing .text-gray-600.text-center {
+    color: rgba(242, 237, 228, .66) !important;
+  }
+  #theme-landing .font-bold.leading-snug.tracking-tight,
+  #theme-landing .text-xl.font-bold.leading-snug.tracking-tight,
+  #theme-landing h4.text-xl.font-bold { color: #f2ede4 !important; }
+
+  /* ---------- ⑤ 正文里的高亮（<strong>/<em>/<span> 等）统一品牌金 ----------
+     哥要求：text-xl text-gray-600 dark:text-gray-400 leading-relaxed 里的高亮用 #ecbc56 */
+  #theme-landing p.text-xl.text-gray-600.leading-relaxed strong,
+  #theme-landing p.text-xl.text-gray-600.leading-relaxed em,
+  #theme-landing p.text-xl.text-gray-600.leading-relaxed b,
+  #theme-landing p.text-xl.text-gray-600.leading-relaxed span,
+  #theme-landing p.text-xl.text-gray-600 strong,
+  #theme-landing p.text-xl.text-gray-600 em,
+  #theme-landing p.text-xl.text-gray-600 b,
+  #theme-landing p.text-xl.text-gray-600 span,
+  #theme-landing .text-xl.text-gray-600.dark\:text-gray-400 strong,
+  #theme-landing .text-xl.text-gray-600.dark\:text-gray-400 em,
+  #theme-landing .text-xl.text-gray-600.dark\:text-gray-400 b,
+  #theme-landing .text-xl.text-gray-600.dark\:text-gray-400 span {
+    color: #ecbc56 !important;
+    font-weight: 600;
+  }
+
+  /* ---------- ⑥ 「一对一固定对接专员」那类整条白底块 ---------- */
+  #theme-landing .text-center.px-12.py-8,
+  #theme-landing [class*="px-12"][class*="py-8"] {
+    background-color: rgba(30, 27, 23, .72) !important;
+    background-image: linear-gradient(140deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 46%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(185%) !important;
+    backdrop-filter: blur(24px) saturate(185%) !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 30px 66px -34px rgba(0,0,0,.96),
+                inset 0 1px 0 0 rgba(255,255,255,.14) !important;
+    color: rgba(242,237,228,.72) !important;
+  }
+
+  /* ---------- ⑦ Island 按钮：主 CTA 统一品牌金渐变 ---------- */
+  #theme-landing .btn.bg-primary,
+  #theme-landing a[class*="bg-primary"] {
+    background: var(--b-grad) !important;
+    color: #17130c !important;
+    font-weight: 600;
+    border: 0 !important;
+    border-radius: 999px !important;
+    box-shadow: 0 18px 40px -18px rgba(236,188,86,.55) !important;
+    transition: transform .5s var(--b-ease), box-shadow .5s var(--b-ease) !important;
+  }
+  #theme-landing .btn.bg-primary:hover,
+  #theme-landing a[class*="bg-primary"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 52px -20px rgba(236,188,86,.72),
+                0 0 26px rgba(236,188,86,.42) !important;
+  }
+  #theme-landing .btn.bg-primary:active { transform: scale(.98); }
+
+  /* ---------- ⑧ 评论区卡片 ---------- */
+  #theme-landing .rounded-xl.bg-white,
+  #theme-landing [class*="shadow-testimonial"],
+  #theme-landing blockquote {
+    background-color: rgba(30, 27, 23, .70) !important;
+    background-image: linear-gradient(140deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 46%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(185%) !important;
+    backdrop-filter: blur(24px) saturate(185%) !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 30px 66px -34px rgba(0,0,0,.96),
+                inset 0 1px 0 0 rgba(255,255,255,.14) !important;
+  }
+  #theme-landing .rounded-xl.bg-white:hover {
+    border-color: rgba(236,188,86,.45) !important;
+    box-shadow: 0 30px 66px -34px rgba(0,0,0,.96),
+                0 0 28px rgba(236,188,86,.26),
+                inset 0 1px 0 0 rgba(255,255,255,.18) !important;
+  }
+
+  
+  /* ============================================================
+     v5 · Studios 按钮品牌化 + 主站二级页面玻璃
+     ============================================================ */
+
+  /* ---------- ① Studios：卡片内的按钮改为品牌 Island 按钮 ----------
+     ⚠️ 只改背景与形态，**类名一律不动** ——
+        public/js/custom.js 用完整类名字符串选 Hero 按钮与 Newsletter 按钮，
+        改类名会打断它们的功能。这里用 CSS 覆盖外观。
+     排除 Hero 按钮（它在 .max-w-3xl 之外、且带 w-full mb-4）。 */
+  #theme-landing .relative.flex.flex-col .btn.bg-blue-600,
+  #theme-landing .flex.flex-col.items-center .btn.bg-blue-600,
+  #theme-landing .relative.flex.flex-col.items-center .btn.bg-blue-600,
+  #theme-landing button.btn.bg-blue-600 {
+    background: var(--b-grad) !important;
+    color: #17130c !important;
+    font-weight: 600 !important;
+    border: 0 !important;
+    border-radius: 999px !important;
+    box-shadow: 0 18px 40px -18px rgba(236,188,86,.55) !important;
+    transition: transform .5s var(--b-ease), box-shadow .5s var(--b-ease) !important;
+  }
+  #theme-landing .relative.flex.flex-col .btn.bg-blue-600:hover,
+  #theme-landing .flex.flex-col.items-center .btn.bg-blue-600:hover,
+  #theme-landing .relative.flex.flex-col.items-center .btn.bg-blue-600:hover,
+  #theme-landing button.btn.bg-blue-600:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 24px 52px -20px rgba(236,188,86,.72),
+                0 0 26px rgba(236,188,86,.42) !important;
+  }
+  #theme-landing .relative.flex.flex-col .btn.bg-blue-600:active,
+  #theme-landing button.btn.bg-blue-600:active { transform: scale(.98); }
+
+  /* ---------- ② 主站二级页面（案例归档 / 文章）玻璃卡 ----------
+     文章列表与详情页的卡片同样是 bg-white 无 dark 变体，会渲染成白块。 */
+  #theme-starter article,
+  #theme-starter .notion-page-content { background-color: transparent !important; }
+
+  #theme-starter .mb-8.overflow-hidden.rounded-\[5px\],
+  #theme-starter .rounded-xl.bg-white.shadow-testimonial,
+  #theme-starter .rounded-xl.bg-white.shadow-pricing {
+    background-color: rgba(30, 27, 23, .70) !important;
+    background-image: linear-gradient(140deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 46%) !important;
+    -webkit-backdrop-filter: blur(24px) saturate(185%) !important;
+    backdrop-filter: blur(24px) saturate(185%) !important;
+    border: 1px solid rgba(255,255,255,.14) !important;
+    border-radius: 1.5rem !important;
+    box-shadow: 0 30px 66px -34px rgba(0,0,0,.96),
+                inset 0 1px 0 0 rgba(255,255,255,.14) !important;
+    transition: border-color .55s var(--b-ease), transform .55s var(--b-ease),
+                box-shadow .55s var(--b-ease) !important;
+  }
+  #theme-starter .mb-8.overflow-hidden.rounded-\[5px\]:hover,
+  #theme-starter .rounded-xl.bg-white.shadow-testimonial:hover {
+    border-color: rgba(236,188,86,.45) !important;
+    transform: translateY(-3px);
+    box-shadow: 0 36px 74px -34px rgba(0,0,0,.97),
+                0 0 28px rgba(236,188,86,.26),
+                inset 0 1px 0 0 rgba(255,255,255,.18) !important;
+  }
+  /* 文章正文容器：玻璃面板 */
+  #theme-starter .notion-page,
+  #theme-starter #article-wrapper,
+  #theme-starter .mx-auto.max-w-\[\] { background-color: transparent !important; }
+  #theme-starter .notion-page-content,
+  #theme-starter .notion-text,
+  #theme-starter .notion-h { color: rgba(242, 237, 228, .86) !important; }
+  #theme-starter .notion-h { color: #f2ede4 !important; }
+  /* 文章内链接金色 */
+  #theme-starter .notion-page-content a { color: var(--b-gold) !important; }
+
   `}</style>
 }
 
