@@ -52,7 +52,6 @@ export const Hero = props => {
                           config
                         )}
                         target='_blank'
-                        data-bc-trigger
                         className='flex items-center rounded-md bg-white/[0.12] px-6 py-[14px] text-base font-medium text-white transition duration-300 ease-in-out hover:bg-white hover:text-dark'
                         rel='noreferrer'>
                         {siteConfig(

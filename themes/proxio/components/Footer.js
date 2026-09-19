@@ -25,7 +25,7 @@ export const Footer = ({ title }) => {
       className='z-10 justify-center m-auto w-full p-6 relative container'>
       <div className='max-w-screen-3xl w-full mx-auto '>
         {/* 信息与链接区块 */}
-        <div className='w-full flex lg:flex-row flex-col justify-between py-16'>
+        <div className='w-full flex lg:flex-row flex-col justify-between lg:items-center py-16'>
           <div className='gap-y-2 flex flex-col items-start dark:text-gray-200'>
 <div className='flex gap-x-1'>
               <img
@@ -40,6 +40,11 @@ export const Footer = ({ title }) => {
                 {siteConfig('AUTHOR')}
               </span>
             </div>
+          </div>
+
+          {/* 联系方式：作为中间项与 logo、链接组垂直居中对齐 */}
+          <div className='flex justify-center items-center py-6 lg:py-0'>
+            <BrandContactFab />
           </div>
 
           {/* 右侧链接区块 */}
@@ -63,11 +68,6 @@ export const Footer = ({ title }) => {
                 </div>
               )
             })}
-        </div>
-
-        {/* 联系方式：整行居中（与工业地面页一致） */}
-        <div className='w-full flex justify-center pb-8'>
-          <BrandContactFab />
         </div>
 
         {/* 页脚 */}
