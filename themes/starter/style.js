@@ -576,7 +576,7 @@ const Style = () => {
   /* ---------- ② 主站二级页面（案例归档 / 文章）玻璃卡 ----------
      文章列表与详情页的卡片同样是 bg-white 无 dark 变体，会渲染成白块。 */
   #theme-starter article,
-  #theme-starter .notion-page-content { background-color: transparent !important; }
+/* 已移除：覆盖 Notion 内容文字的规则 */
 
   #theme-starter .mb-8.overflow-hidden.rounded-\[5px\],
   #theme-starter .rounded-xl.bg-white.shadow-testimonial,
@@ -606,11 +606,12 @@ const Style = () => {
   #theme-starter .mx-auto.max-w-\[\] { background-color: transparent !important; }
   #theme-starter .notion-page-content,
   #theme-starter .notion-text,
-  #theme-starter .notion-h { color: rgba(242, 237, 228, .86) !important; }
-  #theme-starter .notion-h { color: #f2ede4 !important; }
-  /* 文章内链接金色 */
-  #theme-starter .notion-page-content a { color: var(--b-gold) !important; }
+/* 已移除：覆盖 Notion 内容文字的规则 */
 
+  /* 文章内链接金色 */
+
+
+  
   `}</style>
 }
 

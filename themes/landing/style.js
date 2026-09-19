@@ -960,6 +960,61 @@ const Style = () => {
   #theme-landing footer p span,
   #theme-landing header p span { color: inherit !important; }
 
+  
+  /* ============================================================
+     v11 · 三处修正
+     ============================================================ */
+
+  /* ---------- ① 装饰渐变圆：撤销压暗 ----------
+     custom.js 用 svg g[fill*='illustration'] 选中父 g 元素，
+     再给里面的两个 circle 设成品牌渐变 fill=url(#left-gradient-N)。
+     我 v9 写的那条 svg [fill^='url(#illustration'] { opacity:.10 }
+     命中的正是这个父 g，于是把整组圆压暗了。这里彻底撤销。 */
+  #theme-landing svg [fill^='url(#illustration'],
+  #theme-landing g[fill*='illustration'] {
+    opacity: 1 !important;
+    filter: none !important;
+    visibility: visible !important;
+  }
+  #theme-landing svg circle { opacity: 1 !important; filter: none !important; }
+  #theme-landing section > div[aria-hidden='true'],
+  #theme-landing section > div.pointer-events-none {
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  /* ---------- ② 默认即主题色，触摸只出辉光 ----------
+     不要「本来白色、触摸才变金」。导航与字标默认就用品牌金，
+     悬停只加辉光、不改色。 */
+  #theme-landing .ud-header #navbarCollapse li > a,
+  #theme-landing .ud-header #navbarCollapse li > button,
+  #theme-landing header.fixed .btn-sm {
+    color: #ecbc56 !important;
+    transition: text-shadow .45s var(--b-ease), background .45s var(--b-ease) !important;
+  }
+  #theme-landing .ud-header #navbarCollapse li > a:hover,
+  #theme-landing .ud-header #navbarCollapse li > button:hover,
+  #theme-landing header.fixed .btn-sm:hover {
+    color: #ecbc56 !important;
+    text-shadow: 0 0 14px rgba(236, 188, 86, .85);
+    background: rgba(236, 188, 86, .08) !important;
+  }
+  #theme-landing .navbar-logo .header-logo-text,
+  #theme-landing .navbar-logo .logo { color: #ecbc56 !important; }
+  #theme-landing .navbar-logo:hover .header-logo-text,
+  #theme-landing .navbar-logo:hover .logo {
+    color: #ecbc56 !important;
+    text-shadow: 0 0 14px rgba(236, 188, 86, .85);
+  }
+  #theme-landing .navbar-logo:hover .header-logo {
+    filter: drop-shadow(0 0 10px rgba(236, 188, 86, .85)) !important;
+  }
+  #theme-landing .submenu a { color: #ecbc56 !important; }
+  #theme-landing .submenu a:hover {
+    color: #ecbc56 !important;
+    text-shadow: 0 0 12px rgba(236, 188, 86, .8);
+    background: rgba(236, 188, 86, .10) !important;
+  }
   `}</style>
 }
 

@@ -735,6 +735,23 @@ const Style = () => {
     color: #ecbc56 !important;
   }
 
+  
+  /* ============================================================
+     v11 · Packaging：眉标胶囊不再改内距（避免压到标题）
+     ============================================================ */
+  #theme-proxio span[class*='px-3'][class*='py-0.5'][class*='rounded-2xl'] {
+    background-color: rgba(236, 188, 86, .10) !important;
+    border: 1px solid rgba(236, 188, 86, .28) !important;
+    color: #e6cf9b !important;
+    border-radius: 999px !important;
+    /* 关键：不改 padding，保持组件原本的 px-3 py-0.5，
+       否则会被撑高、压到下面的标题上 */
+    transition: border-color .4s var(--b-ease), box-shadow .4s var(--b-ease) !important;
+  }
+  #theme-proxio span[class*='px-3'][class*='py-0.5'][class*='rounded-2xl']:hover {
+    border-color: rgba(236, 188, 86, .55) !important;
+    box-shadow: 0 0 20px rgba(236, 188, 86, .40) !important;
+  }
   `}</style>
 }
 
