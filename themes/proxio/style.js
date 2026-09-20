@@ -852,12 +852,11 @@ const Style = () => {
 
 #bc-root .bc-panel{position:fixed;z-index:140;overflow:hidden;opacity:0;pointer-events:none;
   background:linear-gradient(135deg,rgba(236,188,86,.94) 0%,rgba(231,68,131,.94) 100%) !important;
-  -webkit-backdrop-filter:blur(40px) saturate(190%);backdrop-filter:blur(40px) saturate(190%);
+  
   border:1px solid rgba(255,255,255,.30);
   box-shadow:0 60px 140px -50px rgba(0,0,0,.9),inset 0 1px 1px rgba(255,255,255,.42);
-  transition:left .78s cubic-bezier(.32,.72,0,1),top .78s cubic-bezier(.32,.72,0,1),
-             width .78s cubic-bezier(.32,.72,0,1),height .78s cubic-bezier(.32,.72,0,1),
-             border-radius .78s cubic-bezier(.32,.72,0,1),opacity .5s cubic-bezier(.32,.72,0,1)}
+  transform-origin:0 0;will-change:transform,opacity;
+  transition:opacity .3s cubic-bezier(.32,.72,0,1)}
 #bc-root.bc-on .bc-panel{pointer-events:auto}
 #bc-root .bc-panel::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(150deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 42%)}
