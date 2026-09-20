@@ -933,6 +933,31 @@ const Style = () => {
   @media (prefers-reduced-motion: reduce) {
     #bc-root .bc-badge::after { animation: none; opacity: .8; }
   }
+
+  /* ============================================================
+     v13 · Packaging：区块标题恢复品牌金 + 眉标与标题拉开间距
+     ------------------------------------------------------------
+     2026-09-20 反馈，三个语言站普遍存在：
+       ① 高亮遗漏 —— 上面「⑤ 标题与正文：暖白系」那条
+          #theme-proxio h1,h2,h3,h4,[class*="dark:text-white"] { color:#f2ede4 !important }
+          把所有标题一律刷成暖白，把**区块强调标题**的品牌金一并洗掉了。
+       ② 上下位置挨得太近 —— 眉标是行内 <span>，其后的标题又没有上边距，
+          实测两者间距只有 −1px（几乎贴住）。
+
+     眉标+标题是「区块标题」的固定写法（Notion 富文本渲染成
+     <span class="px-3 py-0.5 rounded-2xl …">眉标</span><h2>标题</h2>），
+     所以用相邻兄弟选择器精确命中这一对，不动卡片/正文里的标题。
+     间距统一交给眉标的 margin-bottom，避免各区块 0 / 20px 参差不齐。
+     ============================================================ */
+  #theme-proxio span[class*='px-3'][class*='py-0.5'][class*='rounded-2xl'] + h1,
+  #theme-proxio span[class*='px-3'][class*='py-0.5'][class*='rounded-2xl'] + h2,
+  #theme-proxio span[class*='px-3'][class*='py-0.5'][class*='rounded-2xl'] + h3 {
+    /* 间距交给标题的上边距：眉标是行内元素，给它 margin-bottom 不产生垂直间距；
+       而这类 class 组合的 span 全站有 6 个（含导航字标），改它们的盒模型会误伤。
+       只对"紧跟在眉标后面"的标题生效，命中面最小。 */
+    margin-top: 20px !important;
+    color: #ecbc56 !important;
+  }
   `}</style>
 }
 
