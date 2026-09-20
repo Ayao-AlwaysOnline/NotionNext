@@ -119,35 +119,46 @@ export default function BrandContact({ enabled = true }) {
     let r = null
     try { r = a && a.getBoundingClientRect ? a.getBoundingClientRect() : null } catch (e) {}
     const hasR = r && r.width > 0 && r.height > 0
+
+    /* 面板几何**固定**在最终态，展开/收起只动 transform + opacity。
+       这两个属性由合成器处理，不触发布局与重绘。
+       旧写法动的是 left/top/width/height/border-radius：移动端每一帧都要重新布局、
+       重算圆角裁剪、并重做一次 40px backdrop-filter。
+       实测（390×844 / DPR3 / CPU 4 倍降速）平均帧长 22~30ms、单帧最差 333ms。 */
+    const tw = Math.min(W * 0.8, 1360)
+    const th = Math.min(H * 0.8, 900)
+    const tl = (W - tw) / 2
+    const tt = (H - th) / 2
+    g.style.left = tl + 'px'
+    g.style.top = tt + 'px'
+    g.style.width = tw + 'px'
+    g.style.height = th + 'px'
+    g.style.borderRadius = '62px'
+    g.style.transformOrigin = '0 0'
+
+    // 起点 = 触发按钮所在的矩形（位移 + 缩放），终点 = 面板自身
+    const bw = hasR ? Math.max(r.width, 140) : 170
+    const bh = hasR ? Math.max(r.height, 48) : 54
+    const bx = hasR ? r.left : W / 2 - bw / 2
+    const by = hasR ? r.top : H - 70
+    const from =
+      'translate3d(' + (bx - tl).toFixed(1) + 'px, ' + (by - tt).toFixed(1) + 'px, 0) scale(' +
+      (bw / tw).toFixed(4) + ', ' + (bh / th).toFixed(4) + ')'
+
     if (open) {
-      const tw = Math.min(W * 0.8, 1360)
-      const th = Math.min(H * 0.8, 900)
-      const tl = (W - tw) / 2
-      const tt = (H - th) / 2
       g.style.transition = 'none'
-      g.style.left = (hasR ? r.left : tl) + 'px'
-      g.style.top = (hasR ? r.top : tt) + 'px'
-      g.style.width = (hasR ? Math.max(r.width, 140) : tw) + 'px'
-      g.style.height = (hasR ? Math.max(r.height, 48) : th) + 'px'
-      g.style.borderRadius = (hasR ? r.height / 2 : 40) + 'px'
+      g.style.transform = from
       g.style.opacity = '0'
       void g.offsetWidth
-      g.style.transition = ''
+      g.style.transition = 'transform .62s cubic-bezier(.22,.9,.28,1), opacity .26s ease-out'
       requestAnimationFrame(() => {
-        g.style.left = tl + 'px'
-        g.style.top = tt + 'px'
-        g.style.width = tw + 'px'
-        g.style.height = th + 'px'
-        g.style.borderRadius = '62px'
+        g.style.transform = 'translate3d(0, 0, 0) scale(1, 1)'
         g.style.opacity = '1'
       })
     } else {
+      g.style.transition = 'transform .42s cubic-bezier(.32,.72,0,1), opacity .3s ease-in'
+      g.style.transform = from
       g.style.opacity = '0'
-      g.style.borderRadius = (hasR ? r.height / 2 : 34) + 'px'
-      g.style.left = (hasR ? r.left : W / 2) + 'px'
-      g.style.top = (hasR ? r.top : H - 70) + 'px'
-      g.style.width = (hasR ? Math.max(r.width, 140) : 170) + 'px'
-      g.style.height = (hasR ? Math.max(r.height, 48) : 54) + 'px'
     }
     // clientReady 必须在内：面板挂载后本 effect 要再跑一次才能完成定位与淡入
   }, [open, clientReady])

@@ -845,19 +845,18 @@ const Style = () => {
   .bc-fab .bc-ic{width:28px;height:28px}}
 
 #bc-root .bc-veil{position:fixed;inset:0;z-index:130;background:rgba(8,7,6,.55);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  /* 原为全屏 backdrop-filter:blur(8px)：面板本身占 80% 视口，遮罩只在边缘一圈可见，整屏每帧做模糊是移动端展开卡顿的最大单笔开销 */
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .55s cubic-bezier(.32,.72,0,1),visibility .55s}
 #bc-root.bc-on .bc-veil{opacity:1;visibility:visible;pointer-events:auto}
 
 #bc-root .bc-panel{position:fixed;z-index:140;overflow:hidden;opacity:0;pointer-events:none;
   background:linear-gradient(135deg,rgba(236,188,86,.94) 0%,rgba(231,68,131,.94) 100%) !important;
-  -webkit-backdrop-filter:blur(40px) saturate(190%);backdrop-filter:blur(40px) saturate(190%);
+  
   border:1px solid rgba(255,255,255,.30);
   box-shadow:0 60px 140px -50px rgba(0,0,0,.9),inset 0 1px 1px rgba(255,255,255,.42);
-  transition:left .78s cubic-bezier(.32,.72,0,1),top .78s cubic-bezier(.32,.72,0,1),
-             width .78s cubic-bezier(.32,.72,0,1),height .78s cubic-bezier(.32,.72,0,1),
-             border-radius .78s cubic-bezier(.32,.72,0,1),opacity .5s cubic-bezier(.32,.72,0,1)}
+  transform-origin:0 0;will-change:transform,opacity;
+  transition:opacity .3s cubic-bezier(.32,.72,0,1)}
 #bc-root.bc-on .bc-panel{pointer-events:auto}
 #bc-root .bc-panel::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(150deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 42%)}
