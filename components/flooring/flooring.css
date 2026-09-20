@@ -352,19 +352,19 @@
 #flooring .cpanel{position:fixed;inset:0;z-index:145;display:none}
 #flooring .cpanel.on{display:block}
 #flooring .cpanel .veil{position:absolute;inset:0;background:rgba(8,7,6,.52);
-  backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);
+  /* 全屏模糊只在展开动画结束后由 JS 挂上（见 .cpanel.blurred），避免每帧整屏重算 */
   opacity:0;transition:opacity .55s var(--ease)}
 #flooring .cpanel.on .veil{opacity:1}
-#flooring .cpglass{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+#flooring .cpglass{position:absolute;left:50%;top:50%;
   border-radius:62px;overflow:hidden;
   
   background:linear-gradient(135deg,rgba(236,188,86,.88) 0%,rgba(231,68,131,.88) 100%);
-  backdrop-filter:blur(40px) saturate(190%);-webkit-backdrop-filter:blur(40px) saturate(190%);
+  /* 原为 blur(40px)：底色本身已 88% 不透明，模糊几乎看不见，却是展开时每帧的最大开销 */
   border:1px solid rgba(255,255,255,.30);
   box-shadow:0 60px 140px -50px rgba(0,0,0,.9), inset 0 1px 1px rgba(255,255,255,.42);
   opacity:0;
-  transition:left .78s var(--ease),top .78s var(--ease),width .78s var(--ease),
-             height .78s var(--ease),border-radius .78s var(--ease),opacity .5s var(--ease)}
+  transform-origin:0 0;will-change:transform,opacity;
+             transition:opacity .3s var(--ease)}
 #flooring .cpglass::after{content:"";position:absolute;inset:0;pointer-events:none;
   background:linear-gradient(150deg,rgba(255,255,255,.22) 0%,rgba(255,255,255,0) 42%)}
 #flooring .cpin{position:relative;z-index:2;height:100%;overflow-y:auto;

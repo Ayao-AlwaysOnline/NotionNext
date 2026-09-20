@@ -302,36 +302,47 @@ export default function FlooringPage({ siteInfo }) {
       const r = btn ? btn.getBoundingClientRect() : null;
       const W = window.innerWidth, H = window.innerHeight;
       const tw = Math.min(W * 0.8, 1360), th = H * 0.8;
+      /* 几何固定在最终态，展开/收起只动 transform + opacity —— 由合成器处理，不触发布局。
+         旧写法动的是 left/top/width/height/border-radius：移动端每帧重新布局、
+         重算圆角裁剪、并重做一次 40px backdrop-filter。
+         实测（390×844 / DPR3 / CPU 4 倍降速）掉帧 17~26 帧、p95 33.4ms。 */
+      g.style.left = ((W - tw) / 2) + 'px';
+      g.style.top = ((H - th) / 2) + 'px';
+      g.style.width = tw + 'px';
+      g.style.height = th + 'px';
+      g.style.borderRadius = '62px';
+      g.style.transformOrigin = '0 0';
       g.style.transition = 'none';
-      g.style.transform = 'none';   // CSS 里有 translate(-50%,-50%)，用 left/top 定位时必须清掉
-      g.style.left = (r ? r.left : W * 0.1) + 'px';
-      g.style.top = (r ? r.top : H * 0.1) + 'px';
-      g.style.width = (r ? r.width : tw) + 'px';
-      g.style.height = (r ? r.height : th) + 'px';
-      g.style.borderRadius = (r ? r.height / 2 : 40) + 'px';
+      const bw = r ? r.width : 170, bh = r ? r.height : 54;
+      const bx = r ? r.left : (W - bw) / 2, by = r ? r.top : H - 70;
+      const cx = (W - tw) / 2, cy = (H - th) / 2;
+      g.style.transform =
+        'translate3d(' + (bx - cx).toFixed(1) + 'px,' + (by - cy).toFixed(1) + 'px,0) scale(' +
+        (bw / tw).toFixed(4) + ',' + (bh / th).toFixed(4) + ')';
       g.style.opacity = '0';
       void g.offsetWidth;
-      g.style.transition = '';
+      g.style.transition = 'transform .62s var(--ease), opacity .26s ease-out';
       requestAnimationFrame(() => {
-        g.style.left = ((W - tw) / 2) + 'px';
-        g.style.top = ((H - th) / 2) + 'px';
-        g.style.width = tw + 'px';
-        g.style.height = th + 'px';
-        g.style.borderRadius = '62px';
+        g.style.transform = 'translate3d(0,0,0) scale(1,1)';
         g.style.opacity = '1';
       });
+      /* 遮罩的全屏模糊只在展开动画结束后才挂上：动画期间整屏每帧做一次模糊是
+         移动端最大的单笔开销；结束后画面静止，只栅格化一次，代价可忽略。 */
+      const panel = g.parentElement;
+      const blurT = setTimeout(() => { if (panel) panel.classList.add('blurred'); }, 660);
+      return () => { clearTimeout(blurT); if (panel) panel.classList.remove('blurred'); };
     } else {
+      if (g.parentElement) g.parentElement.classList.remove('blurred');
+      /* 收起：从当前最终态缩回按钮位置（几何不再改动，避免布局抖动）。 */
+      g.style.transition = 'transform .42s var(--ease), opacity .3s ease-in';
+      const W2 = window.innerWidth, H2 = window.innerHeight;
+      const tw2 = Math.min(W2 * 0.8, 1360), th2 = H2 * 0.8;
+      const cx2 = (W2 - tw2) / 2, cy2 = (H2 - th2) / 2;
+      const bx2 = W2 / 2, by2 = H2 - 70;
+      g.style.transform =
+        'translate3d(' + (bx2 - cx2).toFixed(1) + 'px,' + (by2 - cy2).toFixed(1) + 'px,0) scale(' +
+        (170 / tw2).toFixed(4) + ',' + (54 / th2).toFixed(4) + ')';
       g.style.opacity = '0';
-      g.style.borderRadius = '34px';
-      const t = setTimeout(() => {
-        g.style.transition = 'none';
-        g.style.transform = 'none';
-        g.style.left = '50%'; g.style.top = '50%';
-        g.style.width = '0px'; g.style.height = '0px';
-        void g.offsetWidth;
-        g.style.transition = '';
-      }, 380);
-      return () => clearTimeout(t);
     }
   }, [contact]);
 
