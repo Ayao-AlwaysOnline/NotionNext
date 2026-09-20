@@ -633,18 +633,19 @@
         { h4: '生产/制造部门', p: '精益求精，始终如一' }
       ];
     }
-  
-    const replaceItems = () => {
-      const items = document.querySelectorAll('.group.mb-8.rounded-xl.bg-white.px-5.pb-10.pt-12.shadow-testimonial.dark\\:bg-dark.dark\\:shadow-none');
-      if (items.length === 0) return false;
-      items.forEach((item, i) => {
-        if (i >= groups.length) return;
-        const center = item.querySelector('.text-center');
-        if (center) {
-          const h4 = center.querySelector('.mb-1.text-lg.font-semibold.text-dark.dark\\:text-white');
-          if (h4) h4.textContent = groups[i].h4;
-          const p = center.querySelector('.mb-5.text-sm.text-body-color.dark\\:text-dark-6');
-          if (p) p.textContent = groups[i].p;
+
+    slides.forEach((slide, i) => {
+      if (i >= groups.length) return;
+      const inner = slide.querySelector('.rounded-xl.bg-white.px-4.py-\\[30px\\].shadow-testimonial.dark\\:bg-dark.sm\\:px-\\[30px\\]');
+      if (inner) {
+        const pTag = inner.querySelector('.mb-6.text-base.text-body-color.dark\\:text-dark-6');
+        if (pTag) pTag.textContent = groups[i].p1;
+        const a = inner.querySelector('.flex.items-center.gap-4');
+        if (a) {
+          const h3 = a.querySelector('.text-sm.font-semibold.text-dark.dark\\:text-white');
+          if (h3) h3.textContent = groups[i].h3;
+          const p2 = a.querySelector('.text-xs.text-body-secondary');
+          if (p2) p2.textContent = groups[i].p2;
         }
       });
       return true;

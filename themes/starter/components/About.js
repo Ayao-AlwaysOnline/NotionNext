@@ -31,6 +31,7 @@ export const About = () => {
 
                   <SmartLink
                     href={siteConfig('STARTER_ABOUT_BUTTON_URL', '')}
+                    data-bc-trigger
                     className='inline-flex items-center justify-center rounded-md border border-primary bg-primary px-7 py-3 text-center text-base font-medium text-white hover:border-blue-dark hover:bg-blue-dark'>
                     {siteConfig('STARTER_ABOUT_BUTTON_TEXT')}
                   </SmartLink>

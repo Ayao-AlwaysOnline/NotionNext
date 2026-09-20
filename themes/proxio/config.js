@@ -238,16 +238,7 @@ const CONFIG = {
   // 页脚三列菜单组
   // 页脚菜单
   PROXIO_FOOTER_LINKS: [
-    {
-      name: '联系方式',
-      menus: [
-        { title: 'Email：seaportcy.info@gmail.com', href: '' },
-        {
-          title: 'Tel＆Wechat: +86-15377718690',
-          href: ''
-        }
-      ]
-    },
+    /* 联系我们：由页面内的 bc-fab 按钮展开面板，此处不再列联系信息 */,
     {
       name: '',
       menus: [
