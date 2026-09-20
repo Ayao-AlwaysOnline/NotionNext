@@ -722,6 +722,31 @@ const Style = () => {
   @media (prefers-reduced-motion: reduce) {
     #bc-root .bc-badge::after { animation: none; opacity: .8; }
   }
+
+  /* ============================================================
+     v14 · 主站：眉标与标题的间距统一为 20px
+     ------------------------------------------------------------
+     九站实测：主站同一页里"眉标 → 标题"的间距有四种 ——
+       8px（优势 / 方案栏 / 客户反馈 / 常见问题解答 / 敝司构成 / 我们的动态）
+       20px（OEM/代工生产、ODM/全局产品方案、更多灵活方案）
+       22px（首屏 .eb）
+       24px（与我们联系）
+     8px 那几处明显和标题贴在一起，和其余区块也不一致。
+     这里把**区块标题**（h2/h3）统一成 20px；首屏的大标题（h1）不动 ——
+     那是另一套节奏，不跟着改。
+     做法：眉标自己的 margin-bottom 归零，间距全部交给标题的 margin-top，
+     这样四种模板出来的结果一致（否则 8+20=28 会过头）。
+     ============================================================ */
+  #theme-starter span.eb:has(+ h2), #theme-starter span.eb:has(+ h3),
+  #theme-starter span.block[class*='mb-']:has(+ h2),
+  #theme-starter span.block[class*='mb-']:has(+ h3) {
+    margin-bottom: 0 !important;
+  }
+  #theme-starter span.eb + h2, #theme-starter span.eb + h3,
+  #theme-starter span.block[class*='mb-'] + h2,
+  #theme-starter span.block[class*='mb-'] + h3 {
+    margin-top: 20px !important;
+  }
   `}</style>
 }
 
