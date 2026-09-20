@@ -638,6 +638,8 @@ const Style = () => {
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .55s cubic-bezier(.32,.72,0,1),visibility .55s}
 #bc-root.bc-on .bc-veil{opacity:1;visibility:visible;pointer-events:auto}
+/* 展开动画结束后由 JS 挂上 bc-blurred，此时画面已静止，模糊只栅格化一次 */
+#bc-root.bc-blurred .bc-veil{-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
 
 #bc-root .bc-panel{position:fixed;z-index:140;overflow:hidden;opacity:0;pointer-events:none;
   background:linear-gradient(135deg,rgba(236,188,86,.94) 0%,rgba(231,68,131,.94) 100%) !important;

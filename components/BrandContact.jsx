@@ -145,7 +145,13 @@ export default function BrandContact({ enabled = true }) {
       'translate3d(' + (bx - tl).toFixed(1) + 'px, ' + (by - tt).toFixed(1) + 'px, 0) scale(' +
       (bw / tw).toFixed(4) + ', ' + (bh / th).toFixed(4) + ')'
 
+    /* 遮罩的全屏模糊只在**展开动画结束之后**才挂上：动画期间整屏每帧做一次模糊，
+       是移动端卡顿的最大单笔开销；动画结束后只栅格化一次，画面静止，代价可忽略。
+       收起时立刻摘掉，下一轮展开仍然是干净的。 */
+    const root = g.parentElement
+    let blurTimer = null
     if (open) {
+      if (root) root.classList.remove('bc-blurred')
       g.style.transition = 'none'
       g.style.transform = from
       g.style.opacity = '0'
@@ -155,11 +161,14 @@ export default function BrandContact({ enabled = true }) {
         g.style.transform = 'translate3d(0, 0, 0) scale(1, 1)'
         g.style.opacity = '1'
       })
+      blurTimer = setTimeout(() => { if (root) root.classList.add('bc-blurred') }, 680)
     } else {
+      if (root) root.classList.remove('bc-blurred')
       g.style.transition = 'transform .42s cubic-bezier(.32,.72,0,1), opacity .3s ease-in'
       g.style.transform = from
       g.style.opacity = '0'
     }
+    return () => { if (blurTimer) clearTimeout(blurTimer) }
     // clientReady 必须在内：面板挂载后本 effect 要再跑一次才能完成定位与淡入
   }, [open, clientReady])
 
