@@ -624,6 +624,8 @@ const Style = () => {
   #theme-starter .notion-page,
   #theme-starter #article-wrapper,
   #theme-starter .mx-auto.max-w-\[\] { background-color: transparent !important; }
+  /* 注意：这三条要各自写全，不能用行尾逗号续行 —— 一旦后面接的不是选择器（比如掉进注释），
+     会连累紧随其后的规则，把它的声明套到 Notion 正文上。 */
   #theme-starter .notion-page-content,
   #theme-starter .notion-text,
   #theme-starter .notion-h { color: rgba(242, 237, 228, .86) !important; }

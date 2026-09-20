@@ -471,9 +471,19 @@
 #flooring .dbar{padding:12px 16px}
 }
 #flooring .dspecwrap{margin:30px 0 46px;border-radius:var(--r-xl);overflow:hidden}
-#flooring #dkv td{padding:15px 20px;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.07)}
+#flooring #dkv td{padding:15px 20px;font-size:13.5px;border-bottom:1px solid rgba(255,255,255,.07);
+  vertical-align:top;overflow-wrap:anywhere}
 #flooring #dkv td:first-child{color:#c9b992;width:30%;font-weight:500}
 #flooring #dkv tr:last-child td{border-bottom:0}
+/* ⚠️ 详情面板的表格在 .dspecwrap（overflow:hidden）里，**没有横向滚动容器**，
+   所以不能沿用上面 @media(max-width:768px) 给全站表格的 min-width:660px ——
+   那会让它在窄屏溢出后被直接裁掉（右侧「明扣（齿…」被切掉就是这么来的）。
+   这里把详情表格的 min-width 还原，并允许内容换行。作用域严格限定在 .dspecwrap。 */
+#flooring .dspecwrap table{min-width:0!important;table-layout:fixed}
+@media(max-width:768px){
+  #flooring #dkv td{padding:12px 14px;font-size:13px}
+  #flooring #dkv td:first-child{width:38%}
+}
 #flooring .dsub{font-size:19px;margin:0 0 20px;letter-spacing:-.01em}
 #flooring .gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(168px,1fr));gap:14px}
 @media(max-width:520px){#flooring .gal{grid-template-columns:repeat(2,1fr);gap:10px}

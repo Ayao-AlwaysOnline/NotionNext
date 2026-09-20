@@ -604,9 +604,11 @@ const Style = () => {
   #theme-starter .notion-page,
   #theme-starter #article-wrapper,
   #theme-starter .mx-auto.max-w-\[\] { background-color: transparent !important; }
-  #theme-starter .notion-page-content,
-  #theme-starter .notion-text,
-/* 已移除：覆盖 Notion 内容文字的规则 */
+  /* 这里原有一组「Notion 正文文字」覆盖规则，已移除。
+     ⚠️ 移除时留下过两行没闭合的选择器（.notion-page-content, .notion-text,），
+     它们会和后面紧接着的 .bc-fab 连成一条选择器，
+     导致**每条 notion-text 都被糊上品牌渐变**（/cooperate 页面满屏粉条）。
+     现在把这两行删掉，让 .bc-fab 回到自己的规则里。 */
 
   /* 文章内链接金色 */
 
