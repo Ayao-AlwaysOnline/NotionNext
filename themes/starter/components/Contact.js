@@ -2,6 +2,7 @@ import { siteConfig } from '@/lib/config'
 import CONFIG from '../config'
 import { SVGEmail } from './svg/SVGEmail'
 import { SVGLocation } from './svg/SVGLocation'
+import { BrandContactFab } from '@/components/BrandContact'
 
 /* eslint-disable react/no-unescaped-entities */
 export const Contact = () => {
@@ -59,9 +60,7 @@ export const Contact = () => {
                           CONFIG
                         )}
                       </h5>
-                      <p className='text-base text-body-color dark:text-dark-6'>
-                        {siteConfig('STARTER_CONTACT_EMAIL_TEXT')}
-                      </p>
+                      <BrandContactFab />
                     </div>
                   </div>
                 </div>

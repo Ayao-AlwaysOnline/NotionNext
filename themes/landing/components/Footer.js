@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import CONFIG from '../config'
 import Logo from './Logo'
 import { siteConfig } from '@/lib/config'
+import { BrandContactFab } from '@/components/BrandContact'
 
 /**
  * 页脚
@@ -49,30 +50,13 @@ export default function Footer() {
                         </div>
                     </div>
 
-                    {/* 2nd block */}
-                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
-                        <h6 className="text-gray-800 font-medium mb-2">联系方式</h6>
-                        <ul className="text-sm">
-                            <li className="mb-2">
-                                <p>Email: SeaportcyStudios@qq.com</p>
-                            </li>
-                            <li className="mb-2">
-                                <p>Tel＆Wechat: +86-15377718690</p>
-                            </li>
-                            <li className="mb-2">
-                                {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Github</a> */}
-                            </li>
-                            <li className="mb-2">
-                                {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">Notion</a> */}
-                            </li>
-                            <li className="mb-2">
-                                {/* <a href="#0" className="text-gray-600 hover:text-gray-900 transition duration-150 ease-in-out">NextJs</a> */}
-                            </li>
-                        </ul>
+                    {/* 联系我们：点击展开联系面板（与工业地面页一致） */}
+                    <div className='sm:col-span-6 md:col-span-6 lg:col-span-5 flex justify-center'>
+                        <BrandContactFab />
                     </div>
 
                     {/* 3rd block */}
-                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
+                    <div className="hidden">
                         <h6 className="text-gray-800 font-medium mb-2"></h6>
                         <ul className="text-sm">
                             <li className="mb-2">
@@ -93,8 +77,8 @@ export default function Footer() {
                         </ul>
                     </div>
 
-                    {/* 4th block */}
-                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-2">
+                    {/* 4th block（data-bc-align 只做视觉对齐，不影响 custom.js 的类名选择器） */}
+                    <div className="sm:col-span-6 md:col-span-3 lg:col-span-2" data-bc-align="right">
                         <h6 className="text-gray-800 font-medium mb-2">旗下其他业务</h6>
                         <ul className="text-sm">
                             <li className="mb-2">

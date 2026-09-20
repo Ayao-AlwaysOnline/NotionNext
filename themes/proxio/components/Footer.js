@@ -9,6 +9,7 @@ import { useGlobal } from '@/lib/global'
 import SmartLink from '@/components/SmartLink'
 import CONFIG from '../config'
 import SocialButton from './SocialButton'
+import { BrandContactFab } from '@/components/BrandContact'
 
 /**
  * 网页底脚
@@ -18,15 +19,27 @@ export const Footer = ({ title }) => {
   const PROXIO_FOOTER_LINKS = siteConfig('PROXIO_FOOTER_LINKS', [], CONFIG)
   const contactEmailDisplay = resolveContactEmail(siteConfig('CONTACT_EMAIL'))
 
+  /* 联系信息现在由页面底部的 bc-fab 玻璃面板承载，页脚不再重复列一遍。
+     但 packaging 各语言站的 PROXIO_FOOTER_LINKS 来自各自的 Notion 配置表，
+     而 Notion 配置覆盖代码 config —— 改 themes/proxio/config.js 删不掉线上那一组。
+     所以在渲染前按「这一组里就是我方联系方式」过滤掉：服务端生效、无闪烁、与语言无关。
+     （旧做法只在客户端按标题文字隐藏，且枚举里没有日文写法「連絡先」，日文站因此漏网。） */
+  const LEGACY_CONTACT_RX =
+    /(seaportcy\.info@|seaportcystudios@qq\.com|153\s?7771\s?8690|15377718690|852\s?9057\s?4053)/i
+  const footerGroups = (Array.isArray(PROXIO_FOOTER_LINKS) ? PROXIO_FOOTER_LINKS : []).filter(
+    group =>
+      !(group?.menus || []).some(menu => LEGACY_CONTACT_RX.test(String(menu?.title || '')))
+  )
+
   return (
     <footer
       id='footer-bottom'
       className='z-10 justify-center m-auto w-full p-6 relative container'>
       <div className='max-w-screen-3xl w-full mx-auto '>
         {/* 信息与链接区块 */}
-        <div className='w-full flex lg:flex-row flex-col justify-between py-16'>
+        <div className='w-full flex lg:flex-row flex-col justify-between lg:items-center py-16'>
           <div className='gap-y-2 flex flex-col items-start dark:text-gray-200'>
-            <div className='flex gap-x-1'>
+<div className='flex gap-x-1'>
               <img
                 src="/images/starter/team/packaging.png"
                 className='rounded-full'
@@ -39,14 +52,15 @@ export const Footer = ({ title }) => {
                 {siteConfig('AUTHOR')}
               </span>
             </div>
-            
-            {contactEmailDisplay && (
-              <div className='px-1'>{contactEmailDisplay}</div>
-            )}
+          </div>
+
+          {/* 联系方式：作为中间项与 logo、链接组垂直居中对齐 */}
+          <div className='flex justify-center items-center py-6 lg:py-0'>
+            <BrandContactFab />
           </div>
 
           {/* 右侧链接区块 */}
-            {PROXIO_FOOTER_LINKS?.map((group, index) => {
+            {footerGroups.map((group, index) => {
               return (
                 <div key={index}>
                   <div className='font-bold text-xl dark:text-white lg:pb-8 pb-4'>
