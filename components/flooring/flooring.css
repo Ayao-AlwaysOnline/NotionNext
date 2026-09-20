@@ -370,6 +370,17 @@
 #flooring .cpin{position:relative;z-index:2;height:100%;overflow-y:auto;
   padding:clamp(26px,4.4vw,64px) clamp(24px,4vw,68px);
   display:flex;flex-direction:column;justify-content:center}
+/* 内容比面板高时绝不能再居中：居中会把顶部内容推到面板外，被 overflow:hidden 裁掉。
+   实测 360×640 眉标被裁 42px、390×600 被裁 58px。改回从顶部排布。 */
+@media (max-height:760px){
+  #flooring .cpin{justify-content:flex-start}
+}
+/* 内容比面板高时不能再居中：居中会把顶部内容推到面板外、被 overflow:hidden 裁掉
+   （实测 360×640 眉标被裁 42px、390×600 被裁 58px）。
+   改回从顶部排布，配合下面的小屏内距收紧。 */
+@media (max-height:760px){
+  #flooring .cpin{justify-content:flex-start}
+}
 #flooring .cpclose{position:absolute;top:18px;right:18px;z-index:5;width:46px;height:46px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;
   background:rgba(26,18,8,.16);border:1px solid rgba(26,18,8,.22);color:#1c1408;font-size:19px;
@@ -380,8 +391,31 @@
 #flooring .cpclose:hover{transform:rotate(90deg);border-color:transparent}
 #flooring .cpclose:hover::before{opacity:1}
 #flooring .cpclose:hover > span{color:#f4d68f}
+/* ---- 左上角辉光品牌徽标（与 BrandContact 的 .bc-badge 同一套参数）---- */
+#flooring .cp-head{display:flex;align-items:center;gap:24px;margin-bottom:20px}
+#flooring .cp-badge{position:relative;width:100px;height:100px;border-radius:999px;flex:none;
+  display:inline-flex;align-items:center;justify-content:center;
+  background:radial-gradient(circle at 50% 34%, rgba(28,23,17,.52) 0%, rgba(20,16,12,.72) 100%);
+  border:1px solid rgba(255,255,255,.34);
+  box-shadow:inset 0 1px 0 0 rgba(255,255,255,.28),
+             inset 0 -1px 0 0 rgba(0,0,0,.35),
+             0 12px 30px -14px rgba(0,0,0,.70);
+  -webkit-backdrop-filter:blur(12px) saturate(160%);
+  backdrop-filter:blur(12px) saturate(160%)}
+#flooring .cp-badge img{width:90px;height:90px;object-fit:contain;display:block;
+  filter:drop-shadow(0 0 12px rgba(236,188,86,.95))}
+#flooring .cp-badge::after{content:'';position:absolute;inset:-14px;border-radius:999px;pointer-events:none;
+  background:radial-gradient(circle, rgba(236,188,86,.62) 0%, rgba(236,188,86,0) 70%);
+  animation:cp-pulse 2.8s cubic-bezier(.32,.72,0,1) infinite}
+@keyframes cp-pulse{
+  0%,100%{transform:scale(.90);opacity:.50}
+  50%{transform:scale(1.16);opacity:1}
+}
+@media (prefers-reduced-motion: reduce){
+  #flooring .cp-badge::after{animation:none;opacity:.8}
+}
 #flooring .cp-eyebrow{display:inline-block;font:500 10px/1 Poppins,sans-serif;text-transform:uppercase;
-  letter-spacing:.26em;color:rgba(28,20,8,.62);margin-bottom:16px}
+  letter-spacing:.26em;color:rgba(28,20,8,.62);margin-bottom:0}
 #flooring .cp-title{font-size:clamp(30px,4.4vw,54px);line-height:1.06;letter-spacing:-.03em;
   color:#1a1208;margin-bottom:12px}
 #flooring .cp-sub{color:rgba(28,20,8,.66);font-size:15px;margin-bottom:clamp(20px,3vw,38px)}
@@ -389,6 +423,15 @@
 @media(max-width:720px){#flooring .cp-grid{grid-template-columns:1fr}
 #flooring .cpglass{border-radius:40px}
 #flooring .cp-title{font-size:28px}
+/* 小屏收紧：原内距 26px 顶部会把内容顶到关闭按钮底下；同时整体压低高度减少滚动 */
+#flooring .cpin{padding:58px 20px 26px}
+#flooring .cp-eyebrow{margin-bottom:10px}
+#flooring .cp-sub{margin-bottom:18px}
+#flooring .cp-grid{gap:10px}
+#flooring .cpclose{top:14px;right:14px;width:42px;height:42px}
+#flooring .cp-head{gap:14px;margin-bottom:14px}
+#flooring .cp-badge{width:64px;height:64px}
+#flooring .cp-badge img{width:56px;height:56px}
 }
 #flooring .cp-item{display:flex;flex-direction:column;gap:7px;text-decoration:none;
   background:rgba(255,255,255,.20);border:1px solid rgba(255,255,255,.34);

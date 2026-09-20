@@ -695,7 +695,14 @@ export default function FlooringPage({ siteInfo }) {
         <div className='cpglass' ref={cpRef}>
           <button className='cpclose' onClick={closeContact}><span>✕</span></button>
           <div className='cpin'>
-            <span className='cp-eyebrow'>{L.contact.eyebrow}</span>
+            {/* 左上角辉光品牌徽标 —— 与主站/打包站/Studios 的联系面板保持同一套语言。
+                外玻璃框 100×100、内徽标 90×90（移动端缩为 72/64），金光晕呼吸。 */}
+            <div className='cp-head'>
+              <span className='cp-badge' aria-hidden='true'>
+                <img src='/images/flooring/seaportcy.png' alt='' />
+              </span>
+              <span className='cp-eyebrow'>{L.contact.eyebrow}</span>
+            </div>
             <h2 className='cp-title'>{L.contact.title}</h2>
             <p className='cp-sub'>{L.contact.sub}</p>
             <div className='cp-grid'>
