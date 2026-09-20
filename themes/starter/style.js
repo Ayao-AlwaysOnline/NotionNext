@@ -634,7 +634,7 @@ const Style = () => {
   .bc-fab .bc-ic{width:28px;height:28px}}
 
 #bc-root .bc-veil{position:fixed;inset:0;z-index:130;background:rgba(8,7,6,.55);
-  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  /* 原为全屏 backdrop-filter:blur(8px)：面板本身占 80% 视口，遮罩只在边缘一圈可见，整屏每帧做模糊是移动端展开卡顿的最大单笔开销 */
   opacity:0;visibility:hidden;pointer-events:none;
   transition:opacity .55s cubic-bezier(.32,.72,0,1),visibility .55s}
 #bc-root.bc-on .bc-veil{opacity:1;visibility:visible;pointer-events:auto}
