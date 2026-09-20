@@ -1,3 +1,28 @@
+// ==================== 水合门控（必须放在自定义逻辑之前）====================
+/* React 水合时会把客户端首帧与服务端 HTML 逐节点比对。custom.js 是直接改 DOM 的
+   （评价替换、团队卡片、hero 配色、页脚多语言…）。只要抢在水合完成前写入，
+   服务端渲染的占位内容与客户端真实内容就会不一致 —— React 报 #418 / #423，
+   并在客户端重建整棵子树（刚注入的内容还会被冲掉）。
+
+   实测证据：关掉 JS 拿到的服务端 DOM 有 102 个文本节点，水合后是 169 个，
+   分歧点正好落在「客户反馈」评价区（服务端是占位、客户端是真实评价）。
+
+   因此把整份文件的执行推迟到水合完成之后（next.router.isReady）。
+   文件内 5 处 DOMContentLoaded 注册统一写作：
+       if (document.readyState === 'loading') { addEventListener(...) } else { 直接执行 }
+   被推迟执行时 readyState 早已不是 loading，会走 else 分支，不会失效。
+   另有 8 秒兜底，任何异常情况下这些功能都不会永久丢失。 */
+function __scAfterHydration(fn) {
+  var done = false;
+  var run = function () { if (done) return; done = true; try { fn(); } catch (e) { console.error("[custom.js]", e); } };
+  var ready = function () { var n = window.next; return !!(n && n.router && n.router.isReady); };
+  if (ready()) return run();
+  var iv = setInterval(function () { if (ready()) { clearInterval(iv); run(); } }, 50);
+  setTimeout(function () { clearInterval(iv); run(); }, 8000);
+  window.addEventListener("load", function () { setTimeout(function () { if (ready()) run(); }, 0); });
+}
+
+__scAfterHydration(function () {
 // ==================== 包装站评价多语言（等待卡片加载版） ====================
 (function() {
   // 英文/日文数据
@@ -764,3 +789,5 @@ if (el2) el2.style.display = 'none';
 
 // ==================== 浏览器背景色 ====================
 document.documentElement.style.backgroundColor = '#1a1a1a';
+
+});
