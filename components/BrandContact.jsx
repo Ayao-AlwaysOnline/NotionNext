@@ -185,15 +185,20 @@ export default function BrandContact({ enabled = true }) {
     }
     document.addEventListener('click', onClick, true)
 
-    /* Packaging 的 PROXIO_FOOTER_LINKS 来自 siteConfig（Notion 覆盖本地 config），
-       改本地文件无效 —— 运行时把页脚里残留的「联系方式」分组隐藏。 */
+    /* 页脚里残留的「联系方式」分组：proxio 已在 themes/proxio/components/Footer.js
+       里做服务端过滤，这里作为另外两站（starter / landing）的兜底。
+       标题不能写成固定枚举 —— 每个语言站的写法都不同
+       （zh 联系方式 / en Contact / ja 連絡先 …），枚举漏一个就整整漏一个语种；
+       packaging-ja 的「連絡先」正是因为不在枚举里才漏掉的。 */
+    const LEGACY_TITLE_RX =
+      /^(联系方式|聯系方式|联系信息|連絡先|ご連絡先|お問い合わせ|お問合せ|contact|contact us|contacto|contato)$/i
     const hideLegacy = () => {
       try {
         document.querySelectorAll('footer div').forEach((d) => {
           const h = d.querySelector(':scope > div, :scope > h6, :scope > h5, :scope > span')
           if (!h) return
           const t = (h.textContent || '').trim()
-          if (t === '联系方式' || t === '聯系方式' || t === 'Contact' || t === 'お問い合わせ') {
+          if (LEGACY_TITLE_RX.test(t)) {
             if (!d.querySelector('[data-bc-trigger], .bc-fab')) d.style.display = 'none'
           }
         })

@@ -19,6 +19,18 @@ export const Footer = ({ title }) => {
   const PROXIO_FOOTER_LINKS = siteConfig('PROXIO_FOOTER_LINKS', [], CONFIG)
   const contactEmailDisplay = resolveContactEmail(siteConfig('CONTACT_EMAIL'))
 
+  /* 联系信息现在由页面底部的 bc-fab 玻璃面板承载，页脚不再重复列一遍。
+     但 packaging 各语言站的 PROXIO_FOOTER_LINKS 来自各自的 Notion 配置表，
+     而 Notion 配置覆盖代码 config —— 改 themes/proxio/config.js 删不掉线上那一组。
+     所以在渲染前按「这一组里就是我方联系方式」过滤掉：服务端生效、无闪烁、与语言无关。
+     （旧做法只在客户端按标题文字隐藏，且枚举里没有日文写法「連絡先」，日文站因此漏网。） */
+  const LEGACY_CONTACT_RX =
+    /(seaportcy\.info@|seaportcystudios@qq\.com|153\s?7771\s?8690|15377718690|852\s?9057\s?4053)/i
+  const footerGroups = (Array.isArray(PROXIO_FOOTER_LINKS) ? PROXIO_FOOTER_LINKS : []).filter(
+    group =>
+      !(group?.menus || []).some(menu => LEGACY_CONTACT_RX.test(String(menu?.title || '')))
+  )
+
   return (
     <footer
       id='footer-bottom'
@@ -48,7 +60,7 @@ export const Footer = ({ title }) => {
           </div>
 
           {/* 右侧链接区块 */}
-            {PROXIO_FOOTER_LINKS?.map((group, index) => {
+            {footerGroups.map((group, index) => {
               return (
                 <div key={index}>
                   <div className='font-bold text-xl dark:text-white lg:pb-8 pb-4'>
