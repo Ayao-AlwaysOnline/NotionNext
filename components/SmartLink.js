@@ -41,7 +41,7 @@ const filterLinkProps = props => {
    页脚联系面板等纯客户端文案不会重算；浏览器回退同理。
    实测：/ 纯客户端切到 /en 后，面板文案仍是中文；整页加载才正确。
 
-   这里只对主站语言根路径生效（/en、/ja，以及从它们回到主站根 /）。
+   这里只对主站语言根路径生效（/en、/ja）。
    其他站点的路径（/studios-en、/packaging-ja …）、文章/归档/分类等
    普通链接一律不受影响，仍走客户端路由。
    主站目前只有中/英/日，以后新增语种要同步这里的清单。
@@ -167,19 +167,11 @@ const SmartLink = ({ href, children, ...rest }) => {
       : mergePreservedQueryForObjectHref(href)
 
   // —— 主站语言切换：整页加载，保证译文（含联系面板）与回退都正确 ——
-  const targetPathname = toPathname(mergedHref)
-  const currentPathname =
-    toPathname(router?.asPath) ||
-    (typeof window !== 'undefined' ? window.location.pathname : '')
-  const targetIsLangRoot = isMainSiteLangRoot(targetPathname)
-  const leavingLangRootToMainSite =
-    isMainSiteLangRoot(currentPathname) &&
-    (targetPathname === '/' || targetPathname === '')
-
-  if (
-    targetPathname !== currentPathname &&
-    (targetIsLangRoot || leavingLangRootToMainSite)
-  ) {
+  // 只按「目标链接」判断，不比较当前路径：SSR 阶段拿不到 window.location，
+  // 一旦判断依赖当前路径，客户端首帧就可能与服务端渲染成不同标签
+  // （<a> vs <Link>）→ hydration 不一致（本仓有 #418 的历史）。
+  // 代价仅是：已经在某语言站时再点该语言，会整页刷新同一地址（无害）。
+  if (isMainSiteLangRoot(toPathname(mergedHref))) {
     return (
       <a href={hrefToString(mergedHref)} {...filterDOMProps(rest)}>
         {children}
