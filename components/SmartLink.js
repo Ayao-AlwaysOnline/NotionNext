@@ -1,6 +1,4 @@
 import Link from 'next/link'
-import { useRouter } from 'next/router'
-import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 
 // 过滤 <a> 标签不能识别的 props
@@ -34,51 +32,42 @@ const filterLinkProps = props => {
 }
 
 /* ------------------------------------------------------------------
-  站点前缀切换必须整页加载
-  ------------------------------------------------------------------
-  NOTION_PAGE_ID 形如：主站ID,en:xxx,ja:xxx,packaging:xxx,packaging-en:xxx…
-  冒号前那段就是一个「站点前缀」，同时也是 next.config.js 里注册的 i18n locale。
+   主站语言切换必须整页加载
+   ------------------------------------------------------------------
+   主站语言菜单（Language → 日本語 / English）的实际链接是绝对地址：
+       https://seaportcy.com/ja    https://seaportcy.com/en
+   走客户端路由切过去时，URL 虽然从 / 变成 /en，但主站这两个路径是
+   Next 的 locale 路径（同一个页面组件），React 不会重挂载，
+   页脚联系面板等纯客户端文案不会重算；浏览器回退同理。
+   实测：/ 纯客户端切到 /en 后，面板文案仍是中文；整页加载才正确。
 
-  为什么必须整页加载：/studios-en、/packaging-ja 这类是 pages/[prefix] 的自定义路由，
-  **不是** Next i18n 的标准 locale 路由 —— 客户端路由切过去时 router.locale 不会变，
-  而 lib/global.js 只在 router.locale 变化时才重算译文：
-      useEffect(() => { initLocale(router.locale, changeLang, updateLocale) }, [router.locale, ...])
-  结果就是：语言/站点切了，译文没切；浏览器回退也回不来。
-  走 <a> 整页加载后，服务端会按新前缀渲染，译文与站点数据都正确；
-  回退/前进由浏览器原生处理，同样正确。
-
-  只对「第一段路径是站点前缀、且与当前不同」的链接生效；
-  文章、归档、分类等普通链接（第一段不是站点前缀）仍走客户端路由，不受影响。
+   这里只对主站语言根路径生效（/en、/ja，以及从它们回到主站根 /）。
+   其他站点的路径（/studios-en、/packaging-ja …）、文章/归档/分类等
+   普通链接一律不受影响，仍走客户端路由。
+   主站目前只有中/英/日，以后新增语种要同步这里的清单。
 */
-let cachedPageId = null
-let cachedPrefixes = null
+const MAIN_SITE_LANG_ROOTS = ['en', 'ja']
 
-const collectSitePrefixes = pageId => {
-  const set = new Set()
-  String(pageId || '')
-    .split(',')
-    .forEach(segment => {
-      const i = segment.indexOf(':')
-      if (i > 0) set.add(segment.slice(0, i).trim())
-    })
-  return set
-}
-
-const getSitePrefixes = pageId => {
-  if (cachedPageId !== pageId) {
-    cachedPageId = pageId
-    cachedPrefixes = collectSitePrefixes(pageId)
+/** 取出链接的路径部分：绝对内链（https://seaportcy.com/en）要还原成 /en */
+const toPathname = value => {
+  const raw = typeof value === 'string' ? value : value?.pathname || ''
+  if (!raw) return ''
+  if (/^https?:\/\//i.test(raw)) {
+    try {
+      return new URL(raw).pathname
+    } catch (e) {
+      return raw
+    }
   }
-  return cachedPrefixes
+  return raw.split('?')[0].split('#')[0]
 }
 
-/** 取路径的第一段（忽略 query / hash / 结尾斜杠） */
-const firstSegment = path => {
-  const clean = String(path || '')
-    .split('?')[0]
-    .split('#')[0]
-  const parts = clean.split('/').filter(Boolean)
-  return parts[0] || ''
+/** 恰好一个路径段、且是主站语言根才成立（/en/archive 不算） */
+const isMainSiteLangRoot = pathname => {
+  const parts = String(pathname || '').split('/').filter(Boolean)
+  return (
+    parts.length === 1 && MAIN_SITE_LANG_ROOTS.includes(parts[0].toLowerCase())
+  )
 }
 
 /** 把内部链接对象拼成可直接用于 <a href> 的字符串 */
@@ -97,7 +86,6 @@ const hrefToString = value => {
 }
 
 const SmartLink = ({ href, children, ...rest }) => {
-  const router = useRouter()
   const LINK = siteConfig('LINK')
 
   // 获取 URL 字符串用于判断是否是外链
@@ -178,24 +166,20 @@ const SmartLink = ({ href, children, ...rest }) => {
       ? mergePreservedQueryForStringHref(href)
       : mergePreservedQueryForObjectHref(href)
 
-  // —— 站点前缀切换：走整页加载，保证译文与站点数据正确 ——
-  const targetPath =
-    typeof mergedHref === 'string' ? mergedHref : mergedHref?.pathname
-  const currentPath =
-    router?.asPath ||
+  // —— 主站语言切换：整页加载，保证译文（含联系面板）与回退都正确 ——
+  const targetPathname = toPathname(mergedHref)
+  const currentPathname =
+    toPathname(router?.asPath) ||
     (typeof window !== 'undefined' ? window.location.pathname : '')
-  const pageId = siteConfig('NOTION_PAGE_ID', BLOG.NOTION_PAGE_ID)
-  const prefixes = getSitePrefixes(pageId)
-  const targetPrefix = firstSegment(targetPath)
-  // 当前页若第一段不是站点前缀，说明它属于「默认语言站」（无前缀），当前前缀记为空串。
-  // 这样 /en -> / （切回中文站）也能被识别成切换，而 /archive -> / 不会误判。
-  const rawCurrentPrefix = firstSegment(currentPath)
-  const currentPrefix = prefixes.has(rawCurrentPrefix) ? rawCurrentPrefix : ''
-  const switchesSite =
-    targetPrefix !== currentPrefix &&
-    (targetPrefix === '' || prefixes.has(targetPrefix))
+  const targetIsLangRoot = isMainSiteLangRoot(targetPathname)
+  const leavingLangRootToMainSite =
+    isMainSiteLangRoot(currentPathname) &&
+    (targetPathname === '/' || targetPathname === '')
 
-  if (switchesSite) {
+  if (
+    targetPathname !== currentPathname &&
+    (targetIsLangRoot || leavingLangRootToMainSite)
+  ) {
     return (
       <a href={hrefToString(mergedHref)} {...filterDOMProps(rest)}>
         {children}
