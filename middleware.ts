@@ -70,12 +70,14 @@ const resolveLocale = (req: NextRequest): string | null => {
   const tags = header
     .split(',')
     .map(part => {
-      const [tag, ...params] = part.trim().split(';')
-      const qParam = params.map(x => x.trim()).find(x => x.startsWith('q='))
-      return {
-        tag: tag.trim().toLowerCase(),
-        q: qParam ? Number(qParam.slice(2)) : 1
-      }
+      const segments = part.trim().split(';')
+      // noUncheckedIndexedAccess 下 segments[0] 可能是 undefined
+      const tag = (segments[0] ?? '').trim().toLowerCase()
+      const qParam = segments
+        .slice(1)
+        .map(x => x.trim())
+        .find(x => x.startsWith('q='))
+      return { tag, q: qParam ? Number(qParam.slice(2)) : 1 }
     })
     .filter(item => item.tag && item.tag !== '*' && !Number.isNaN(item.q))
     .sort((a, b) => b.q - a.q)
