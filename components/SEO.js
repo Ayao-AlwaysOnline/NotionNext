@@ -95,7 +95,10 @@ const SEO = props => {
     router?.route === '/'
       ? buildLanguageAlternates(
           language,
-          siteConfig('LANG', 'zh-CN', NOTION_CONFIG),
+          // 用构建期的全局默认语言决定"哪个版本无前缀"：
+          // siteConfig('LANG') 取的是各站运行时配置，英文站上取不到全局默认值，
+          // 会把 zh-CN 误拼成 /zh-CN
+          BLOG.LANG,
           SITE_ORIGIN
         )
       : []
