@@ -221,7 +221,12 @@ const nextConfig = {
     : {
       defaultLocale: BLOG.LANG,
       // 支持的所有多语言,按需填写即可
-      locales: locales
+      locales: locales,
+      /* 关闭 Next 自带的「按 Accept-Language 自动跳转」，改由 middleware.ts 接管。
+         原因：自带检测只看语言头、不看是谁在请求 —— 搜索引擎爬虫（Googlebot/Bingbot）
+         默认带 Accept-Language，访问主站 / 会拿到 307 → /en，主站首页因此进不了索引。
+         middleware.ts 里复刻了同一套规则，唯独放过爬虫 UA。 */
+      localeDetection: false
     },
   images: {
     // 图片压缩和格式优化
