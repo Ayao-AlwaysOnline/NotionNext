@@ -1,3 +1,4 @@
+import BLOG from '@/blog.config'
 import { siteConfig } from '@/lib/config'
 import { useGlobal } from '@/lib/global'
 import { getPwaConfig } from '@/lib/pwa'
@@ -79,12 +80,23 @@ const SEO = props => {
   // 多语言 hreflang：只在「各站首页」（router.route === '/'）输出。
   // 只有首页能确定各语言版本的对应关系；文章/归档等深层页面对应关系无法保证，
   // 乱标 hreflang 反而有害。
+  // 注意：本组件的 LINK 是按站点带前缀的（/en、/studios-ja…），直接拿它拼 hreflang
+  // 会得到 /en/en 这类双重前缀，所以这里用全局域名根（BLOG.LINK）拼。
+  const SITE_ORIGIN =
+    normalizeSiteUrl(BLOG.LINK) ||
+    (() => {
+      try {
+        return new URL(url).origin
+      } catch (err) {
+        return ''
+      }
+    })()
   const languageAlternates =
     router?.route === '/'
       ? buildLanguageAlternates(
           language,
           siteConfig('LANG', 'zh-CN', NOTION_CONFIG),
-          LINK
+          SITE_ORIGIN
         )
       : []
   const category = Array.isArray(meta?.category)
