@@ -3,6 +3,10 @@ import { useGlobal } from '@/lib/global'
 import { getPwaConfig } from '@/lib/pwa'
 import { createSiteUrl, normalizeSiteUrl } from '@/lib/sitemap-utils'
 import { isHttpLink, loadExternalResource } from '@/lib/utils'
+import {
+  buildLanguageAlternates,
+  getSiteSeoCopy
+} from '@/lib/utils/seoCopy'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useEffect } from 'react'
@@ -71,6 +75,18 @@ const SEO = props => {
   const language =
     router?.locale || siteConfig('LANG', 'zh-CN', NOTION_CONFIG)
   const lang = String(language).replace('-', '_') // Facebook OpenGraph 要 zh_CN 這樣的格式才抓得到語言
+
+  // 多语言 hreflang：只在「各站首页」（router.route === '/'）输出。
+  // 只有首页能确定各语言版本的对应关系；文章/归档等深层页面对应关系无法保证，
+  // 乱标 hreflang 反而有害。
+  const languageAlternates =
+    router?.route === '/'
+      ? buildLanguageAlternates(
+          language,
+          siteConfig('LANG', 'zh-CN', NOTION_CONFIG),
+          LINK
+        )
+      : []
   const category = Array.isArray(meta?.category)
     ? meta?.category?.[0]
     : meta?.category || KEYWORDS // section 主要是像是 category 這樣的分類，Facebook 用這個來抓連結的分類
@@ -165,6 +181,15 @@ const SEO = props => {
 
       {/* 基础SEO元数据 */}
       <link rel='canonical' href={url} />
+      {/* 多语言 hreflang：告诉搜索引擎这些语言版本属于同一业务线，而不是互相竞争 */}
+      {languageAlternates.map(item => (
+        <link
+          key={item.hreflang}
+          rel='alternate'
+          hrefLang={item.hreflang}
+          href={item.href}
+        />
+      ))}
       <meta name='keywords' content={keywords} />
       <meta name='description' content={description} />
       <meta name='author' content={AUTHOR} />
@@ -378,23 +403,36 @@ const getIsoTime = value => {
  * @param {*} props
  * @param {*} router
  */
+/** 拼接标题片段并丢掉空值 —— 避免出现「标题 | 」这种尾随分隔符 */
+const joinTitle = (...parts) =>
+  parts
+    .map(part => (part == null ? '' : String(part).trim()))
+    .filter(Boolean)
+    .join(' | ')
+
 const getSEOMeta = (props, router, locale) => {
   const { post, siteInfo, tag, category, page } = props
   const keyword = router?.query?.s
 
   const TITLE = siteConfig('TITLE')
   switch (router.route) {
-    case '/':
+    case '/': {
+      // 首页文案来自 lib/utils/seoCopy.js：把「标题」与「description」拆开，
+      // 这样 description 可以写长，而 <title> 不会被一起拉长
+      const homeCopy = getSiteSeoCopy(router?.locale || siteConfig('LANG'))
       return {
-        title: `${siteInfo?.title} | ${siteInfo?.description}`,
-        description: `${siteInfo?.description}`,
+        title:
+          homeCopy?.title ||
+          joinTitle(siteInfo?.title, siteInfo?.description),
+        description: homeCopy?.description || `${siteInfo?.description}`,
         image: `${siteInfo?.pageCover}`,
         slug: '',
         type: 'website'
       }
+    }
     case '/archive':
       return {
-        title: `${locale.NAV.ARCHIVE} | ${siteInfo?.title}`,
+        title: joinTitle(locale.NAV.ARCHIVE, siteInfo?.title),
         description: `${siteInfo?.description}`,
         image: `${siteInfo?.pageCover}`,
         slug: 'archive',
@@ -402,7 +440,7 @@ const getSEOMeta = (props, router, locale) => {
       }
     case '/page/[page]':
       return {
-        title: `${page} | Page | ${siteInfo?.title}`,
+        title: joinTitle(page, 'Page', siteInfo?.title),
         description: `${siteInfo?.description}`,
         image: `${siteInfo?.pageCover}`,
         slug: 'page/' + page,
@@ -410,7 +448,7 @@ const getSEOMeta = (props, router, locale) => {
       }
     case '/category/[category]':
       return {
-        title: `${category} | ${locale.COMMON.CATEGORY} | ${siteInfo?.title}`,
+        title: joinTitle(category, locale.COMMON.CATEGORY, siteInfo?.title),
         description: `${siteInfo?.description}`,
         slug: 'category/' + category,
         image: `${siteInfo?.pageCover}`,
@@ -418,7 +456,7 @@ const getSEOMeta = (props, router, locale) => {
       }
     case '/category/[category]/page/[page]':
       return {
-        title: `${category} | ${locale.COMMON.CATEGORY} | ${siteInfo?.title}`,
+        title: joinTitle(category, locale.COMMON.CATEGORY, siteInfo?.title),
         description: `${siteInfo?.description}`,
         slug: 'category/' + category,
         image: `${siteInfo?.pageCover}`,
@@ -427,7 +465,7 @@ const getSEOMeta = (props, router, locale) => {
     case '/tag/[tag]':
     case '/tag/[tag]/page/[page]':
       return {
-        title: `${tag} | ${locale.COMMON.TAGS} | ${siteInfo?.title}`,
+        title: joinTitle(tag, locale.COMMON.TAGS, siteInfo?.title),
         description: `${siteInfo?.description}`,
         image: `${siteInfo?.pageCover}`,
         slug: 'tag/' + tag,
@@ -435,7 +473,7 @@ const getSEOMeta = (props, router, locale) => {
       }
     case '/search':
       return {
-        title: `${keyword || ''}${keyword ? ' | ' : ''}${locale.NAV.SEARCH} | ${siteInfo?.title}`,
+        title: joinTitle(keyword, locale.NAV.SEARCH, siteInfo?.title),
         description: `${siteInfo?.description}`,
         image: `${siteInfo?.pageCover}`,
         slug: 'search',
@@ -444,7 +482,7 @@ const getSEOMeta = (props, router, locale) => {
     case '/search/[keyword]':
     case '/search/[keyword]/page/[page]':
       return {
-        title: `${keyword || ''}${keyword ? ' | ' : ''}${locale.NAV.SEARCH} | ${siteInfo?.title}`,
+        title: joinTitle(keyword, locale.NAV.SEARCH, siteInfo?.title),
         description: TITLE,
         image: `${siteInfo?.pageCover}`,
         slug: 'search/' + (keyword || ''),
@@ -452,12 +490,12 @@ const getSEOMeta = (props, router, locale) => {
       }
     case '/404':
       return {
-        title: `${siteInfo?.title} | ${locale.NAV.PAGE_NOT_FOUND}`,
+        title: joinTitle(siteInfo?.title, locale.NAV.PAGE_NOT_FOUND),
         image: `${siteInfo?.pageCover}`
       }
     case '/tag':
       return {
-        title: `${locale.COMMON.TAGS} | ${siteInfo?.title}`,
+        title: joinTitle(locale.COMMON.TAGS, siteInfo?.title),
         description: `${siteInfo?.description}`,
         image: `${siteInfo?.pageCover}`,
         slug: 'tag',
@@ -465,7 +503,7 @@ const getSEOMeta = (props, router, locale) => {
       }
     case '/category':
       return {
-        title: `${locale.COMMON.CATEGORY} | ${siteInfo?.title}`,
+        title: joinTitle(locale.COMMON.CATEGORY, siteInfo?.title),
         description: `${siteInfo?.description}`,
         image: `${siteInfo?.pageCover}`,
         slug: 'category',
@@ -477,8 +515,8 @@ const getSEOMeta = (props, router, locale) => {
         : post?.category
       return {
         title: post
-          ? `${post?.title} | ${siteInfo?.title}`
-          : `${siteInfo?.title} | loading`,
+          ? joinTitle(post?.title, siteInfo?.title)
+          : joinTitle(siteInfo?.title, 'loading'),
         description: post?.summary,
         type: post?.type,
         slug: post?.slug,
