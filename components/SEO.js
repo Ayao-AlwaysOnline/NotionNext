@@ -82,15 +82,15 @@ const SEO = props => {
   // 乱标 hreflang 反而有害。
   // 注意：本组件的 LINK 是按站点带前缀的（/en、/studios-ja…），直接拿它拼 hreflang
   // 会得到 /en/en 这类双重前缀，所以这里用全局域名根（BLOG.LINK）拼。
-  const SITE_ORIGIN =
-    normalizeSiteUrl(BLOG.LINK) ||
-    (() => {
-      try {
-        return new URL(url).origin
-      } catch (err) {
-        return ''
-      }
-    })()
+  const SITE_ORIGIN = (() => {
+    // 优先用 canonical 自己的 origin —— 保证 hreflang 与 canonical 的协议/主机完全一致
+    // （BLOG.LINK 是构建期配置，实测在本部署上协议不对，会写出 http:// 的 hreflang）
+    try {
+      return new URL(url).origin
+    } catch (err) {
+      return normalizeSiteUrl(BLOG.LINK) || ''
+    }
+  })()
   const languageAlternates =
     router?.route === '/'
       ? buildLanguageAlternates(
